@@ -3,106 +3,141 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Greg Stiles | Projects</title>
+    <title>Greg Stiles | Project Portfolio</title>
+    <meta
+      name="description"
+      content="Personal project portfolio for Greg Stiles, featuring interactive web tools, experiments, and project builds."
+    />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Instrument+Serif:ital@0;1&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Space+Grotesk:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="styles.css?v=2" />
   </head>
   <body>
-    <div class="page-shell">
-      <header class="hero">
-        <nav class="topbar">
-          <span class="brand">Greg Stiles</span>
-          <div class="nav-links">
-            <a href="#projects">Projects</a>
-            <a href="#approach">How It Works</a>
-          </div>
-        </nav>
+    <div class="site-frame" aria-hidden="true"></div>
 
-        <div class="hero-copy">
-          <p class="eyebrow">Built in Codex, published on the web</p>
-          <h1>A website that grows with your projects.</h1>
-          <p class="intro">
-            This site is your home base. Each project can start as a showcase page,
-            then evolve into its own interactive app as you build it out.
-          </p>
-          <div class="hero-actions">
-            <a class="button primary" href="#projects">View Projects</a>
-            <a class="button secondary" href="#approach">See The Structure</a>
-          </div>
+    <header class="masthead">
+      <nav class="nav" aria-label="Main navigation">
+        <a class="wordmark" href="/">Greg Stiles</a>
+        <div class="nav-links">
+          <a href="#projects">Projects</a>
+          <a href="#process">Process</a>
+          <a href="mailto:gregorymstiles@gmail.com">Contact</a>
         </div>
-      </header>
+      </nav>
 
-      <main>
-        <section class="section" id="projects">
-          <div class="section-heading">
-            <p class="eyebrow">Project Hub</p>
-            <h2>Start with project pages, then plug in the real apps.</h2>
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-kicker">
+          <span>Personal site</span>
+          <span>Project archive</span>
+          <span>Live builds</span>
+        </div>
+
+        <div class="hero-grid">
+          <div class="hero-copy">
+            <p class="eyebrow">Projects first, always</p>
+            <h1 id="hero-title">A sharp home for the things I build.</h1>
           </div>
 
-          <div class="project-grid">
-            <article class="card">
-              <p class="tag">Game Project</p>
+          <aside class="hero-card" aria-label="Site summary">
+            <p>
+              A black-and-white project hub for interactive tools, experiments,
+              and ideas that deserve more than a buried link.
+            </p>
+            <a class="button button-dark" href="#projects">View projects</a>
+          </aside>
+        </div>
+      </section>
+    </header>
+
+    <main>
+      <section class="projects-section" id="projects" aria-labelledby="projects-title">
+        <div class="section-label">
+          <span>01</span>
+          <p>Selected projects</p>
+        </div>
+
+        <div class="projects-heading">
+          <h2 id="projects-title">The main shelf.</h2>
+          <p>
+            Each project gets its own clean space: a quick read from the homepage,
+            then a direct path into the full page or app.
+          </p>
+        </div>
+
+        <div class="project-list">
+          <article class="project-card featured">
+            <div class="project-index">01</div>
+            <div class="project-body">
+              <p class="tag">Live dashboard</p>
+              <h3>Mizzou Campus Inventory</h3>
+              <p>
+                A campus inventory dashboard with searchable records, map-based
+                locations, local browser saving, floorplan links, task tracking,
+                and CSV export.
+              </p>
+              <div class="project-meta" aria-label="Project features">
+                <span>Leaflet map</span>
+                <span>Local saving</span>
+                <span>Inventory tools</span>
+              </div>
+            </div>
+            <a class="project-link" href="./projects/inventory/" aria-label="Open Mizzou Campus Inventory project">
+              Open project
+            </a>
+          </article>
+
+          <article class="project-card">
+            <div class="project-index">02</div>
+            <div class="project-body">
+              <p class="tag">Game concept</p>
               <h3>Fantasy Football Game</h3>
               <p>
-                Use this page to explain the idea, show screenshots, and later
-                connect the full game interface right into the site.
+                A project space for building out a fantasy football experience,
+                from concept notes to interface experiments and future gameplay.
               </p>
-              <a href="./projects/fantasy-football/index.html">Open project page</a>
-            </article>
+              <div class="project-meta" aria-label="Project features">
+                <span>Sports</span>
+                <span>Game design</span>
+                <span>Prototype</span>
+              </div>
+            </div>
+            <a class="project-link" href="./projects/fantasy-football/" aria-label="Open Fantasy Football Game project">
+              Open project
+            </a>
+          </article>
+        </div>
+      </section>
 
-            <article class="card">
-              <p class="tag">Business Tool</p>
-              <h3>Inventory Project</h3>
-              <p>
-                Start with an overview and feature list, then turn this into a
-                working inventory dashboard as the project matures.
-              </p>
-              <a href="./projects/inventory/index.html">Open project page</a>
+      <section class="process-section" id="process" aria-labelledby="process-title">
+        <div class="section-label">
+          <span>02</span>
+          <p>How this site works</p>
+        </div>
+
+        <div class="process-grid">
+          <div>
+            <h2 id="process-title">A portfolio that can turn into a workspace.</h2>
+          </div>
+          <div class="process-list">
+            <article>
+              <span>Plan</span>
+              <p>Start with a focused project page and a clear reason it exists.</p>
+            </article>
+            <article>
+              <span>Build</span>
+              <p>Promote the project into a working app when the idea is ready.</p>
+            </article>
+            <article>
+              <span>Ship</span>
+              <p>Keep the homepage simple so the newest work remains easy to find.</p>
             </article>
           </div>
-        </section>
-
-        <section class="section" id="approach">
-          <div class="section-heading">
-            <p class="eyebrow">Simple Structure</p>
-            <h2>How to think about building it</h2>
-          </div>
-
-          <div class="steps">
-            <article class="step">
-              <span>1</span>
-              <h3>Create a main website</h3>
-              <p>
-                Your homepage introduces you and lists your projects with clear
-                links to each one.
-              </p>
-            </article>
-
-            <article class="step">
-              <span>2</span>
-              <h3>Give each project its own section</h3>
-              <p>
-                Each project gets its own folder and page so it can grow without
-                cluttering the homepage.
-              </p>
-            </article>
-
-            <article class="step">
-              <span>3</span>
-              <h3>Upgrade showcase pages into real apps</h3>
-              <p>
-                When a project is ready, replace placeholder content with the
-                actual code, interface, and logic for that app.
-              </p>
-            </article>
-          </div>
-        </section>
-      </main>
-    </div>
+        </div>
+      </section>
+    </main>
   </body>
 </html>
