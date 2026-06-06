@@ -44,6 +44,14 @@ const LOCATION_CLUSTERS = [
     names: ["McDavid Hall", "Mark Twain", "Mizzou at U Centre"]
   }
 ];
+const STATUS_FILTERS = [
+  { value: "all", label: "All" },
+  { value: "available", label: "Available" },
+  { value: "in-use", label: "In use" },
+  { value: "loaned", label: "Loaned" },
+  { value: "attention", label: "Needs attention" },
+  { value: "missing", label: "Missing" }
+];
 
 const seedData = {
   schemaVersion: 2,
@@ -177,6 +185,7 @@ const elements = {
   campusMap: document.querySelector("#campusMap"),
   itemGrid: document.querySelector("#itemGrid"),
   locationDetail: document.querySelector("#locationDetail"),
+  statusFilters: document.querySelector("#statusFilters"),
   selectedLocationName: document.querySelector("#selectedLocationName"),
   selectedType: document.querySelector("#selectedType"),
   addItemButton: document.querySelector("#addItemButton"),
@@ -270,6 +279,7 @@ function normalizeState(value) {
     clusterSettings: {
       ...(value.clusterSettings || {})
     },
+    statusFilter: STATUS_FILTERS.some((filter) => filter.value === value.statusFilter) ? value.statusFilter : "all",
     tasks: Array.isArray(value.tasks) ? value.tasks : []
   };
 }
@@ -542,6 +552,7 @@ function render() {
     renderFallbackMap();
   }
   renderLocationDetail(selectedLocation, selectedItems);
+  renderStatusFilters(selectedItems);
   renderItems(visibleItems);
 }
 
@@ -949,6 +960,38 @@ function getSearchQuery() {
 function updateSearch(value) {
   elements.searchInput.value = value;
   elements.topSearchInput.value = value;
+  render();
+}
+
+function renderStatusFilters(items) {
+  elements.statusFilters.innerHTML = STATUS_FILTERS.map((filter) => {
+    const count = getStatusFilterCount(items, filter.value);
+    const active = state.statusFilter === filter.value;
+    return `
+      <button class="inventory-status-filter ${active ? "active" : ""}" type="button" data-status-filter="${filter.value}" aria-pressed="${active}">
+        <span>${escapeHtml(filter.label)}</span>
+        <strong>${count}</strong>
+      </button>
+    `;
+  }).join("");
+
+  elements.statusFilters.querySelectorAll("[data-status-filter]").forEach((button) => {
+    button.addEventListener("click", () => setStatusFilter(button.dataset.statusFilter));
+  });
+}
+
+function getStatusFilterCount(items, filterValue) {
+  if (filterValue === "all") return items.length;
+  if (filterValue === "attention") {
+    return items.filter((item) => ["attention", "missing"].includes(item.status)).length;
+  }
+  return items.filter((item) => item.status === filterValue).length;
+}
+
+function setStatusFilter(filterValue) {
+  if (!STATUS_FILTERS.some((filter) => filter.value === filterValue)) return;
+  state.statusFilter = filterValue;
+  saveState();
   render();
 }
 
