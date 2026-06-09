@@ -45,6 +45,24 @@ button:hover {
   border-color: #b9ad9a;
 }
 
+.button-link {
+  display: inline-flex;
+  min-height: 38px;
+  align-items: center;
+  justify-content: center;
+  padding: 0 14px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+  color: var(--ink);
+  font-weight: 900;
+  text-decoration: none;
+}
+
+.button-link:hover {
+  border-color: #b9ad9a;
+}
+
 .primary {
   border-color: #171717;
   background: #171717;
@@ -395,16 +413,23 @@ textarea {
 
 .map-topbar {
   display: grid;
-  grid-template-columns: minmax(220px, .8fr) minmax(280px, 1.35fr) minmax(260px, .95fr);
+  grid-template-columns: minmax(190px, .58fr) minmax(220px, 1fr) minmax(0, auto);
   align-items: center;
   gap: 12px;
   padding: 12px 18px 10px;
   box-shadow: inset 0 4px 0 var(--gold);
 }
 
+.map-topbar > div:first-child {
+  min-width: 0;
+}
+
 #mapTitle {
-  font-size: 28px;
+  max-width: 100%;
+  overflow: hidden;
+  font-size: clamp(16px, 1.6vw, 24px);
   line-height: 1.1;
+  text-overflow: ellipsis;
   white-space: nowrap;
 }
 
@@ -434,6 +459,14 @@ textarea {
   gap: 8px;
   justify-content: end;
   min-width: 0;
+}
+
+.map-actions.movein-active .task-widget {
+  display: none;
+}
+
+.map-actions:not(.movein-active) .movein-widget {
+  display: none;
 }
 
 .map-action-stack {
@@ -467,41 +500,69 @@ textarea {
   box-shadow: none;
 }
 
-.task-widget-header {
+.movein-widget {
+  display: grid;
+  gap: 6px;
+  width: clamp(240px, 28vw, 360px);
+  max-width: 100%;
+  padding: 8px;
+  border: 1px solid rgba(53, 109, 145, .28);
+  border-radius: 8px;
+  background: rgba(243, 248, 251, .9);
+}
+
+.task-widget-header,
+.movein-widget-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 10px;
 }
 
-.task-widget-header strong {
+.task-widget-header strong,
+.movein-widget-header strong {
   font-size: 14px;
 }
 
 .task-widget-header span,
+.movein-widget-header span,
 .task-empty {
   color: var(--muted);
   font-size: 12px;
   font-weight: 800;
 }
 
-.task-form {
+.movein-widget small {
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 800;
+  line-height: 1.25;
+}
+
+.task-form,
+.movein-filter-grid {
   display: grid;
   grid-template-columns: minmax(120px, 1fr) minmax(104px, 116px) 46px;
   gap: 6px;
 }
 
 .task-form input,
-.task-form select {
+.task-form select,
+.movein-filter-grid select {
   height: 32px;
   padding: 0 9px;
   font-size: 12px;
 }
 
-.task-form button {
+.task-form button,
+.movein-filter-grid button {
   min-height: 32px;
   font-size: 12px;
   font-weight: 900;
+}
+
+.movein-filter-grid {
+  grid-template-columns: minmax(82px, 1fr) minmax(118px, 1.15fr) 94px;
 }
 
 .task-list-open {
@@ -585,6 +646,48 @@ textarea {
 .task-modal-card {
   max-height: min(720px, calc(100vh - 48px));
   overflow: auto;
+}
+
+.backup-modal-card {
+  display: grid;
+  gap: 12px;
+}
+
+.backup-summary {
+  margin: 0;
+  padding: 10px 12px;
+  border: 1px solid rgba(47, 125, 79, .22);
+  border-radius: 10px;
+  background: rgba(47, 125, 79, .08);
+  color: #1f4d34;
+  font-size: 13px;
+  font-weight: 900;
+  line-height: 1.3;
+}
+
+.backup-json-label {
+  display: grid;
+  gap: 8px;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 900;
+}
+
+#backupText {
+  min-height: 360px;
+  max-height: 50vh;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 12px;
+  line-height: 1.45;
+  resize: vertical;
+}
+
+.backup-file-name {
+  align-self: center;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 900;
+  word-break: break-all;
 }
 
 .full-task-list {
@@ -801,6 +904,58 @@ textarea {
     0 10px 22px rgba(0, 0, 0, .3);
 }
 
+.movein-marker,
+.fallback-movein-marker {
+  position: relative;
+  display: grid;
+  width: var(--marker-width, 44px);
+  min-width: var(--marker-width, 44px);
+  min-height: 34px;
+  place-items: center;
+  border: 3px solid #fff;
+  border-radius: 999px;
+  background: var(--marker-color, #171717);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 1000;
+  line-height: 1;
+  letter-spacing: .04em;
+  outline: 4px solid var(--marker-color, #171717);
+  outline-offset: 1px;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, .28);
+}
+
+.movein-marker span,
+.fallback-movein-marker span {
+  display: block;
+  padding: 0 5px;
+  white-space: nowrap;
+}
+
+.movein-marker.long-label,
+.fallback-movein-marker.long-label {
+  font-size: 10px;
+  letter-spacing: .02em;
+}
+
+.movein-popup button[data-delete-movein-marker],
+.movein-popup button[data-delete-movein-marker]:hover {
+  border-color: rgba(179, 70, 56, .35);
+  color: var(--red);
+}
+
+.movein-verbiage {
+  display: block;
+  padding: 8px 10px;
+  border: 1px solid rgba(23, 23, 23, .12);
+  border-radius: 10px;
+  background: rgba(241, 184, 45, .14);
+  color: #171717;
+  font-size: 13px;
+  font-weight: 900;
+  line-height: 1.25;
+}
+
 .marker-label {
   transform: translateY(-4px);
   border: 0;
@@ -1013,6 +1168,12 @@ textarea {
   font-size: 11px;
   font-weight: 900;
   line-height: 1;
+}
+
+.fallback-movein-marker {
+  position: absolute;
+  z-index: 4;
+  transform: translate(-50%, -50%);
 }
 
 .fallback-marker small {
@@ -1366,7 +1527,7 @@ dialog::backdrop {
 
 @media (max-width: 1260px) {
   .map-topbar {
-    grid-template-columns: minmax(240px, 320px) minmax(280px, 1fr);
+    grid-template-columns: minmax(190px, 240px) minmax(280px, 1fr);
     align-items: end;
   }
 
@@ -1377,6 +1538,11 @@ dialog::backdrop {
   }
 
   .task-widget {
+    width: min(520px, 100%);
+    max-width: none;
+  }
+
+  .movein-widget {
     width: min(520px, 100%);
     max-width: none;
   }
@@ -1392,6 +1558,10 @@ dialog::backdrop {
   }
 
   .task-form {
+    grid-template-columns: 1fr;
+  }
+
+  .movein-filter-grid {
     grid-template-columns: 1fr;
   }
 }
@@ -1430,6 +1600,10 @@ dialog::backdrop {
   }
 
   .task-widget {
+    width: 100%;
+  }
+
+  .movein-widget {
     width: 100%;
   }
 

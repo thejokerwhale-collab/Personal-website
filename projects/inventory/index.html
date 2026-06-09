@@ -6,7 +6,7 @@
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
     <title>Mizzou Campus Inventory</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    <link rel="stylesheet" href="styles.css?v=6" />
+    <link rel="stylesheet" href="styles.css?v=25" />
   </head>
   <body>
     <div class="app-shell">
@@ -84,6 +84,18 @@
                   <button id="addTaskButton" type="button">Add</button>
                 </div>
                 <button id="openTaskListButton" class="task-list-open" type="button">Open Full To Do List</button>
+              </div>
+              <div class="movein-widget" aria-label="Move-in marker controls">
+                <div class="movein-widget-header">
+                  <strong>Move-in Map</strong>
+                  <span id="moveInMarkerCount">0 shown</span>
+                </div>
+                <div class="movein-filter-grid">
+                  <select id="moveInGroupFilter" aria-label="Filter move-in markers by label group"></select>
+                  <select id="moveInTypeFilter" aria-label="Filter move-in markers by marker type"></select>
+                  <button id="addMoveInMarkerButton" type="button">Add Marker</button>
+                </div>
+                <small>Label signs and barricades with codes like A4 or SVD1.</small>
               </div>
             </div>
           </div>
@@ -255,8 +267,81 @@
       </form>
     </dialog>
 
-    <script src="inventory-data.js?v=6" defer></script>
+    <dialog id="backupDialog">
+      <form method="dialog" class="modal-card backup-modal-card">
+        <div class="modal-header">
+          <div>
+            <p class="eyebrow">Inventory Backup</p>
+            <h2>Save Your Local Data</h2>
+          </div>
+          <button class="icon-button" data-close-dialog="backupDialog" aria-label="Close" type="button">x</button>
+        </div>
+        <p class="backup-summary" id="backupSummary">Backup ready.</p>
+        <label class="backup-json-label" for="backupText">
+          Backup JSON
+          <textarea id="backupText" spellcheck="false" readonly></textarea>
+        </label>
+        <div class="modal-actions">
+          <span id="backupFileName" class="backup-file-name"></span>
+          <div>
+            <button class="primary" id="copyBackupButton" type="button">Copy JSON</button>
+            <button id="selectBackupButton" type="button">Select All</button>
+            <a class="button-link" id="downloadBackupLink" href="#" download>Try Download</a>
+          </div>
+        </div>
+      </form>
+    </dialog>
+
+    <dialog id="moveInMarkerDialog">
+      <form method="dialog" class="modal-card" id="moveInMarkerForm">
+        <div class="modal-header">
+          <div>
+            <p class="eyebrow">Move-in Map Marker</p>
+            <h2 id="moveInMarkerDialogTitle">Add Marker</h2>
+          </div>
+          <button class="icon-button" data-close-dialog="moveInMarkerDialog" aria-label="Close" type="button">x</button>
+        </div>
+        <input type="hidden" id="moveInMarkerId" />
+        <div class="form-grid">
+          <label>
+            Marker label
+            <input id="moveInMarkerLabel" required maxlength="12" placeholder="A4, SVD1, B2" />
+          </label>
+          <label>
+            Marker type
+            <select id="moveInMarkerType">
+              <option value="sandwich-board">Sandwich board</option>
+              <option value="barricade">Barricade</option>
+              <option value="tent">Tent / station</option>
+              <option value="parking">Parking control</option>
+              <option value="other">Other</option>
+            </select>
+          </label>
+          <label>
+            Color
+            <input id="moveInMarkerColor" type="color" value="#f1b82d" />
+          </label>
+          <label class="wide">
+            Verbiage
+            <textarea id="moveInMarkerVerbiage" rows="3" placeholder="Exact wording for the sign or board..."></textarea>
+          </label>
+          <label class="wide">
+            Notes
+            <textarea id="moveInMarkerNotes" rows="3" placeholder="Placement notes, move-in route, who owns it..."></textarea>
+          </label>
+        </div>
+        <div class="modal-actions">
+          <button id="deleteMoveInMarkerButton" class="danger" type="button">Delete</button>
+          <div>
+            <button data-close-dialog="moveInMarkerDialog" type="button">Cancel</button>
+            <button class="primary" id="saveMoveInMarkerButton" type="button">Save Marker</button>
+          </div>
+        </div>
+      </form>
+    </dialog>
+
+    <script src="inventory-data.js?v=25" defer></script>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" defer></script>
-    <script src="app.js?v=6" defer></script>
+    <script src="app.js?v=25" defer></script>
   </body>
 </html>

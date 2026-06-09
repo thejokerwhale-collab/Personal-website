@@ -1,4 +1,5 @@
 const STORAGE_KEY = "mizzou-campus-inventory-v3";
+const BACKUP_STORAGE_KEY = "mizzou-campus-inventory-emergency-backup";
 const SOUTHWEST_BOUNDS = [
   [38.9346, -92.3348],
   [38.9494, -92.3170]
@@ -52,6 +53,113 @@ const STATUS_FILTERS = [
   { value: "attention", label: "Needs attention" },
   { value: "missing", label: "Missing" }
 ];
+const MOVE_IN_TYPES = [
+  { value: "all", label: "All types" },
+  { value: "sandwich-board", label: "Sandwich board" },
+  { value: "mini-sandwich", label: "Mini sandwich" },
+  { value: "barricade", label: "Barricade" },
+  { value: "tent", label: "Tent / station" },
+  { value: "parking", label: "Parking control" },
+  { value: "other", label: "Other" }
+];
+const DEFAULT_MOVE_IN_COLORS = {
+  A: "#f1b82d",
+  SVD: "#2f7d4f",
+  B: "#356d91",
+  C: "#b34638",
+  G: "#356d91",
+  MT: "#d97706",
+  N: "#7c3aed",
+  NVD: "#0f766e",
+  OTHER: "#171717"
+};
+const G_MOVE_IN_MARKERS = [
+  { label: "G1", type: "sandwich-board", verbiage: "Move In Traffic (up arrow)", lat: 38.94076, lng: -92.3277 },
+  { label: "G2", type: "sandwich-board", verbiage: "Move In Traffic (left arrow)", lat: 38.94076, lng: -92.32738 },
+  { label: "G3", type: "mini-sandwich", verbiage: "Caution! Move-In Traffic", lat: 38.94076, lng: -92.32706 },
+  { label: "G4", type: "barricade", verbiage: "One Way Do Not Enter", lat: 38.94076, lng: -92.32674 },
+  { label: "G5A", type: "sandwich-board", verbiage: "HW/GA/DW/DG (right - this lane only)", lat: 38.94056, lng: -92.3277 },
+  { label: "G5B", type: "sandwich-board", verbiage: "Parking (left - this lane only)", lat: 38.94056, lng: -92.32738 },
+  { label: "G6", type: "sandwich-board", verbiage: "Dogwood/Galena & Exit (right arrow)", lat: 38.94056, lng: -92.32706 },
+  { label: "G7", type: "sandwich-board", verbiage: "Check In Here", lat: 38.94056, lng: -92.32674 },
+  { label: "G8", type: "sandwich-board", verbiage: "Hawthorn Galena Dogwood (right arrow)", lat: 38.94036, lng: -92.3277 },
+  { label: "G9", type: "sandwich-board", verbiage: "Defoe-Graham (up arrow)", lat: 38.94036, lng: -92.32738 },
+  { label: "G10", type: "barricade", verbiage: "Do Not Enter", lat: 38.94036, lng: -92.32706 },
+  { label: "G11", type: "sandwich-board", verbiage: "Move-In (right arrow) Parking (left arrow)", lat: 38.94036, lng: -92.32674 },
+  { label: "G12", type: "barricade", verbiage: "One Way Do Not Enter", lat: 38.94016, lng: -92.3277 },
+  { label: "G13", type: "mini-sandwich", verbiage: "Caution! Move-In Traffic", lat: 38.94016, lng: -92.32738 },
+  { label: "G14", type: "sandwich-board", verbiage: "FRONT: No Entry - Sidewalk closed / BACK: Hernes (left arrow) CG17 (right arrow)", lat: 38.94016, lng: -92.32706 },
+  { label: "G15", type: "sandwich-board", verbiage: "Residential Life Move-In Parking ONLY", lat: 38.94016, lng: -92.32674 },
+  { label: "G18", type: "barricade", verbiage: "One Way Do Not Enter", lat: 38.93996, lng: -92.3277 },
+  { label: "G19", type: "sandwich-board", verbiage: "Exit (right arrow)", lat: 38.93996, lng: -92.32738 },
+  { label: "G20", type: "sandwich-board", verbiage: "Exit (left arrow)", lat: 38.93996, lng: -92.32706 },
+  { label: "G21", type: "sandwich-board", verbiage: "Front: Exit (right arrow) Second Sign on back: Parking (up arrow)", lat: 38.93996, lng: -92.32674 },
+  { label: "G22", type: "sandwich-board", verbiage: "Caution! Move-In Traffic", lat: 38.93976, lng: -92.32738 },
+  { label: "G23", type: "barricade", verbiage: "DO NOT ENTER", lat: 38.93976, lng: -92.32706 }
+].map((marker) => ({
+  id: `movein-${marker.label.toLowerCase()}`,
+  color: DEFAULT_MOVE_IN_COLORS.G,
+  notes: "",
+  ...marker
+}));
+const MT_MOVE_IN_MARKERS = [
+  { label: "MT1", type: "sandwich-board", verbiage: "FRONT: Mark Twain (right arrow) / BACK: Mark Twain (left arrow)", lat: 38.9458, lng: -92.33308 },
+  { label: "MT2", type: "sandwich-board", verbiage: "Mizzou at UCentre (right arrow)", lat: 38.9458, lng: -92.33278 },
+  { label: "MT3", type: "sandwich-board", verbiage: "Mizzou at UCentre (right arrow)", lat: 38.9458, lng: -92.33248 },
+  { label: "MT4", type: "sandwich-board", verbiage: "Parking (up arrow)", lat: 38.9456, lng: -92.33308 },
+  { label: "MT5", type: "sandwich-board", verbiage: "Mizzou on Rollins (up arrow)", lat: 38.9456, lng: -92.33278 },
+  { label: "MT6", type: "sandwich-board", verbiage: "Mizzou on Rollins (right arrow)", lat: 38.9456, lng: -92.33248 },
+  { label: "MT7", type: "sandwich-board", verbiage: "Mizzou on Rollins (right arrow)", lat: 38.9454, lng: -92.33308 },
+  { label: "MT8", type: "sandwich-board", verbiage: "Mizzou on Rollins Check In Here", lat: 38.9454, lng: -92.33278 },
+  { label: "MT9", type: "barricade", verbiage: "Do Not Enter", lat: 38.9454, lng: -92.33248 },
+  { label: "MT10", type: "barricade", verbiage: "Do Not Enter", lat: 38.9452, lng: -92.33278 }
+].map((marker) => ({
+  id: `movein-${marker.label.toLowerCase()}`,
+  color: DEFAULT_MOVE_IN_COLORS.MT,
+  notes: "",
+  ...marker
+}));
+const N_MOVE_IN_MARKERS = [
+  { label: "N1", type: "sandwich-board", verbiage: "Move In Traffic (left arrow)", lat: 38.93968, lng: -92.33286 },
+  { label: "N2", type: "sandwich-board", verbiage: "Move In Traffic (up arrow)", lat: 38.93968, lng: -92.33258 },
+  { label: "N3", type: "sandwich-board", verbiage: "Move In Traffic (up arrow)", lat: 38.93968, lng: -92.3323 },
+  { label: "N4", type: "barricade", verbiage: "No Entry", lat: 38.9395, lng: -92.33286 },
+  { label: "N5", type: "sandwich-board", verbiage: "Move In Traffic (left arrow)", lat: 38.9395, lng: -92.33258 },
+  { label: "N8", type: "barricade", verbiage: "One Way - Do Not Enter", lat: 38.9395, lng: -92.3323 },
+  { label: "N9", type: "mini-sandwich", verbiage: "Caution!! Move In Traffic", lat: 38.93932, lng: -92.33286 },
+  { label: "N12", type: "sandwich-board", verbiage: "Parking (up arrow)", lat: 38.93932, lng: -92.33258 },
+  { label: "N13", type: "sandwich-board", verbiage: "One Way (right arrow)", lat: 38.93932, lng: -92.3323 },
+  { label: "N14", type: "sandwich-board", verbiage: "One Way (right arrow)", lat: 38.93914, lng: -92.33258 }
+].map((marker) => ({
+  id: `movein-${marker.label.toLowerCase()}`,
+  color: DEFAULT_MOVE_IN_COLORS.N,
+  notes: "",
+  ...marker
+}));
+const NVD_MOVE_IN_MARKERS = [
+  { label: "NVD 1A", type: "sandwich-board", verbiage: "Welcome! Check In - College Avenue Front Desk", lat: 38.9412, lng: -92.32142 },
+  { label: "NVD 1B", type: "sandwich-board", verbiage: "Welcome! Check In - College Avenue Front Desk", lat: 38.9409, lng: -92.3211 },
+  { label: "NVD 2", type: "sandwich-board", verbiage: "Welcome! Check In - Schurz Front Desk", lat: 38.9402, lng: -92.32146 },
+  { label: "NVD 3", type: "sandwich-board", verbiage: "Welcome! Check In - Rollins Front Desk", lat: 38.94377, lng: -92.32878 },
+  { label: "NVD 4A", type: "sandwich-board", verbiage: "Welcome! Check In - Excellence Front Desk", lat: 38.94026, lng: -92.32252 },
+  { label: "NVD 4B", type: "sandwich-board", verbiage: "Welcome! Check In - Excellence Front Desk", lat: 38.93998, lng: -92.32224 },
+  { label: "NVD 5A", type: "sandwich-board", verbiage: "Welcome! Check In - Wolpers Front Desk", lat: 38.94168, lng: -92.32468 },
+  { label: "NVD 5B", type: "sandwich-board", verbiage: "Welcome! Check In - Wolpers Front Desk", lat: 38.9414, lng: -92.32438 },
+  { label: "NVD 6A", type: "sandwich-board", verbiage: "Welcome! Check In - Brooks Front Desk", lat: 38.93878, lng: -92.33228 },
+  { label: "NVD 6B", type: "sandwich-board", verbiage: "Welcome! Check In - Brooks Front Desk", lat: 38.93848, lng: -92.33198 },
+  { label: "NVD 7A", type: "sandwich-board", verbiage: "Welcome! Check In - Hawthorn Front Desk", lat: 38.94052, lng: -92.32676 },
+  { label: "NVD 7B", type: "sandwich-board", verbiage: "Welcome! Check In - Hawthorn Front Desk", lat: 38.94026, lng: -92.32646 },
+  { label: "NVD 8A", type: "sandwich-board", verbiage: "Welcome! Check In - Mark Twain Front Desk", lat: 38.94556, lng: -92.33284 },
+  { label: "NVD 8B", type: "sandwich-board", verbiage: "Welcome! Check In - Mark Twain Front Desk", lat: 38.94528, lng: -92.33254 },
+  { label: "NVD 9", type: "sandwich-board", verbiage: "Welcome! Check In - Defoe-Graham Main Office", lat: 38.94037, lng: -92.32593 },
+  { label: "NVD 10", type: "sandwich-board", verbiage: "Welcome! Check In - Mark Twain Front Desk", lat: 38.94541, lng: -92.33268 },
+  { label: "NVD 11", type: "sandwich-board", verbiage: "Welcome! Check In - South Front Desk", lat: 38.93826, lng: -92.33322 }
+].map((marker) => ({
+  id: `movein-${marker.label.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`,
+  color: DEFAULT_MOVE_IN_COLORS.NVD,
+  notes: "",
+  ...marker
+}));
 
 const seedData = {
   schemaVersion: 2,
@@ -59,11 +167,48 @@ const seedData = {
   statusFilter: "all",
   mapLayers: {
     inventory: true,
+    moveIn: true,
     boundary: true,
     labels: true
   },
+  moveInFilters: {
+    group: "all",
+    type: "all"
+  },
   clusterSettings: {},
   tasks: [],
+  moveInMarkers: [
+    {
+      id: "movein-a1",
+      label: "A1",
+      type: "sandwich-board",
+      color: "#f1b82d",
+      lat: 38.9432,
+      lng: -92.32925,
+      verbiage: "Move-in check-in this way",
+      notes: "Sample sandwich board placement. Drag or edit for move-in routes."
+    },
+    {
+      id: "movein-a2",
+      label: "A2",
+      type: "sandwich-board",
+      color: "#f1b82d",
+      lat: 38.94135,
+      lng: -92.3274,
+      verbiage: "Unload zone A",
+      notes: "Sample A-group sign location."
+    },
+    {
+      id: "movein-svd1",
+      label: "SVD1",
+      type: "barricade",
+      color: "#2f7d4f",
+      lat: 38.94025,
+      lng: -92.32685,
+      verbiage: "Southwest Village traffic control",
+      notes: "Sample Southwest Village barricade."
+    }
+  ],
   locations: [
     {
       id: "mcdavid-hall",
@@ -162,6 +307,7 @@ const seedData = {
 
 const projectData = window.RECOVERED_INVENTORY_DATA || seedData;
 
+let stateMigrated = false;
 let state = loadState();
 let shouldSaveInitialState = false;
 if (!Array.isArray(state.locations) || state.locations.length === 0) {
@@ -171,9 +317,13 @@ if (!Array.isArray(state.locations) || state.locations.length === 0) {
 let pendingPhotos = [];
 let map = null;
 let markerLayer = null;
+let moveInMarkerLayer = null;
 let labelLayer = null;
 let boundaryLayer = null;
 let fallbackDropMode = false;
+let moveInColorEdited = false;
+let currentBackupFileName = "";
+let currentBackupUrl = "";
 
 const elements = {
   totalItems: document.querySelector("#totalItems"),
@@ -188,6 +338,7 @@ const elements = {
   statusFilters: document.querySelector("#statusFilters"),
   selectedLocationName: document.querySelector("#selectedLocationName"),
   selectedType: document.querySelector("#selectedType"),
+  mapActions: document.querySelector(".map-actions"),
   addItemButton: document.querySelector("#addItemButton"),
   addHereButton: document.querySelector("#addHereButton"),
   addLocationButton: document.querySelector("#addLocationButton"),
@@ -198,6 +349,10 @@ const elements = {
   saveStatus: document.querySelector("#saveStatus"),
   fitMapButton: document.querySelector("#fitMapButton"),
   dropLocationButton: document.querySelector("#dropLocationButton"),
+  moveInMarkerCount: document.querySelector("#moveInMarkerCount"),
+  moveInGroupFilter: document.querySelector("#moveInGroupFilter"),
+  moveInTypeFilter: document.querySelector("#moveInTypeFilter"),
+  addMoveInMarkerButton: document.querySelector("#addMoveInMarkerButton"),
   taskCount: document.querySelector("#taskCount"),
   taskInput: document.querySelector("#taskInput"),
   taskLocation: document.querySelector("#taskLocation"),
@@ -205,6 +360,13 @@ const elements = {
   openTaskListButton: document.querySelector("#openTaskListButton"),
   taskDialog: document.querySelector("#taskDialog"),
   taskList: document.querySelector("#taskList"),
+  backupDialog: document.querySelector("#backupDialog"),
+  backupSummary: document.querySelector("#backupSummary"),
+  backupText: document.querySelector("#backupText"),
+  backupFileName: document.querySelector("#backupFileName"),
+  selectBackupButton: document.querySelector("#selectBackupButton"),
+  copyBackupButton: document.querySelector("#copyBackupButton"),
+  downloadBackupLink: document.querySelector("#downloadBackupLink"),
   itemDialog: document.querySelector("#itemDialog"),
   itemDialogTitle: document.querySelector("#itemDialogTitle"),
   itemForm: document.querySelector("#itemForm"),
@@ -232,7 +394,18 @@ const elements = {
   locationLng: document.querySelector("#locationLng"),
   locationLocked: document.querySelector("#locationLocked"),
   locationNotes: document.querySelector("#locationNotes"),
-  saveLocationButton: document.querySelector("#saveLocationButton")
+  saveLocationButton: document.querySelector("#saveLocationButton"),
+  moveInMarkerDialog: document.querySelector("#moveInMarkerDialog"),
+  moveInMarkerDialogTitle: document.querySelector("#moveInMarkerDialogTitle"),
+  moveInMarkerForm: document.querySelector("#moveInMarkerForm"),
+  moveInMarkerId: document.querySelector("#moveInMarkerId"),
+  moveInMarkerLabel: document.querySelector("#moveInMarkerLabel"),
+  moveInMarkerType: document.querySelector("#moveInMarkerType"),
+  moveInMarkerColor: document.querySelector("#moveInMarkerColor"),
+  moveInMarkerVerbiage: document.querySelector("#moveInMarkerVerbiage"),
+  moveInMarkerNotes: document.querySelector("#moveInMarkerNotes"),
+  saveMoveInMarkerButton: document.querySelector("#saveMoveInMarkerButton"),
+  deleteMoveInMarkerButton: document.querySelector("#deleteMoveInMarkerButton")
 };
 
 const initialSearch = new URLSearchParams(window.location.search).get("q") || "";
@@ -264,7 +437,7 @@ function normalizeState(value) {
     value.items = [];
   }
 
-  return {
+  const normalized = {
     ...value,
     locations: value.locations.map((location) => ({
       locked: false,
@@ -272,16 +445,85 @@ function normalizeState(value) {
     })),
     mapLayers: {
       inventory: true,
+      moveIn: true,
       boundary: true,
       labels: true,
       ...(value.mapLayers || {})
+    },
+    moveInFilters: {
+      group: "all",
+      type: "all",
+      ...(value.moveInFilters || {})
     },
     clusterSettings: {
       ...(value.clusterSettings || {})
     },
     statusFilter: STATUS_FILTERS.some((filter) => filter.value === value.statusFilter) ? value.statusFilter : "all",
+    moveInMarkers: normalizeMoveInMarkers(value.moveInMarkers),
     tasks: Array.isArray(value.tasks) ? value.tasks : []
   };
+  return applyMoveInMarkerMigrations(normalized);
+}
+
+function normalizeMoveInMarkers(markers) {
+  const source = Array.isArray(markers) ? markers : cloneData(projectData.moveInMarkers || seedData.moveInMarkers || []);
+  return source.map((marker, index) => ({
+    id: marker.id || `movein-${Date.now()}-${index}`,
+    label: String(marker.label || `A${index + 1}`).trim().toUpperCase(),
+    type: MOVE_IN_TYPES.some((type) => type.value === marker.type && type.value !== "all") ? marker.type : "other",
+    color: normalizeMarkerColor(marker.color, marker.label),
+    lat: Number(marker.lat || 38.9421),
+    lng: Number(marker.lng || -92.3279),
+    verbiage: marker.verbiage || "",
+    notes: marker.notes || ""
+  }));
+}
+
+function applyMoveInMarkerMigrations(normalized) {
+  normalized.moveInMarkerBatches = {
+    ...(normalized.moveInMarkerBatches || {})
+  };
+
+  if (!normalized.moveInMarkerBatches.gMoveIn2026) {
+    mergePresetMoveInMarkers(normalized, G_MOVE_IN_MARKERS);
+    normalized.moveInMarkerBatches.gMoveIn2026 = true;
+    stateMigrated = true;
+  }
+
+  if (!normalized.moveInMarkerBatches.mtMoveIn2026) {
+    mergePresetMoveInMarkers(normalized, MT_MOVE_IN_MARKERS);
+    normalized.moveInMarkerBatches.mtMoveIn2026 = true;
+    stateMigrated = true;
+  }
+
+  if (!normalized.moveInMarkerBatches.nMoveIn2026) {
+    mergePresetMoveInMarkers(normalized, N_MOVE_IN_MARKERS);
+    normalized.moveInMarkerBatches.nMoveIn2026 = true;
+    stateMigrated = true;
+  }
+
+  if (!normalized.moveInMarkerBatches.nvdMoveIn2026) {
+    mergePresetMoveInMarkers(normalized, NVD_MOVE_IN_MARKERS);
+    normalized.moveInMarkerBatches.nvdMoveIn2026 = true;
+    stateMigrated = true;
+  }
+
+  return normalized;
+}
+
+function mergePresetMoveInMarkers(normalized, presets) {
+  presets.forEach((preset) => {
+    const existing = normalized.moveInMarkers.find((marker) => marker.label === preset.label);
+    if (existing) {
+      existing.type = preset.type;
+      existing.color = preset.color;
+      existing.verbiage = preset.verbiage;
+      existing.notes = existing.notes || preset.notes;
+      return;
+    }
+
+    normalized.moveInMarkers.push(cloneData(preset));
+  });
 }
 
 function cloneData(value) {
@@ -346,6 +588,7 @@ function initMap() {
     });
 
     markerLayer = L.layerGroup();
+    moveInMarkerLayer = L.layerGroup();
     labelLayer = L.layerGroup();
     addLayerChecklist(streetLayer, satelliteLayer);
     enableLocationDrop();
@@ -355,6 +598,7 @@ function initMap() {
   } catch {
     map = null;
     markerLayer = null;
+    moveInMarkerLayer = null;
     labelLayer = null;
     boundaryLayer = null;
     renderFallbackMap();
@@ -382,6 +626,23 @@ function renderFallbackMap() {
       </button>
     `;
   }).join("") : "";
+  const moveInMarkers = state.mapLayers.moveIn ? getVisibleMoveInMarkers().map((moveInMarker) => {
+    const x = Math.min(96, Math.max(4, ((moveInMarker.lng - west) / (east - west)) * 100));
+    const y = Math.min(92, Math.max(8, ((north - moveInMarker.lat) / (north - south)) * 100));
+    const width = getMoveInMarkerWidth(moveInMarker.label);
+    return `
+      <button
+        class="fallback-movein-marker ${getMoveInMarkerLabelClass(moveInMarker.label)}"
+        data-fallback-movein-marker="${moveInMarker.id}"
+        type="button"
+        draggable="true"
+        style="left: ${x}%; top: ${y}%; --marker-color: ${escapeHtml(moveInMarker.color)}; --marker-width: ${width}px"
+        aria-label="${escapeHtml(moveInMarker.label)} ${escapeHtml(getMoveInTypeLabel(moveInMarker.type))}"
+      >
+        <span>${escapeHtml(moveInMarker.label)}</span>
+      </button>
+    `;
+  }).join("") : "";
 
   elements.campusMap.innerHTML = `
     <div class="fallback-map ${fallbackDropMode ? "drop-ready" : ""}">
@@ -394,9 +655,11 @@ function renderFallbackMap() {
         <span>Campus inventory map</span>
       </div>
       ${markers}
+      ${moveInMarkers}
       <div class="fallback-layer-control">
         <strong>Show on map</strong>
         <label><input type="checkbox" data-fallback-layer="inventory" ${state.mapLayers.inventory ? "checked" : ""}> Inventory</label>
+        <label><input type="checkbox" data-fallback-layer="moveIn" ${state.mapLayers.moveIn ? "checked" : ""}> Move-in markers</label>
         <label><input type="checkbox" data-fallback-layer="boundary" ${state.mapLayers.boundary ? "checked" : ""}> Campus border</label>
       </div>
       ${state.mapLayers.boundary ? `<div class="fallback-boundary"></div>` : ""}
@@ -412,10 +675,18 @@ function renderFallbackMap() {
       event.dataTransfer.effectAllowed = "move";
     });
   });
+  elements.campusMap.querySelectorAll("[data-fallback-movein-marker]").forEach((button) => {
+    button.addEventListener("click", () => openMoveInMarkerDialog(button.dataset.fallbackMoveinMarker));
+    button.addEventListener("dragstart", (event) => {
+      event.dataTransfer.setData("application/x-movein-marker-id", button.dataset.fallbackMoveinMarker);
+      event.dataTransfer.effectAllowed = "move";
+    });
+  });
   elements.campusMap.querySelectorAll("[data-fallback-layer]").forEach((checkbox) => {
     checkbox.addEventListener("change", () => {
       state.mapLayers[checkbox.dataset.fallbackLayer] = checkbox.checked;
       saveState();
+      updateMapControlLayout();
       renderFallbackMap();
     });
   });
@@ -430,7 +701,12 @@ function renderFallbackMap() {
     event.preventDefault();
     fallbackMap.classList.remove("drop-ready");
     const locationId = event.dataTransfer.getData("application/x-location-id");
+    const moveInMarkerId = event.dataTransfer.getData("application/x-movein-marker-id");
     const latLng = getFallbackLatLng(event, fallbackMap);
+    if (moveInMarkerId) {
+      updateMoveInMarkerPosition(moveInMarkerId, latLng);
+      return;
+    }
     if (locationId) {
       updateLocationPosition(locationId, latLng);
       return;
@@ -466,6 +742,7 @@ function addLayerChecklist(streetLayer, satelliteLayer) {
     container.innerHTML = `
       <strong>Show on map</strong>
       <label><input type="checkbox" data-map-layer="inventory" ${state.mapLayers.inventory ? "checked" : ""}> Inventory</label>
+      <label><input type="checkbox" data-map-layer="moveIn" ${state.mapLayers.moveIn ? "checked" : ""}> Move-in markers</label>
       <label><input type="checkbox" data-map-layer="boundary" ${state.mapLayers.boundary ? "checked" : ""}> Campus border</label>
       <label><input type="checkbox" data-base-layer="satellite"> Satellite map</label>
     `;
@@ -477,6 +754,7 @@ function addLayerChecklist(streetLayer, satelliteLayer) {
         state.mapLayers[checkbox.dataset.mapLayer] = checkbox.checked;
         saveState();
         applyMapLayerVisibility();
+        updateMapControlLayout();
       });
     });
 
@@ -517,8 +795,10 @@ function enableLocationDrop() {
 function applyMapLayerVisibility() {
   if (!map) return;
   setLayerVisibility(markerLayer, state.mapLayers.inventory);
+  setLayerVisibility(moveInMarkerLayer, state.mapLayers.moveIn);
   setLayerVisibility(labelLayer, false);
   setLayerVisibility(boundaryLayer, state.mapLayers.boundary);
+  updateMapControlLayout();
 }
 
 function setLayerVisibility(layer, visible) {
@@ -542,9 +822,11 @@ function render() {
   elements.attentionCount.textContent = attentionItems.length;
   elements.selectedLocationName.textContent = selectedLocation ? selectedLocation.name : "All Campus Locations";
   elements.selectedType.textContent = selectedLocation ? selectedLocation.code : "Selected Location";
+  updateMapControlLayout();
 
   renderLocationOptions();
   renderTaskLocationOptions();
+  renderMoveInFilters();
   renderTasks();
   renderLocations();
   renderMapMarkers();
@@ -554,6 +836,57 @@ function render() {
   renderLocationDetail(selectedLocation, selectedItems);
   renderStatusFilters(selectedItems);
   renderItems(visibleItems);
+}
+
+function updateMapControlLayout() {
+  const moveInActive = Boolean(state.mapLayers.moveIn);
+  elements.mapActions.classList.toggle("movein-active", moveInActive);
+}
+
+function renderMoveInFilters() {
+  const groups = getMoveInGroups();
+  const currentGroup = groups.includes(state.moveInFilters.group) ? state.moveInFilters.group : "all";
+  const currentType = MOVE_IN_TYPES.some((type) => type.value === state.moveInFilters.type) ? state.moveInFilters.type : "all";
+  state.moveInFilters.group = currentGroup;
+  state.moveInFilters.type = currentType;
+
+  elements.moveInGroupFilter.innerHTML = [
+    `<option value="all">All labels</option>`,
+    ...groups.filter((group) => group !== "all").map((group) => `<option value="${group}">${group} markers</option>`)
+  ].join("");
+  elements.moveInTypeFilter.innerHTML = MOVE_IN_TYPES
+    .map((type) => `<option value="${type.value}">${escapeHtml(type.label)}</option>`)
+    .join("");
+
+  elements.moveInGroupFilter.value = currentGroup;
+  elements.moveInTypeFilter.value = currentType;
+  elements.moveInMarkerCount.textContent = `${getVisibleMoveInMarkers().length} shown`;
+}
+
+function getMoveInGroups() {
+  return [
+    "all",
+    ...new Set(state.moveInMarkers.map((marker) => getMoveInGroup(marker.label)))
+  ].sort((a, b) => (a === "all" ? -1 : b === "all" ? 1 : a.localeCompare(b)));
+}
+
+function getVisibleMoveInMarkers() {
+  return state.moveInMarkers.filter((marker) => {
+    const groupMatches = state.moveInFilters.group === "all" || getMoveInGroup(marker.label) === state.moveInFilters.group;
+    const typeMatches = state.moveInFilters.type === "all" || marker.type === state.moveInFilters.type;
+    return groupMatches && typeMatches;
+  });
+}
+
+function getMoveInGroup(label) {
+  const match = String(label || "").toUpperCase().match(/^[A-Z]+/);
+  return match ? match[0] : "OTHER";
+}
+
+function setMoveInFilter(key, value) {
+  state.moveInFilters[key] = value;
+  saveState();
+  render();
 }
 
 function renderLocationOptions() {
@@ -722,9 +1055,10 @@ function deleteLocation(locationId) {
 }
 
 function renderMapMarkers() {
-  if (!map || !markerLayer || !labelLayer) return;
+  if (!map || !markerLayer || !moveInMarkerLayer || !labelLayer) return;
 
   markerLayer.clearLayers();
+  moveInMarkerLayer.clearLayers();
   labelLayer.clearLayers();
 
   const visibleClusters = getVisibleClusters();
@@ -802,7 +1136,160 @@ function renderMapMarkers() {
     marker.addTo(markerLayer);
 
   });
+  renderMoveInMapMarkers();
   applyMapLayerVisibility();
+}
+
+function renderMoveInMapMarkers() {
+  getVisibleMoveInMarkers().forEach((moveInMarker) => {
+    const width = getMoveInMarkerWidth(moveInMarker.label);
+    const marker = L.marker([moveInMarker.lat, moveInMarker.lng], {
+      draggable: true,
+      icon: L.divIcon({
+        className: "",
+        html: moveInMarkerIconTemplate(moveInMarker),
+        iconSize: [width, 44],
+        iconAnchor: [width / 2, 22]
+      })
+    });
+
+    marker.bindPopup(moveInMarkerPopupTemplate(moveInMarker));
+    marker.on("dragend", () => updateMoveInMarkerPosition(moveInMarker.id, marker.getLatLng()));
+    marker.on("popupopen", () => {
+      document.querySelector(`[data-edit-movein-marker="${moveInMarker.id}"]`)?.addEventListener("click", () => openMoveInMarkerDialog(moveInMarker.id));
+      document.querySelector(`[data-delete-movein-marker="${moveInMarker.id}"]`)?.addEventListener("click", () => deleteMoveInMarker(moveInMarker.id));
+    });
+    marker.addTo(moveInMarkerLayer);
+  });
+}
+
+function moveInMarkerIconTemplate(moveInMarker) {
+  const width = getMoveInMarkerWidth(moveInMarker.label);
+  return `
+    <div class="movein-marker ${getMoveInMarkerLabelClass(moveInMarker.label)}" style="--marker-color: ${escapeHtml(moveInMarker.color)}; --marker-width: ${width}px">
+      <span>${escapeHtml(moveInMarker.label)}</span>
+    </div>
+  `;
+}
+
+function getMoveInMarkerWidth(label) {
+  const compactLabel = getCompactMoveInLabel(label);
+  const hyphenBonus = compactLabel.includes("-") ? 10 : 0;
+  return Math.min(86, Math.max(44, compactLabel.length * 9 + 18 + hyphenBonus));
+}
+
+function getMoveInMarkerLabelClass(label) {
+  const compactLabel = getCompactMoveInLabel(label);
+  return compactLabel.length > 4 || compactLabel.includes("-") ? "long-label" : "";
+}
+
+function getCompactMoveInLabel(label) {
+  return String(label || "").replace(/\s+/g, "");
+}
+
+function moveInMarkerPopupTemplate(moveInMarker) {
+  return `
+    <div class="map-popup movein-popup">
+      <strong>${escapeHtml(moveInMarker.label)}</strong>
+      <span class="meta">${escapeHtml(getMoveInTypeLabel(moveInMarker.type))} - ${escapeHtml(getMoveInGroup(moveInMarker.label))} group</span>
+      ${moveInMarker.verbiage ? `<span class="movein-verbiage">${escapeHtml(moveInMarker.verbiage)}</span>` : ""}
+      ${moveInMarker.notes ? `<span class="meta">${escapeHtml(moveInMarker.notes)}</span>` : ""}
+      <button type="button" data-edit-movein-marker="${moveInMarker.id}">Edit Marker</button>
+      <button type="button" data-delete-movein-marker="${moveInMarker.id}">Delete Marker</button>
+    </div>
+  `;
+}
+
+function updateMoveInMarkerPosition(markerId, latLng) {
+  const moveInMarker = state.moveInMarkers.find((marker) => marker.id === markerId);
+  if (!moveInMarker) return;
+  moveInMarker.lat = Number(latLng.lat.toFixed(5));
+  moveInMarker.lng = Number(latLng.lng.toFixed(5));
+  saveState();
+  render();
+}
+
+function openMoveInMarkerDialog(markerId = null, latLng = null) {
+  const moveInMarker = state.moveInMarkers.find((marker) => marker.id === markerId);
+  const center = latLng || (map ? map.getCenter() : null);
+  const defaultLabel = nextMoveInMarkerLabel(state.moveInFilters.group === "all" ? "A" : state.moveInFilters.group);
+  const label = moveInMarker?.label || defaultLabel;
+
+  moveInColorEdited = false;
+  elements.moveInMarkerForm.reset();
+  elements.moveInMarkerDialogTitle.textContent = moveInMarker ? "Edit Marker" : "Add Marker";
+  elements.deleteMoveInMarkerButton.hidden = !moveInMarker;
+  elements.moveInMarkerId.value = moveInMarker?.id || "";
+  elements.moveInMarkerLabel.value = label;
+  elements.moveInMarkerType.value = moveInMarker?.type || "sandwich-board";
+  elements.moveInMarkerColor.value = normalizeMarkerColor(moveInMarker?.color, label);
+  elements.moveInMarkerVerbiage.value = moveInMarker?.verbiage || "";
+  elements.moveInMarkerNotes.value = moveInMarker?.notes || "";
+  elements.moveInMarkerDialog.showModal();
+}
+
+function updateMoveInColorFromLabel() {
+  if (moveInColorEdited) return;
+  elements.moveInMarkerColor.value = normalizeMarkerColor(null, elements.moveInMarkerLabel.value);
+}
+
+function saveMoveInMarker() {
+  if (!elements.moveInMarkerForm.reportValidity()) return;
+  const markerId = elements.moveInMarkerId.value || `movein-${Date.now()}`;
+  const label = elements.moveInMarkerLabel.value.trim().toUpperCase();
+  const existingMarker = state.moveInMarkers.find((marker) => marker.id === markerId);
+  const center = map ? map.getCenter() : null;
+  const moveInMarker = {
+    id: markerId,
+    label,
+    type: elements.moveInMarkerType.value,
+    color: normalizeMarkerColor(elements.moveInMarkerColor.value, label),
+    lat: Number(existingMarker?.lat ?? center?.lat ?? 38.9421),
+    lng: Number(existingMarker?.lng ?? center?.lng ?? -92.3279),
+    verbiage: elements.moveInMarkerVerbiage.value.trim(),
+    notes: elements.moveInMarkerNotes.value.trim()
+  };
+
+  const existingIndex = state.moveInMarkers.findIndex((marker) => marker.id === markerId);
+  if (existingIndex >= 0) {
+    state.moveInMarkers[existingIndex] = moveInMarker;
+  } else {
+    state.moveInMarkers.push(moveInMarker);
+    state.moveInFilters.group = getMoveInGroup(label);
+    state.moveInFilters.type = "all";
+  }
+
+  saveState();
+  elements.moveInMarkerDialog.close();
+  render();
+}
+
+function deleteMoveInMarker(markerId = elements.moveInMarkerId.value) {
+  if (!markerId) return;
+  state.moveInMarkers = state.moveInMarkers.filter((marker) => marker.id !== markerId);
+  saveState();
+  if (elements.moveInMarkerDialog.open) {
+    elements.moveInMarkerDialog.close();
+  }
+  render();
+}
+
+function nextMoveInMarkerLabel(group) {
+  const prefix = String(group || "A").replace(/[^a-z0-9]/gi, "").toUpperCase() || "A";
+  const usedNumbers = state.moveInMarkers
+    .filter((marker) => getMoveInGroup(marker.label) === prefix)
+    .map((marker) => Number(String(marker.label).match(/\d+$/)?.[0] || 0));
+  const nextNumber = Math.max(0, ...usedNumbers) + 1;
+  return `${prefix}${nextNumber}`;
+}
+
+function normalizeMarkerColor(color, label = "") {
+  if (/^#[0-9a-f]{6}$/i.test(String(color || ""))) return color;
+  return DEFAULT_MOVE_IN_COLORS[getMoveInGroup(label)] || DEFAULT_MOVE_IN_COLORS.OTHER;
+}
+
+function getMoveInTypeLabel(typeValue) {
+  return MOVE_IN_TYPES.find((type) => type.value === typeValue)?.label || "Other";
 }
 
 function updateLocationPosition(locationId, latLng) {
@@ -1217,14 +1704,63 @@ function backupData() {
     ...state,
     exportedAt: new Date().toISOString()
   };
-  const blob = new Blob([JSON.stringify(backup, null, 2)], { type: "application/json;charset=utf-8" });
+  const backupJson = JSON.stringify(backup, null, 2);
+  const dateStamp = new Date().toISOString().slice(0, 10);
+  const fileName = `mizzou-campus-inventory-backup-${dateStamp}.json`;
+  currentBackupFileName = fileName;
+  cacheEmergencyBackup(backupJson);
+  setBackupDownloadLink(fileName, backupJson);
+  elements.backupText.value = backupJson;
+  elements.backupFileName.textContent = fileName;
+  elements.backupSummary.textContent = `${state.moveInMarkers?.length || 0} move-in markers included. Autosave and emergency browser backup are active. Use Copy JSON as the reliable external backup; download may be blocked in this browser.`;
+  elements.backupDialog.showModal();
+  window.setTimeout(selectBackupText, 50);
+}
+
+function cacheEmergencyBackup(backupJson) {
+  try {
+    localStorage.setItem(BACKUP_STORAGE_KEY, backupJson);
+  } catch {
+    // The visible JSON remains available even if browser storage is full.
+  }
+}
+
+function downloadTextFile(fileName, content, type) {
+  const blob = new Blob([content], { type });
   const url = URL.createObjectURL(blob);
   const link = document.createElement("a");
-  const dateStamp = new Date().toISOString().slice(0, 10);
   link.href = url;
-  link.download = `mizzou-campus-inventory-backup-${dateStamp}.json`;
+  link.download = fileName;
+  link.rel = "noopener";
+  link.style.display = "none";
+  document.body.appendChild(link);
   link.click();
-  URL.revokeObjectURL(url);
+  link.remove();
+  window.setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+
+function setBackupDownloadLink(fileName, backupJson) {
+  if (currentBackupUrl) URL.revokeObjectURL(currentBackupUrl);
+  const blob = new Blob([backupJson], { type: "application/json;charset=utf-8" });
+  currentBackupUrl = URL.createObjectURL(blob);
+  elements.downloadBackupLink.href = currentBackupUrl;
+  elements.downloadBackupLink.download = fileName;
+}
+
+function selectBackupText() {
+  elements.backupText.focus();
+  elements.backupText.select();
+}
+
+async function copyBackupText() {
+  selectBackupText();
+  try {
+    await navigator.clipboard.writeText(elements.backupText.value);
+    elements.backupSummary.textContent = `${state.moveInMarkers?.length || 0} move-in markers included. Backup JSON copied.`;
+  } catch {
+    document.execCommand("copy");
+    elements.backupSummary.textContent = `${state.moveInMarkers?.length || 0} move-in markers included. Backup JSON selected. Press Command+C if it did not copy.`;
+  }
 }
 
 function restoreData(file) {
@@ -1287,8 +1823,17 @@ elements.addHereButton.addEventListener("click", () => openItemDialog());
 elements.addLocationButton.addEventListener("click", () => openLocationDialog());
 elements.exportButton.addEventListener("click", exportInventory);
 elements.backupButton.addEventListener("click", backupData);
+elements.selectBackupButton.addEventListener("click", selectBackupText);
+elements.copyBackupButton.addEventListener("click", copyBackupText);
 elements.restoreButton.addEventListener("click", () => elements.restoreFile.click());
 elements.restoreFile.addEventListener("change", (event) => restoreData(event.target.files[0]));
+elements.moveInGroupFilter.addEventListener("change", (event) => setMoveInFilter("group", event.target.value));
+elements.moveInTypeFilter.addEventListener("change", (event) => setMoveInFilter("type", event.target.value));
+elements.addMoveInMarkerButton.addEventListener("click", () => openMoveInMarkerDialog());
+elements.moveInMarkerLabel.addEventListener("input", updateMoveInColorFromLabel);
+elements.moveInMarkerColor.addEventListener("input", () => {
+  moveInColorEdited = true;
+});
 elements.addTaskButton.addEventListener("click", addTask);
 elements.openTaskListButton.addEventListener("click", () => {
   renderTasks();
@@ -1326,6 +1871,8 @@ elements.dropLocationButton.addEventListener("dragend", () => {
 elements.saveItemButton.addEventListener("click", saveItem);
 elements.deleteItemButton.addEventListener("click", deleteItem);
 elements.saveLocationButton.addEventListener("click", saveLocation);
+elements.saveMoveInMarkerButton.addEventListener("click", saveMoveInMarker);
+elements.deleteMoveInMarkerButton.addEventListener("click", () => deleteMoveInMarker());
 elements.itemPhotos.addEventListener("change", (event) => handlePhotoFiles(event.target.files));
 
 document.querySelectorAll("[data-close-dialog]").forEach((button) => {
@@ -1336,7 +1883,7 @@ document.querySelectorAll("[data-close-dialog]").forEach((button) => {
 
 initMap();
 render();
-if (shouldSaveInitialState) {
+if (shouldSaveInitialState || stateMigrated) {
   saveState();
 }
 updateSaveStatus();
