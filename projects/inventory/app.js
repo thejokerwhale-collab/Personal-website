@@ -203,6 +203,7 @@ let labelLayer = null;
 let boundaryLayer = null;
 let fallbackDropMode = false;
 let moveInColorEdited = false;
+let selectedMoveInMarkerId = null;
 let currentBackupFileName = "";
 let currentBackupUrl = "";
 
@@ -212,6 +213,7 @@ const elements = {
   attentionCount: document.querySelector("#attentionCount"),
   searchInput: document.querySelector("#searchInput"),
   topSearchInput: document.querySelector("#topSearchInput"),
+  sidebar: document.querySelector(".sidebar"),
   locationList: document.querySelector("#locationList"),
   campusMap: document.querySelector("#campusMap"),
   itemGrid: document.querySelector("#itemGrid"),
@@ -234,6 +236,8 @@ const elements = {
   moveInGroupFilter: document.querySelector("#moveInGroupFilter"),
   moveInTypeFilter: document.querySelector("#moveInTypeFilter"),
   addMoveInMarkerButton: document.querySelector("#addMoveInMarkerButton"),
+  moveInSidebarCount: document.querySelector("#moveInSidebarCount"),
+  moveInMarkerList: document.querySelector("#moveInMarkerList"),
   taskCount: document.querySelector("#taskCount"),
   taskInput: document.querySelector("#taskInput"),
   taskLocation: document.querySelector("#taskLocation"),
@@ -362,7 +366,8 @@ function normalizeMoveInMarkers(markers) {
     lat: Number(marker.lat || 38.9421),
     lng: Number(marker.lng || -92.3279),
     verbiage: marker.verbiage || "",
-    notes: marker.notes || ""
+    notes: marker.notes || "",
+    locked: Boolean(marker.locked)
   }));
 }
 
@@ -470,12 +475,13 @@ function renderFallbackMap() {
     const x = Math.min(96, Math.max(4, ((moveInMarker.lng - west) / (east - west)) * 100));
     const y = Math.min(92, Math.max(8, ((north - moveInMarker.lat) / (north - south)) * 100));
     const width = getMoveInMarkerWidth(moveInMarker.label);
+    const locked = Boolean(moveInMarker.locked);
     return `
       <button
-        class="fallback-movein-marker ${getMoveInMarkerLabelClass(moveInMarker.label)}"
+        class="fallback-movein-marker ${getMoveInMarkerLabelClass(moveInMarker.label)} ${locked ? "locked" : ""} ${selectedMoveInMarkerId === moveInMarker.id ? "active" : ""}"
         data-fallback-movein-marker="${moveInMarker.id}"
         type="button"
-        draggable="true"
+        draggable="${locked ? "false" : "true"}"
         style="left: ${x}%; top: ${y}%; --marker-color: ${escapeHtml(moveInMarker.color)}; --marker-width: ${width}px"
         aria-label="${escapeHtml(moveInMarker.label)} ${escapeHtml(getMoveInTypeLabel(moveInMarker.type))}"
       >
@@ -516,8 +522,13 @@ function renderFallbackMap() {
     });
   });
   elements.campusMap.querySelectorAll("[data-fallback-movein-marker]").forEach((button) => {
-    button.addEventListener("click", () => openMoveInMarkerDialog(button.dataset.fallbackMoveinMarker));
+    button.addEventListener("click", () => selectMoveInMarker(button.dataset.fallbackMoveinMarker, { scroll: true }));
     button.addEventListener("dragstart", (event) => {
+      const marker = state.moveInMarkers.find((entry) => entry.id === button.dataset.fallbackMoveinMarker);
+      if (marker?.locked) {
+        event.preventDefault();
+        return;
+      }
       event.dataTransfer.setData("application/x-movein-marker-id", button.dataset.fallbackMoveinMarker);
       event.dataTransfer.effectAllowed = "move";
     });
@@ -669,6 +680,7 @@ function render() {
   renderMoveInFilters();
   renderTasks();
   renderLocations();
+  renderMoveInMarkerList();
   renderMapMarkers();
   if (!map && elements.campusMap.querySelector(".fallback-map")) {
     renderFallbackMap();
@@ -681,6 +693,7 @@ function render() {
 function updateMapControlLayout() {
   const moveInActive = Boolean(state.mapLayers.moveIn);
   elements.mapActions.classList.toggle("movein-active", moveInActive);
+  elements.sidebar.classList.toggle("movein-sidebar-active", moveInActive);
 }
 
 function renderMoveInFilters() {
@@ -701,6 +714,99 @@ function renderMoveInFilters() {
   elements.moveInGroupFilter.value = currentGroup;
   elements.moveInTypeFilter.value = currentType;
   elements.moveInMarkerCount.textContent = `${getVisibleMoveInMarkers().length} shown`;
+  elements.addMoveInMarkerButton.disabled = !state.moveInMarkersRestored;
+  elements.addMoveInMarkerButton.title = state.moveInMarkersRestored
+    ? "Add a move-in marker"
+    : "Restore backup data before adding move-in markers.";
+}
+
+function renderMoveInMarkerList() {
+  const visibleMarkers = getVisibleMoveInMarkers();
+  elements.moveInSidebarCount.textContent = `${visibleMarkers.length} shown`;
+
+  if (!visibleMarkers.length) {
+    elements.moveInMarkerList.innerHTML = `<div class="movein-marker-empty">No move-in signage loaded. Restore backup data to show markers.</div>`;
+    return;
+  }
+
+  elements.moveInMarkerList.innerHTML = visibleMarkers
+    .map((marker) => moveInMarkerRowTemplate(marker))
+    .join("");
+
+  elements.moveInMarkerList.querySelectorAll("[data-select-movein-row]").forEach((row) => {
+    row.addEventListener("click", (event) => {
+      if (event.target.closest("button")) return;
+      selectMoveInMarker(row.dataset.markerId, { zoom: true });
+    });
+    row.addEventListener("keydown", (event) => {
+      if (!["Enter", " "].includes(event.key) || event.target.closest("button")) return;
+      event.preventDefault();
+      selectMoveInMarker(row.dataset.markerId, { zoom: true });
+    });
+  });
+  elements.moveInMarkerList.querySelectorAll("[data-edit-movein-row]").forEach((button) => {
+    button.addEventListener("click", () => openMoveInMarkerDialog(button.dataset.markerId));
+  });
+  elements.moveInMarkerList.querySelectorAll("[data-toggle-movein-lock]").forEach((button) => {
+    button.addEventListener("click", () => toggleMoveInMarkerLock(button.dataset.markerId));
+  });
+}
+
+function moveInMarkerRowTemplate(marker) {
+  const locked = Boolean(marker.locked);
+  const selected = selectedMoveInMarkerId === marker.id;
+  return `
+    <article
+      class="movein-marker-row ${locked ? "locked" : ""} ${selected ? "active" : ""}"
+      data-select-movein-row
+      data-marker-id="${escapeHtml(marker.id)}"
+      role="button"
+      tabindex="0"
+      style="--marker-color: ${escapeHtml(marker.color)}"
+      aria-label="Zoom to ${escapeHtml(marker.label)}"
+    >
+      <div class="movein-marker-row-main">
+        <span class="movein-marker-row-code">${escapeHtml(marker.label)}</span>
+        <span>
+          <strong>${escapeHtml(marker.label)}</strong>
+          <small>${escapeHtml(getMoveInTypeLabel(marker.type))}${locked ? " - locked" : ""}</small>
+        </span>
+      </div>
+      <p>${escapeHtml(marker.verbiage || marker.notes || "No verbiage added yet.")}</p>
+      <span class="movein-marker-actions">
+        <button class="edit-location-button" data-edit-movein-row data-marker-id="${escapeHtml(marker.id)}" type="button" aria-label="Edit ${escapeHtml(marker.label)}">Edit</button>
+        <button class="lock-button ${locked ? "locked" : ""}" data-toggle-movein-lock data-marker-id="${escapeHtml(marker.id)}" type="button" aria-label="${locked ? "Unlock" : "Lock"} ${escapeHtml(marker.label)}">${locked ? "Locked" : "Lock"}</button>
+      </span>
+    </article>
+  `;
+}
+
+function selectMoveInMarker(markerId, options = {}) {
+  const marker = state.moveInMarkers.find((entry) => entry.id === markerId);
+  if (!marker) return;
+  selectedMoveInMarkerId = markerId;
+  updateMoveInMarkerListSelection(options);
+  if (options.updateMap !== false) {
+    if (map) {
+      renderMapMarkers();
+    } else if (elements.campusMap.querySelector(".fallback-map")) {
+      renderFallbackMap();
+    }
+  }
+
+  if (options.zoom && map) {
+    map.setView([marker.lat, marker.lng], Math.max(map.getZoom(), 18), { animate: true });
+  }
+}
+
+function updateMoveInMarkerListSelection(options = {}) {
+  elements.moveInMarkerList.querySelectorAll("[data-select-movein-row]").forEach((row) => {
+    const selected = row.dataset.markerId === selectedMoveInMarkerId;
+    row.classList.toggle("active", selected);
+    if (selected && options.scroll) {
+      row.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+  });
 }
 
 function getMoveInGroups() {
@@ -984,7 +1090,7 @@ function renderMoveInMapMarkers() {
   getVisibleMoveInMarkers().forEach((moveInMarker) => {
     const width = getMoveInMarkerWidth(moveInMarker.label);
     const marker = L.marker([moveInMarker.lat, moveInMarker.lng], {
-      draggable: true,
+      draggable: !moveInMarker.locked,
       icon: L.divIcon({
         className: "",
         html: moveInMarkerIconTemplate(moveInMarker),
@@ -994,6 +1100,7 @@ function renderMoveInMapMarkers() {
     });
 
     marker.bindPopup(moveInMarkerPopupTemplate(moveInMarker));
+    marker.on("click", () => selectMoveInMarker(moveInMarker.id, { scroll: true, updateMap: false }));
     marker.on("dragend", () => updateMoveInMarkerPosition(moveInMarker.id, marker.getLatLng()));
     marker.on("popupopen", () => {
       document.querySelector(`[data-edit-movein-marker="${moveInMarker.id}"]`)?.addEventListener("click", () => openMoveInMarkerDialog(moveInMarker.id));
@@ -1006,7 +1113,7 @@ function renderMoveInMapMarkers() {
 function moveInMarkerIconTemplate(moveInMarker) {
   const width = getMoveInMarkerWidth(moveInMarker.label);
   return `
-    <div class="movein-marker ${getMoveInMarkerLabelClass(moveInMarker.label)}" style="--marker-color: ${escapeHtml(moveInMarker.color)}; --marker-width: ${width}px">
+    <div class="movein-marker ${getMoveInMarkerLabelClass(moveInMarker.label)} ${moveInMarker.locked ? "locked" : ""} ${selectedMoveInMarkerId === moveInMarker.id ? "active" : ""}" style="--marker-color: ${escapeHtml(moveInMarker.color)}; --marker-width: ${width}px">
       <span>${escapeHtml(moveInMarker.label)}</span>
     </div>
   `;
@@ -1032,6 +1139,7 @@ function moveInMarkerPopupTemplate(moveInMarker) {
     <div class="map-popup movein-popup">
       <strong>${escapeHtml(moveInMarker.label)}</strong>
       <span class="meta">${escapeHtml(getMoveInTypeLabel(moveInMarker.type))} - ${escapeHtml(getMoveInGroup(moveInMarker.label))} group</span>
+      <span class="meta">${moveInMarker.locked ? "Locked" : "Drag marker to move"}</span>
       ${moveInMarker.verbiage ? `<span class="movein-verbiage">${escapeHtml(moveInMarker.verbiage)}</span>` : ""}
       ${moveInMarker.notes ? `<span class="meta">${escapeHtml(moveInMarker.notes)}</span>` : ""}
       <button type="button" data-edit-movein-marker="${moveInMarker.id}">Edit Marker</button>
@@ -1042,7 +1150,7 @@ function moveInMarkerPopupTemplate(moveInMarker) {
 
 function updateMoveInMarkerPosition(markerId, latLng) {
   const moveInMarker = state.moveInMarkers.find((marker) => marker.id === markerId);
-  if (!moveInMarker) return;
+  if (!moveInMarker || moveInMarker.locked) return;
   moveInMarker.lat = Number(latLng.lat.toFixed(5));
   moveInMarker.lng = Number(latLng.lng.toFixed(5));
   saveState();
@@ -1087,7 +1195,8 @@ function saveMoveInMarker() {
     lat: Number(existingMarker?.lat ?? center?.lat ?? 38.9421),
     lng: Number(existingMarker?.lng ?? center?.lng ?? -92.3279),
     verbiage: elements.moveInMarkerVerbiage.value.trim(),
-    notes: elements.moveInMarkerNotes.value.trim()
+    notes: elements.moveInMarkerNotes.value.trim(),
+    locked: Boolean(existingMarker?.locked)
   };
 
   const existingIndex = state.moveInMarkers.findIndex((marker) => marker.id === markerId);
@@ -1106,11 +1215,27 @@ function saveMoveInMarker() {
 
 function deleteMoveInMarker(markerId = elements.moveInMarkerId.value) {
   if (!markerId) return;
+  const moveInMarker = state.moveInMarkers.find((marker) => marker.id === markerId);
+  if (moveInMarker?.locked) {
+    window.alert("Unlock this move-in marker before deleting it.");
+    return;
+  }
   state.moveInMarkers = state.moveInMarkers.filter((marker) => marker.id !== markerId);
+  if (selectedMoveInMarkerId === markerId) {
+    selectedMoveInMarkerId = null;
+  }
   saveState();
   if (elements.moveInMarkerDialog.open) {
     elements.moveInMarkerDialog.close();
   }
+  render();
+}
+
+function toggleMoveInMarkerLock(markerId) {
+  const moveInMarker = state.moveInMarkers.find((marker) => marker.id === markerId);
+  if (!moveInMarker) return;
+  moveInMarker.locked = !moveInMarker.locked;
+  saveState();
   render();
 }
 

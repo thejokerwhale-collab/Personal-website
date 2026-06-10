@@ -6,7 +6,7 @@
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
     <title>Mizzou Campus Inventory</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    <link rel="stylesheet" href="styles.css?v=28" />
+    <link rel="stylesheet" href="styles.css?v=31" />
   </head>
   <body>
     <div class="app-shell">
@@ -48,12 +48,20 @@
         <input id="restoreFile" class="visually-hidden" type="file" accept="application/json,.json" />
         <p id="saveStatus" class="save-status">Autosaved in this browser.</p>
 
-        <section class="panel">
+        <section class="panel locations-sidebar-panel">
           <div class="section-heading">
             <h2>Locations</h2>
             <button id="addLocationButton" type="button">Add</button>
           </div>
           <div id="locationList" class="location-list"></div>
+        </section>
+
+        <section class="panel movein-sidebar-panel">
+          <div class="section-heading">
+            <h2>Move-in Signage</h2>
+            <span id="moveInSidebarCount" class="sidebar-count">0 shown</span>
+          </div>
+          <div id="moveInMarkerList" class="movein-marker-list"></div>
         </section>
       </aside>
 
@@ -340,8 +348,8 @@
       </form>
     </dialog>
 
-    <script src="inventory-data.js?v=28" defer></script>
+    <script src="inventory-data.js?v=31" defer></script>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" defer></script>
-    <script src="app.js?v=28" defer></script>
+    <script src="app.js?v=31" defer></script>
   </body>
 </html>
