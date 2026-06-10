@@ -73,94 +73,6 @@ const DEFAULT_MOVE_IN_COLORS = {
   NVD: "#0f766e",
   OTHER: "#171717"
 };
-const G_MOVE_IN_MARKERS = [
-  { label: "G1", type: "sandwich-board", verbiage: "Move In Traffic (up arrow)", lat: 38.94076, lng: -92.3277 },
-  { label: "G2", type: "sandwich-board", verbiage: "Move In Traffic (left arrow)", lat: 38.94076, lng: -92.32738 },
-  { label: "G3", type: "mini-sandwich", verbiage: "Caution! Move-In Traffic", lat: 38.94076, lng: -92.32706 },
-  { label: "G4", type: "barricade", verbiage: "One Way Do Not Enter", lat: 38.94076, lng: -92.32674 },
-  { label: "G5A", type: "sandwich-board", verbiage: "HW/GA/DW/DG (right - this lane only)", lat: 38.94056, lng: -92.3277 },
-  { label: "G5B", type: "sandwich-board", verbiage: "Parking (left - this lane only)", lat: 38.94056, lng: -92.32738 },
-  { label: "G6", type: "sandwich-board", verbiage: "Dogwood/Galena & Exit (right arrow)", lat: 38.94056, lng: -92.32706 },
-  { label: "G7", type: "sandwich-board", verbiage: "Check In Here", lat: 38.94056, lng: -92.32674 },
-  { label: "G8", type: "sandwich-board", verbiage: "Hawthorn Galena Dogwood (right arrow)", lat: 38.94036, lng: -92.3277 },
-  { label: "G9", type: "sandwich-board", verbiage: "Defoe-Graham (up arrow)", lat: 38.94036, lng: -92.32738 },
-  { label: "G10", type: "barricade", verbiage: "Do Not Enter", lat: 38.94036, lng: -92.32706 },
-  { label: "G11", type: "sandwich-board", verbiage: "Move-In (right arrow) Parking (left arrow)", lat: 38.94036, lng: -92.32674 },
-  { label: "G12", type: "barricade", verbiage: "One Way Do Not Enter", lat: 38.94016, lng: -92.3277 },
-  { label: "G13", type: "mini-sandwich", verbiage: "Caution! Move-In Traffic", lat: 38.94016, lng: -92.32738 },
-  { label: "G14", type: "sandwich-board", verbiage: "FRONT: No Entry - Sidewalk closed / BACK: Hernes (left arrow) CG17 (right arrow)", lat: 38.94016, lng: -92.32706 },
-  { label: "G15", type: "sandwich-board", verbiage: "Residential Life Move-In Parking ONLY", lat: 38.94016, lng: -92.32674 },
-  { label: "G18", type: "barricade", verbiage: "One Way Do Not Enter", lat: 38.93996, lng: -92.3277 },
-  { label: "G19", type: "sandwich-board", verbiage: "Exit (right arrow)", lat: 38.93996, lng: -92.32738 },
-  { label: "G20", type: "sandwich-board", verbiage: "Exit (left arrow)", lat: 38.93996, lng: -92.32706 },
-  { label: "G21", type: "sandwich-board", verbiage: "Front: Exit (right arrow) Second Sign on back: Parking (up arrow)", lat: 38.93996, lng: -92.32674 },
-  { label: "G22", type: "sandwich-board", verbiage: "Caution! Move-In Traffic", lat: 38.93976, lng: -92.32738 },
-  { label: "G23", type: "barricade", verbiage: "DO NOT ENTER", lat: 38.93976, lng: -92.32706 }
-].map((marker) => ({
-  id: `movein-${marker.label.toLowerCase()}`,
-  color: DEFAULT_MOVE_IN_COLORS.G,
-  notes: "",
-  ...marker
-}));
-const MT_MOVE_IN_MARKERS = [
-  { label: "MT1", type: "sandwich-board", verbiage: "FRONT: Mark Twain (right arrow) / BACK: Mark Twain (left arrow)", lat: 38.9458, lng: -92.33308 },
-  { label: "MT2", type: "sandwich-board", verbiage: "Mizzou at UCentre (right arrow)", lat: 38.9458, lng: -92.33278 },
-  { label: "MT3", type: "sandwich-board", verbiage: "Mizzou at UCentre (right arrow)", lat: 38.9458, lng: -92.33248 },
-  { label: "MT4", type: "sandwich-board", verbiage: "Parking (up arrow)", lat: 38.9456, lng: -92.33308 },
-  { label: "MT5", type: "sandwich-board", verbiage: "Mizzou on Rollins (up arrow)", lat: 38.9456, lng: -92.33278 },
-  { label: "MT6", type: "sandwich-board", verbiage: "Mizzou on Rollins (right arrow)", lat: 38.9456, lng: -92.33248 },
-  { label: "MT7", type: "sandwich-board", verbiage: "Mizzou on Rollins (right arrow)", lat: 38.9454, lng: -92.33308 },
-  { label: "MT8", type: "sandwich-board", verbiage: "Mizzou on Rollins Check In Here", lat: 38.9454, lng: -92.33278 },
-  { label: "MT9", type: "barricade", verbiage: "Do Not Enter", lat: 38.9454, lng: -92.33248 },
-  { label: "MT10", type: "barricade", verbiage: "Do Not Enter", lat: 38.9452, lng: -92.33278 }
-].map((marker) => ({
-  id: `movein-${marker.label.toLowerCase()}`,
-  color: DEFAULT_MOVE_IN_COLORS.MT,
-  notes: "",
-  ...marker
-}));
-const N_MOVE_IN_MARKERS = [
-  { label: "N1", type: "sandwich-board", verbiage: "Move In Traffic (left arrow)", lat: 38.93968, lng: -92.33286 },
-  { label: "N2", type: "sandwich-board", verbiage: "Move In Traffic (up arrow)", lat: 38.93968, lng: -92.33258 },
-  { label: "N3", type: "sandwich-board", verbiage: "Move In Traffic (up arrow)", lat: 38.93968, lng: -92.3323 },
-  { label: "N4", type: "barricade", verbiage: "No Entry", lat: 38.9395, lng: -92.33286 },
-  { label: "N5", type: "sandwich-board", verbiage: "Move In Traffic (left arrow)", lat: 38.9395, lng: -92.33258 },
-  { label: "N8", type: "barricade", verbiage: "One Way - Do Not Enter", lat: 38.9395, lng: -92.3323 },
-  { label: "N9", type: "mini-sandwich", verbiage: "Caution!! Move In Traffic", lat: 38.93932, lng: -92.33286 },
-  { label: "N12", type: "sandwich-board", verbiage: "Parking (up arrow)", lat: 38.93932, lng: -92.33258 },
-  { label: "N13", type: "sandwich-board", verbiage: "One Way (right arrow)", lat: 38.93932, lng: -92.3323 },
-  { label: "N14", type: "sandwich-board", verbiage: "One Way (right arrow)", lat: 38.93914, lng: -92.33258 }
-].map((marker) => ({
-  id: `movein-${marker.label.toLowerCase()}`,
-  color: DEFAULT_MOVE_IN_COLORS.N,
-  notes: "",
-  ...marker
-}));
-const NVD_MOVE_IN_MARKERS = [
-  { label: "NVD 1A", type: "sandwich-board", verbiage: "Welcome! Check In - College Avenue Front Desk", lat: 38.9412, lng: -92.32142 },
-  { label: "NVD 1B", type: "sandwich-board", verbiage: "Welcome! Check In - College Avenue Front Desk", lat: 38.9409, lng: -92.3211 },
-  { label: "NVD 2", type: "sandwich-board", verbiage: "Welcome! Check In - Schurz Front Desk", lat: 38.9402, lng: -92.32146 },
-  { label: "NVD 3", type: "sandwich-board", verbiage: "Welcome! Check In - Rollins Front Desk", lat: 38.94377, lng: -92.32878 },
-  { label: "NVD 4A", type: "sandwich-board", verbiage: "Welcome! Check In - Excellence Front Desk", lat: 38.94026, lng: -92.32252 },
-  { label: "NVD 4B", type: "sandwich-board", verbiage: "Welcome! Check In - Excellence Front Desk", lat: 38.93998, lng: -92.32224 },
-  { label: "NVD 5A", type: "sandwich-board", verbiage: "Welcome! Check In - Wolpers Front Desk", lat: 38.94168, lng: -92.32468 },
-  { label: "NVD 5B", type: "sandwich-board", verbiage: "Welcome! Check In - Wolpers Front Desk", lat: 38.9414, lng: -92.32438 },
-  { label: "NVD 6A", type: "sandwich-board", verbiage: "Welcome! Check In - Brooks Front Desk", lat: 38.93878, lng: -92.33228 },
-  { label: "NVD 6B", type: "sandwich-board", verbiage: "Welcome! Check In - Brooks Front Desk", lat: 38.93848, lng: -92.33198 },
-  { label: "NVD 7A", type: "sandwich-board", verbiage: "Welcome! Check In - Hawthorn Front Desk", lat: 38.94052, lng: -92.32676 },
-  { label: "NVD 7B", type: "sandwich-board", verbiage: "Welcome! Check In - Hawthorn Front Desk", lat: 38.94026, lng: -92.32646 },
-  { label: "NVD 8A", type: "sandwich-board", verbiage: "Welcome! Check In - Mark Twain Front Desk", lat: 38.94556, lng: -92.33284 },
-  { label: "NVD 8B", type: "sandwich-board", verbiage: "Welcome! Check In - Mark Twain Front Desk", lat: 38.94528, lng: -92.33254 },
-  { label: "NVD 9", type: "sandwich-board", verbiage: "Welcome! Check In - Defoe-Graham Main Office", lat: 38.94037, lng: -92.32593 },
-  { label: "NVD 10", type: "sandwich-board", verbiage: "Welcome! Check In - Mark Twain Front Desk", lat: 38.94541, lng: -92.33268 },
-  { label: "NVD 11", type: "sandwich-board", verbiage: "Welcome! Check In - South Front Desk", lat: 38.93826, lng: -92.33322 }
-].map((marker) => ({
-  id: `movein-${marker.label.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`,
-  color: DEFAULT_MOVE_IN_COLORS.NVD,
-  notes: "",
-  ...marker
-}));
-
 const seedData = {
   schemaVersion: 2,
   selectedLocationId: "all",
@@ -177,38 +89,7 @@ const seedData = {
   },
   clusterSettings: {},
   tasks: [],
-  moveInMarkers: [
-    {
-      id: "movein-a1",
-      label: "A1",
-      type: "sandwich-board",
-      color: "#f1b82d",
-      lat: 38.9432,
-      lng: -92.32925,
-      verbiage: "Move-in check-in this way",
-      notes: "Sample sandwich board placement. Drag or edit for move-in routes."
-    },
-    {
-      id: "movein-a2",
-      label: "A2",
-      type: "sandwich-board",
-      color: "#f1b82d",
-      lat: 38.94135,
-      lng: -92.3274,
-      verbiage: "Unload zone A",
-      notes: "Sample A-group sign location."
-    },
-    {
-      id: "movein-svd1",
-      label: "SVD1",
-      type: "barricade",
-      color: "#2f7d4f",
-      lat: 38.94025,
-      lng: -92.32685,
-      verbiage: "Southwest Village traffic control",
-      notes: "Sample Southwest Village barricade."
-    }
-  ],
+  moveInMarkers: [],
   locations: [
     {
       id: "mcdavid-hall",
@@ -426,7 +307,7 @@ function loadState() {
   }
 }
 
-function normalizeState(value) {
+function normalizeState(value, options = {}) {
   const hasLocations = Array.isArray(value.locations) && value.locations.length > 0;
   const hasItems = Array.isArray(value.items);
   if (!hasLocations) {
@@ -437,6 +318,10 @@ function normalizeState(value) {
     value.items = [];
   }
 
+  const keepMoveInMarkers = Boolean(options.preserveMoveInMarkers || value.moveInMarkersRestored);
+  if (!keepMoveInMarkers && (Array.isArray(value.moveInMarkers) && value.moveInMarkers.length > 0 || value.moveInMarkerBatches)) {
+    stateMigrated = true;
+  }
   const normalized = {
     ...value,
     locations: value.locations.map((location) => ({
@@ -459,14 +344,16 @@ function normalizeState(value) {
       ...(value.clusterSettings || {})
     },
     statusFilter: STATUS_FILTERS.some((filter) => filter.value === value.statusFilter) ? value.statusFilter : "all",
-    moveInMarkers: normalizeMoveInMarkers(value.moveInMarkers),
+    moveInMarkers: normalizeMoveInMarkers(keepMoveInMarkers ? value.moveInMarkers : []),
+    moveInMarkersRestored: Boolean(options.preserveMoveInMarkers || value.moveInMarkersRestored),
     tasks: Array.isArray(value.tasks) ? value.tasks : []
   };
-  return applyMoveInMarkerMigrations(normalized);
+  delete normalized.moveInMarkerBatches;
+  return normalized;
 }
 
 function normalizeMoveInMarkers(markers) {
-  const source = Array.isArray(markers) ? markers : cloneData(projectData.moveInMarkers || seedData.moveInMarkers || []);
+  const source = Array.isArray(markers) ? markers : [];
   return source.map((marker, index) => ({
     id: marker.id || `movein-${Date.now()}-${index}`,
     label: String(marker.label || `A${index + 1}`).trim().toUpperCase(),
@@ -477,53 +364,6 @@ function normalizeMoveInMarkers(markers) {
     verbiage: marker.verbiage || "",
     notes: marker.notes || ""
   }));
-}
-
-function applyMoveInMarkerMigrations(normalized) {
-  normalized.moveInMarkerBatches = {
-    ...(normalized.moveInMarkerBatches || {})
-  };
-
-  if (!normalized.moveInMarkerBatches.gMoveIn2026) {
-    mergePresetMoveInMarkers(normalized, G_MOVE_IN_MARKERS);
-    normalized.moveInMarkerBatches.gMoveIn2026 = true;
-    stateMigrated = true;
-  }
-
-  if (!normalized.moveInMarkerBatches.mtMoveIn2026) {
-    mergePresetMoveInMarkers(normalized, MT_MOVE_IN_MARKERS);
-    normalized.moveInMarkerBatches.mtMoveIn2026 = true;
-    stateMigrated = true;
-  }
-
-  if (!normalized.moveInMarkerBatches.nMoveIn2026) {
-    mergePresetMoveInMarkers(normalized, N_MOVE_IN_MARKERS);
-    normalized.moveInMarkerBatches.nMoveIn2026 = true;
-    stateMigrated = true;
-  }
-
-  if (!normalized.moveInMarkerBatches.nvdMoveIn2026) {
-    mergePresetMoveInMarkers(normalized, NVD_MOVE_IN_MARKERS);
-    normalized.moveInMarkerBatches.nvdMoveIn2026 = true;
-    stateMigrated = true;
-  }
-
-  return normalized;
-}
-
-function mergePresetMoveInMarkers(normalized, presets) {
-  presets.forEach((preset) => {
-    const existing = normalized.moveInMarkers.find((marker) => marker.label === preset.label);
-    if (existing) {
-      existing.type = preset.type;
-      existing.color = preset.color;
-      existing.verbiage = preset.verbiage;
-      existing.notes = existing.notes || preset.notes;
-      return;
-    }
-
-    normalized.moveInMarkers.push(cloneData(preset));
-  });
 }
 
 function cloneData(value) {
@@ -1769,7 +1609,7 @@ function restoreData(file) {
   const reader = new FileReader();
   reader.onload = () => {
     try {
-      const restored = normalizeState(JSON.parse(reader.result));
+      const restored = normalizeState(JSON.parse(reader.result), { preserveMoveInMarkers: true });
       if (!Array.isArray(restored.locations) || !Array.isArray(restored.items)) {
         throw new Error("Missing inventory data");
       }
