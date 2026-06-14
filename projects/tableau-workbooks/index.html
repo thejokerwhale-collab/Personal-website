@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Tableau Location Map | Greg Stiles</title>
+    <meta
+      name="description"
+      content="A visual portfolio recreation of Greg Stiles' Tableau location map workbook using aggregated ZIP-level workforce rating data."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="site-frame" aria-hidden="true"></div>
+
+    <header class="topbar">
+      <a class="wordmark" href="../../">Greg Stiles</a>
+      <nav aria-label="Project sections">
+        <a href="#map">Map</a>
+        <a href="#tableau">Tableau Build</a>
+        <a href="#privacy">Data Safety</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero" aria-labelledby="hero-title">
+        <div>
+          <p class="eyebrow">Tableau project recreation</p>
+          <h1 id="hero-title">Low performance employee location map.</h1>
+          <p>
+            This recreates the map feature from my Tableau workbook using the
+            original source data, aggregated by location and ZIP code so the
+            portfolio can show the analysis without exposing individual records.
+          </p>
+        </div>
+        <aside class="hero-card">
+          <span>60 mapped locations</span>
+          <span>9,147 employees aggregated</span>
+          <span>674k+ ratings analyzed</span>
+          <span>Built from Tableau workbook files</span>
+        </aside>
+      </section>
+
+      <section class="dashboard" id="map" aria-labelledby="dashboard-title">
+        <div class="dashboard-header">
+          <div>
+            <p class="eyebrow">Recovered worksheet</p>
+            <h2 id="dashboard-title">Low Performance Employee Location</h2>
+          </div>
+          <div class="legend" aria-label="Map legend">
+            <span><i class="low"></i> Lower avg. rating</span>
+            <span><i class="mid"></i> Mid range</span>
+            <span><i class="high"></i> Higher avg. rating</span>
+          </div>
+        </div>
+
+        <div class="viz-grid">
+          <section class="map-panel" aria-label="Interactive location map">
+            <div class="map-stage">
+              <div class="map-label map-label-west">West</div>
+              <div class="map-label map-label-midwest">Midwest</div>
+              <div class="map-label map-label-south">South</div>
+              <div class="map-label map-label-east">East</div>
+              <img class="us-map" src="./us-map.svg" alt="" aria-hidden="true" />
+              <div class="map-grid" aria-hidden="true"></div>
+              <div id="mapMarkers" class="map-markers"></div>
+              <div class="inset inset-pr">PR</div>
+              <div class="inset inset-ca">AB</div>
+            </div>
+            <p class="map-note">
+              Marker size reflects employee count. Marker color reflects average
+              rating by location.
+            </p>
+          </section>
+
+          <aside class="insight-panel" aria-live="polite">
+            <p class="eyebrow">Selected location</p>
+            <h3 id="selectedTitle">Location 7 · Morrilton, AR</h3>
+            <div class="metric-row">
+              <article>
+                <span id="selectedRating">2.81</span>
+                <small>Average rating</small>
+              </article>
+              <article>
+                <span id="selectedEmployees">371</span>
+                <small>Employees</small>
+              </article>
+            </div>
+            <dl class="detail-list">
+              <div>
+                <dt>ZIP</dt>
+                <dd id="selectedZip">72110</dd>
+              </div>
+              <div>
+                <dt>Rating rows</dt>
+                <dd id="selectedRatings">30,695</dd>
+              </div>
+            </dl>
+
+            <div class="low-list">
+              <h4>Lowest average rating locations</h4>
+              <div id="lowLocationList"></div>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section class="build-grid" id="tableau" aria-labelledby="tableau-title">
+        <article>
+          <p class="eyebrow">What I built in Tableau</p>
+          <h2 id="tableau-title">A location-based performance view.</h2>
+          <p>
+            The original workbook joined employee, rating, manager, and ZIP code
+            tables, then used Tableau's geographic ZIP role to display where
+            lower-scoring employee groups were concentrated.
+          </p>
+        </article>
+        <article>
+          <h3>Recovered Tableau worksheet fields</h3>
+          <ul>
+            <li>Location Code</li>
+            <li>ZIP Codes as a geographic dimension</li>
+            <li>Average Rating as the performance measure</li>
+            <li>Employee count as marker size/context</li>
+          </ul>
+        </article>
+        <article>
+          <h3>Related workbook views</h3>
+          <ul>
+            <li>Average Ratings by Location</li>
+            <li>Best/Worst Performing Employees by Location</li>
+            <li>Rating Variability</li>
+            <li>Self-Rating and Manager Differences</li>
+          </ul>
+        </article>
+      </section>
+
+      <section class="privacy-panel" id="privacy">
+        <p class="eyebrow">Portfolio-safe recovery</p>
+        <h2>No individual employee data is published here.</h2>
+        <p>
+          The displayed map is rebuilt from aggregate location metrics only:
+          ZIP code, location code, employee count, rating-row count, and average
+          rating. Names, salaries, dates of birth, managers, and row-level
+          records stay out of the site.
+        </p>
+      </section>
+    </main>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
