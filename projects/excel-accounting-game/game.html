@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Close Sheet | Play Excel Accounting Game</title>
+    <meta
+      name="description"
+      content="A spreadsheet-style game that teaches efficient Excel formulas for accounting work."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="workbook-app">
+      <header class="topbar">
+        <a class="site-link" href="../../">Greg Stiles</a>
+        <div class="workbook-title">
+          <span class="workbook-mark" aria-hidden="true"></span>
+          <div>
+            <strong>Close Sheet</strong>
+            <span>Excel for Accountants</span>
+          </div>
+        </div>
+        <dl class="scoreboard" aria-label="Game progress">
+          <div>
+            <dt>Level</dt>
+            <dd id="levelMetric">1 / 6</dd>
+          </div>
+          <div>
+            <dt>Score</dt>
+            <dd id="scoreMetric">0</dd>
+          </div>
+          <div>
+            <dt>Streak</dt>
+            <dd id="streakMetric">0</dd>
+          </div>
+          <div>
+            <dt>Efficiency</dt>
+            <dd id="efficiencyMetric">0</dd>
+          </div>
+        </dl>
+      </header>
+
+      <section class="ribbon" aria-label="Workbook controls">
+        <div class="ribbon-tabs" role="tablist" aria-label="Ribbon tabs">
+          <button class="ribbon-tab active" type="button">Home</button>
+          <button class="ribbon-tab" type="button">Formulas</button>
+          <button class="ribbon-tab" type="button">Review</button>
+        </div>
+        <div class="ribbon-tools" aria-label="Game actions">
+          <button class="tool-button primary" id="checkButton" type="button">Check</button>
+          <button class="tool-button" id="fillDownButton" type="button">Fill Down</button>
+          <button class="tool-button" id="guideModeButton" type="button" aria-pressed="true">Guide</button>
+          <button class="tool-button" id="hintButton" type="button">Hint</button>
+          <button class="tool-button" id="resetButton" type="button">Reset</button>
+        </div>
+        <p class="shortcut-chip" id="shortcutText">Shortcut focus appears here.</p>
+      </section>
+
+      <main class="game-layout">
+        <section class="sheet-area" aria-label="Interactive spreadsheet game board">
+          <div class="formula-strip">
+            <label class="name-box" for="nameBox">
+              <span>Cell</span>
+              <input id="nameBox" aria-label="Cell reference" />
+            </label>
+            <label class="formula-box" for="formulaInput">
+              <span>fx</span>
+              <input
+                id="formulaInput"
+                type="text"
+                spellcheck="false"
+                autocomplete="off"
+                aria-describedby="formulaHelp"
+              />
+            </label>
+          </div>
+          <p class="formula-help" id="formulaHelp">
+            Select a green target cell, type the formula in the formula bar, then check your work.
+          </p>
+
+          <div class="sheet-scroll" id="sheetScroll" tabindex="0" aria-label="Worksheet grid">
+            <table class="sheet-grid" id="sheetGrid" aria-label="Accounting worksheet"></table>
+          </div>
+
+          <div class="sheet-tabs" id="sheetTabs" aria-label="Workbook sheets"></div>
+        </section>
+
+        <aside class="task-pane" aria-label="Current accounting challenge">
+          <section class="mission-panel">
+            <p class="pane-label">Current assignment</p>
+            <h1 id="missionTitle">Loading...</h1>
+            <p id="missionScenario"></p>
+            <div class="progress-track" aria-label="Level progress">
+              <span id="progressBar"></span>
+            </div>
+            <ol class="objectives" id="objectivesList"></ol>
+          </section>
+
+          <section class="feedback-panel" id="feedbackPanel" aria-live="polite">
+            <p class="pane-label">Reviewer notes</p>
+            <p id="feedbackText">Your controller is waiting for the first formula.</p>
+            <button class="next-button" id="nextButton" type="button" hidden>Next Scenario</button>
+          </section>
+
+          <section class="guide-panel" id="guidePanel" aria-label="Guided learning process">
+            <div class="guide-header">
+              <div>
+                <p class="pane-label">Guided process</p>
+                <h2 id="guideTitle">Step-by-step</h2>
+              </div>
+              <span id="guideStepMetric">1 / 4</span>
+            </div>
+            <div class="guide-steps" id="guideSteps"></div>
+            <div class="guide-actions">
+              <button class="tool-button" id="previousGuideButton" type="button">Previous</button>
+              <button class="tool-button primary" id="nextGuideButton" type="button">Next</button>
+            </div>
+          </section>
+
+          <section class="coach-panel">
+            <p class="pane-label">Efficiency coach</p>
+            <h2 id="coachSkill">Formula skill</h2>
+            <p id="coachText"></p>
+            <div class="system-drill">
+              <p class="pane-label">System drill</p>
+              <ol id="systemList"></ol>
+            </div>
+            <div class="shortcut-grid" id="shortcutGrid" aria-label="Excel-style shortcut set"></div>
+            <div class="formula-tags" id="formulaTags"></div>
+          </section>
+        </aside>
+      </main>
+    </div>
+
+    <dialog class="completion-dialog" id="completionDialog">
+      <div class="dialog-card">
+        <p class="pane-label">Close package complete</p>
+        <h2>Workbook signed off.</h2>
+        <p id="completionText"></p>
+        <button class="tool-button primary" id="playAgainButton" type="button">Play Again</button>
+      </div>
+    </dialog>
+
+    <script src="./app.js"></script>
+  </body>
+</html>

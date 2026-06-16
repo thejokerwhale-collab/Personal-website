@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Close Sheet | Excel for Accountants</title>
+    <meta
+      name="description"
+      content="Project overview for Close Sheet, an Excel-style accounting game built to teach efficient spreadsheet systems for close, reconciliation, accruals, and analysis."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body class="overview-body">
+    <header class="overview-topbar">
+      <a class="site-link" href="../../">Greg Stiles</a>
+      <a class="overview-play-link" href="./game.html">Play game</a>
+    </header>
+
+    <main class="project-overview">
+      <section class="overview-hero" aria-labelledby="overview-title">
+        <div class="overview-copy">
+          <p class="pane-label">Excel accounting game</p>
+          <h1 id="overview-title">Close Sheet</h1>
+          <p>
+            A spreadsheet-style training game built to teach accountants how to
+            work efficiently in Excel by learning repeatable systems, not just
+            memorizing formulas.
+          </p>
+          <div class="overview-actions">
+            <a class="launch-button" href="./game.html">Launch workbook</a>
+            <a class="secondary-link" href="#purpose">Read purpose</a>
+          </div>
+        </div>
+
+        <div class="overview-sheet" aria-label="Spreadsheet preview">
+          <div class="preview-ribbon">
+            <span>fx</span>
+            <strong>=SUM(C4:C10)</strong>
+          </div>
+          <div class="preview-grid">
+            <span></span><b>A</b><b>B</b><b>C</b><b>D</b>
+            <b>1</b><strong>Close</strong><strong>Receipts</strong><span></span><span></span>
+            <b>2</b><span>Date</span><span>Customer</span><span>Receipt</span><span>Method</span>
+            <b>3</b><span>6/03</span><span>Apex</span><span>$4,820</span><span>ACH</span>
+            <b>4</b><span>6/05</span><span>Ridge</span><span>$3,110</span><span>Wire</span>
+            <b>5</b><span>6/07</span><span>Northstar</span><span>$7,250</span><span>ACH</span>
+            <b>6</b><span></span><span>Control total</span><em>$26,285</em><span></span>
+          </div>
+        </div>
+      </section>
+
+      <section class="overview-section" id="purpose" aria-labelledby="purpose-title">
+        <div>
+          <p class="pane-label">Purpose</p>
+          <h2 id="purpose-title">Teach the systems behind fast accounting work.</h2>
+        </div>
+        <p>
+          Close Sheet is designed around the way accountants actually use Excel:
+          tying out schedules, building formulas once, filling them down,
+          separating assumptions from outputs, surfacing exceptions, and moving
+          through workbooks without relying on the mouse.
+        </p>
+      </section>
+
+      <section class="overview-band" aria-labelledby="learn-title">
+        <div class="overview-section-heading">
+          <p class="pane-label">What it teaches</p>
+          <h2 id="learn-title">Twelve close-work scenarios.</h2>
+        </div>
+        <div class="overview-grid">
+          <article>
+            <span>01</span>
+            <h3>Formula Systems</h3>
+            <p>SUM, XLOOKUP, absolute references, SUMIFS, COUNTIF, IF, ABS, and ratio formulas.</p>
+          </article>
+          <article>
+            <span>02</span>
+            <h3>Accounting Application</h3>
+            <p>Cash receipts, bank recs, A/R aging, variances, accruals, prepaids, depreciation, and margins.</p>
+          </article>
+          <article>
+            <span>03</span>
+            <h3>Keyboard Efficiency</h3>
+            <p>AutoSum, Fill Down, Ctrl/Cmd+Enter checks, Tab movement, F2 edit mode, and name-box jumps.</p>
+          </article>
+          <article>
+            <span>04</span>
+            <h3>Guided Learning</h3>
+            <p>Each prompt includes why the step matters, the Excel move, and how it applies to real accounting work.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="overview-section" aria-labelledby="gameplay-title">
+        <div>
+          <p class="pane-label">Game loop</p>
+          <h2 id="gameplay-title">Learn by building the workbook.</h2>
+        </div>
+        <ol class="overview-steps">
+          <li>Select the target cell in an Excel-like worksheet.</li>
+          <li>Read the guided accounting purpose and Excel move.</li>
+          <li>Enter the formula or use the shortcut system.</li>
+          <li>Fill down where the schedule requires repeatable logic.</li>
+          <li>Check the answer and earn efficiency points for better workflow.</li>
+        </ol>
+      </section>
+
+      <section class="overview-cta" aria-label="Launch Close Sheet">
+        <h2>Open the workbook and start the close.</h2>
+        <a class="launch-button" href="./game.html">Play Close Sheet</a>
+      </section>
+    </main>
+  </body>
+</html>
