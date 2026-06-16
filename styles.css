@@ -154,8 +154,7 @@ main {
 
 .hero-copy,
 .hero-card,
-.project-card,
-.process-section {
+.project-card {
   border: 1px solid var(--line-strong);
   border-radius: 32px;
   box-shadow: var(--shadow);
@@ -233,8 +232,7 @@ p {
 
 .hero-card p,
 .projects-heading p,
-.project-card p,
-.process-list p {
+.project-card p {
   color: var(--muted);
 }
 
@@ -253,8 +251,7 @@ p {
   color: var(--white);
 }
 
-.projects-section,
-.process-section {
+.projects-section {
   margin: 28px 0;
 }
 
@@ -376,45 +373,10 @@ p {
   color: var(--black);
 }
 
-.process-section {
-  padding: 28px;
-  background: rgba(255, 255, 255, 0.68);
-}
-
-.process-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 0.9fr) minmax(280px, 0.75fr);
-  gap: 28px;
-  align-items: start;
-  margin-top: 18px;
-}
-
-.process-list {
-  display: grid;
-  gap: 12px;
-}
-
-.process-list article {
-  display: grid;
-  grid-template-columns: 92px minmax(0, 1fr);
-  gap: 16px;
-  padding: 18px 0;
-  border-top: 1px solid var(--line);
-}
-
-.process-list span {
-  font-weight: 800;
-}
-
-.process-list p {
-  margin-bottom: 0;
-}
-
 @media (prefers-reduced-motion: no-preference) {
   .hero-copy,
   .hero-card,
-  .project-card,
-  .process-section {
+  .project-card {
     animation: rise-in 680ms ease both;
   }
 
@@ -458,9 +420,7 @@ p {
   .nav,
   .hero-grid,
   .projects-heading,
-  .project-card,
-  .process-grid,
-  .process-list article {
+  .project-card {
     grid-template-columns: 1fr;
   }
 
@@ -499,8 +459,7 @@ p {
 
   .hero-copy,
   .hero-card,
-  .project-card,
-  .process-section {
+  .project-card {
     border-radius: 24px;
     padding: 22px;
   }
