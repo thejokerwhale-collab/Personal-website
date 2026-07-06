@@ -299,7 +299,7 @@ textarea {
 
 .location-main {
   display: grid;
-  grid-template-columns: 38px minmax(0, 1fr);
+  grid-template-columns: 48px minmax(0, 1fr);
   align-items: center;
   gap: 9px;
   min-width: 0;
@@ -323,13 +323,19 @@ textarea {
 .location-code {
   position: relative;
   display: grid;
-  width: 32px;
-  height: 32px;
+  width: 44px;
+  min-width: 44px;
+  height: 34px;
+  padding: 0 4px;
   place-items: center;
   border-radius: 8px;
   background: #f6ecd4;
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 800;
+  line-height: 1;
+  text-align: center;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 .task-signal,
@@ -378,6 +384,7 @@ textarea {
 .empty-state {
   color: var(--muted);
   font-size: 13px;
+  overflow-wrap: anywhere;
 }
 
 .lock-button {
@@ -399,7 +406,7 @@ textarea {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 6px;
-  padding-left: 41px;
+  padding-left: 57px;
 }
 
 .edit-location-button,
@@ -408,12 +415,18 @@ textarea {
   padding: 0 6px;
   font-size: 11px;
   font-weight: 900;
+  min-width: 0;
+  overflow-wrap: anywhere;
+  white-space: normal;
 }
 
 .lock-button {
   min-height: 28px;
   padding: 0 6px;
   font-size: 11px;
+  min-width: 0;
+  overflow-wrap: anywhere;
+  white-space: normal;
 }
 
 .edit-location-button {
@@ -512,7 +525,7 @@ textarea {
 
 .workspace {
   display: grid;
-  grid-template-rows: minmax(340px, 58vh) minmax(0, 1fr);
+  grid-template-rows: minmax(640px, 1fr);
   height: 100vh;
   min-width: 0;
   min-height: 0;
@@ -814,7 +827,7 @@ textarea {
 .campus-map {
   flex: 1;
   min-width: 0;
-  min-height: 240px;
+  min-height: 620px;
   margin: 0 18px 18px;
   border: 1px solid var(--line);
   border-radius: 8px;
@@ -827,7 +840,7 @@ textarea {
   position: relative;
   width: 100%;
   height: 100%;
-  min-height: 240px;
+  min-height: 620px;
   overflow: hidden;
   background:
     linear-gradient(90deg, rgba(255, 255, 255, .18) 1px, transparent 1px),
@@ -1390,6 +1403,7 @@ textarea {
 }
 
 .inventory-pane {
+  display: none;
   min-width: 0;
   padding: 20px 22px 28px;
   overflow: auto;
@@ -1663,7 +1677,7 @@ dialog::backdrop {
   }
 
   .workspace {
-    grid-template-rows: minmax(390px, 58vh) auto;
+    grid-template-rows: minmax(620px, 1fr);
     height: auto;
     overflow: visible;
   }
@@ -1723,6 +1737,7 @@ dialog::backdrop {
 
   .location-actions {
     justify-content: flex-end;
+    padding-left: 57px;
   }
 
   .movein-marker-actions {
