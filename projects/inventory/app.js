@@ -475,6 +475,7 @@ function renderFallbackMap() {
     const x = Math.min(96, Math.max(4, ((moveInMarker.lng - west) / (east - west)) * 100));
     const y = Math.min(92, Math.max(8, ((north - moveInMarker.lat) / (north - south)) * 100));
     const width = getMoveInMarkerWidth(moveInMarker.label);
+    const badgeLabel = getCompactMoveInLabel(moveInMarker.label);
     const locked = Boolean(moveInMarker.locked);
     return `
       <button
@@ -485,7 +486,7 @@ function renderFallbackMap() {
         style="left: ${x}%; top: ${y}%; --marker-color: ${escapeHtml(moveInMarker.color)}; --marker-width: ${width}px"
         aria-label="${escapeHtml(moveInMarker.label)} ${escapeHtml(getMoveInTypeLabel(moveInMarker.type))}"
       >
-        <span>${escapeHtml(moveInMarker.label)}</span>
+        <span>${escapeHtml(badgeLabel)}</span>
       </button>
     `;
   }).join("") : "";
@@ -755,6 +756,8 @@ function renderMoveInMarkerList() {
 function moveInMarkerRowTemplate(marker) {
   const locked = Boolean(marker.locked);
   const selected = selectedMoveInMarkerId === marker.id;
+  const badgeLabel = getCompactMoveInLabel(marker.label);
+  const badgeWidth = getMoveInMarkerWidth(marker.label);
   return `
     <article
       class="movein-marker-row ${locked ? "locked" : ""} ${selected ? "active" : ""}"
@@ -762,11 +765,11 @@ function moveInMarkerRowTemplate(marker) {
       data-marker-id="${escapeHtml(marker.id)}"
       role="button"
       tabindex="0"
-      style="--marker-color: ${escapeHtml(marker.color)}"
+      style="--marker-color: ${escapeHtml(marker.color)}; --marker-width: ${badgeWidth}px"
       aria-label="Zoom to ${escapeHtml(marker.label)}"
     >
       <div class="movein-marker-row-main">
-        <span class="movein-marker-row-code">${escapeHtml(marker.label)}</span>
+        <span class="movein-marker-row-code">${escapeHtml(badgeLabel)}</span>
         <span>
           <strong>${escapeHtml(marker.label)}</strong>
           <small>${escapeHtml(getMoveInTypeLabel(marker.type))}${locked ? " - locked" : ""}</small>
@@ -1112,9 +1115,10 @@ function renderMoveInMapMarkers() {
 
 function moveInMarkerIconTemplate(moveInMarker) {
   const width = getMoveInMarkerWidth(moveInMarker.label);
+  const badgeLabel = getCompactMoveInLabel(moveInMarker.label);
   return `
     <div class="movein-marker ${getMoveInMarkerLabelClass(moveInMarker.label)} ${moveInMarker.locked ? "locked" : ""} ${selectedMoveInMarkerId === moveInMarker.id ? "active" : ""}" style="--marker-color: ${escapeHtml(moveInMarker.color)}; --marker-width: ${width}px">
-      <span>${escapeHtml(moveInMarker.label)}</span>
+      <span>${escapeHtml(badgeLabel)}</span>
     </div>
   `;
 }

@@ -459,7 +459,7 @@ textarea {
 
 .movein-marker-row-main {
   display: grid;
-  grid-template-columns: 38px minmax(0, 1fr);
+  grid-template-columns: minmax(58px, max-content) minmax(0, 1fr);
   align-items: center;
   gap: 9px;
   min-width: 0;
@@ -467,15 +467,21 @@ textarea {
 
 .movein-marker-row-code {
   display: grid;
-  min-width: 32px;
-  height: 32px;
+  width: var(--marker-width, 58px);
+  min-width: 58px;
+  max-width: 92px;
+  min-height: 34px;
+  padding: 0 8px;
   place-items: center;
   border-radius: 999px;
   background: var(--marker-color, #171717);
   color: #fff;
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 1000;
-  letter-spacing: .02em;
+  line-height: 1;
+  letter-spacing: 0;
+  text-align: center;
+  white-space: nowrap;
 }
 
 .movein-marker-row strong {
@@ -505,7 +511,7 @@ textarea {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 6px;
-  padding-left: 41px;
+  padding-left: calc(min(var(--marker-width, 58px), 92px) + 9px);
 }
 
 .movein-marker-empty {
