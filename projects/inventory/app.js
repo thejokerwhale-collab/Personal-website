@@ -1,5 +1,6 @@
 const STORAGE_KEY = "mizzou-campus-inventory-v3";
 const BACKUP_STORAGE_KEY = "mizzou-campus-inventory-emergency-backup";
+const MAP_LAYER_DEFAULTS_VERSION = 2;
 const SOUTHWEST_BOUNDS = [
   [38.9346, -92.3348],
   [38.9494, -92.3170]
@@ -75,10 +76,11 @@ const DEFAULT_MOVE_IN_COLORS = {
 };
 const seedData = {
   schemaVersion: 2,
+  mapLayerDefaultsVersion: MAP_LAYER_DEFAULTS_VERSION,
   selectedLocationId: "all",
   statusFilter: "all",
   mapLayers: {
-    inventory: true,
+    inventory: false,
     moveIn: true,
     boundary: true,
     labels: true
@@ -326,14 +328,16 @@ function normalizeState(value, options = {}) {
   if (!keepMoveInMarkers && (Array.isArray(value.moveInMarkers) && value.moveInMarkers.length > 0 || value.moveInMarkerBatches)) {
     stateMigrated = true;
   }
+  const shouldApplyLayerDefaults = value.mapLayerDefaultsVersion !== MAP_LAYER_DEFAULTS_VERSION;
   const normalized = {
     ...value,
+    mapLayerDefaultsVersion: MAP_LAYER_DEFAULTS_VERSION,
     locations: value.locations.map((location) => ({
       locked: false,
       ...location
     })),
     mapLayers: {
-      inventory: true,
+      inventory: false,
       moveIn: true,
       boundary: true,
       labels: true,
@@ -352,6 +356,10 @@ function normalizeState(value, options = {}) {
     moveInMarkersRestored: Boolean(options.preserveMoveInMarkers || value.moveInMarkersRestored),
     tasks: Array.isArray(value.tasks) ? value.tasks : []
   };
+  if (shouldApplyLayerDefaults) {
+    normalized.mapLayers.inventory = false;
+    normalized.mapLayers.moveIn = true;
+  }
   delete normalized.moveInMarkerBatches;
   return normalized;
 }
@@ -505,8 +513,8 @@ function renderFallbackMap() {
       ${moveInMarkers}
       <div class="fallback-layer-control">
         <strong>Show on map</strong>
+        <label><input type="checkbox" data-fallback-layer="moveIn" ${state.mapLayers.moveIn ? "checked" : ""}> Move-in Signage</label>
         <label><input type="checkbox" data-fallback-layer="inventory" ${state.mapLayers.inventory ? "checked" : ""}> Inventory</label>
-        <label><input type="checkbox" data-fallback-layer="moveIn" ${state.mapLayers.moveIn ? "checked" : ""}> Move-in markers</label>
         <label><input type="checkbox" data-fallback-layer="boundary" ${state.mapLayers.boundary ? "checked" : ""}> Campus border</label>
       </div>
       ${state.mapLayers.boundary ? `<div class="fallback-boundary"></div>` : ""}
@@ -593,8 +601,8 @@ function addLayerChecklist(streetLayer, satelliteLayer) {
     const container = L.DomUtil.create("div", "map-layer-control");
     container.innerHTML = `
       <strong>Show on map</strong>
+      <label><input type="checkbox" data-map-layer="moveIn" ${state.mapLayers.moveIn ? "checked" : ""}> Move-in Signage</label>
       <label><input type="checkbox" data-map-layer="inventory" ${state.mapLayers.inventory ? "checked" : ""}> Inventory</label>
-      <label><input type="checkbox" data-map-layer="moveIn" ${state.mapLayers.moveIn ? "checked" : ""}> Move-in markers</label>
       <label><input type="checkbox" data-map-layer="boundary" ${state.mapLayers.boundary ? "checked" : ""}> Campus border</label>
       <label><input type="checkbox" data-base-layer="satellite"> Satellite map</label>
     `;
