@@ -1087,24 +1087,6 @@ textarea {
     0 10px 24px rgba(0, 0, 0, .28);
 }
 
-.movein-marker.locked::after,
-.fallback-movein-marker.locked::after {
-  position: absolute;
-  right: -7px;
-  bottom: -7px;
-  display: grid;
-  width: 18px;
-  height: 18px;
-  place-items: center;
-  border: 2px solid #fff;
-  border-radius: 999px;
-  background: #604000;
-  color: #fff;
-  font-size: 10px;
-  line-height: 1;
-  content: "🔒";
-}
-
 .movein-popup button[data-delete-movein-marker],
 .movein-popup button[data-delete-movein-marker]:hover {
   border-color: rgba(179, 70, 56, .35);
