@@ -1107,6 +1107,7 @@ function renderMoveInMapMarkers() {
     marker.on("dragend", () => updateMoveInMarkerPosition(moveInMarker.id, marker.getLatLng()));
     marker.on("popupopen", () => {
       document.querySelector(`[data-edit-movein-marker="${moveInMarker.id}"]`)?.addEventListener("click", () => openMoveInMarkerDialog(moveInMarker.id));
+      document.querySelector(`[data-toggle-movein-marker-lock="${moveInMarker.id}"]`)?.addEventListener("click", () => toggleMoveInMarkerLock(moveInMarker.id));
       document.querySelector(`[data-delete-movein-marker="${moveInMarker.id}"]`)?.addEventListener("click", () => deleteMoveInMarker(moveInMarker.id));
     });
     marker.addTo(moveInMarkerLayer);
@@ -1147,6 +1148,7 @@ function moveInMarkerPopupTemplate(moveInMarker) {
       ${moveInMarker.verbiage ? `<span class="movein-verbiage">${escapeHtml(moveInMarker.verbiage)}</span>` : ""}
       ${moveInMarker.notes ? `<span class="meta">${escapeHtml(moveInMarker.notes)}</span>` : ""}
       <button type="button" data-edit-movein-marker="${moveInMarker.id}">Edit Marker</button>
+      <button type="button" data-toggle-movein-marker-lock="${moveInMarker.id}">${moveInMarker.locked ? "Unlock Marker" : "Lock Marker"}</button>
       <button type="button" data-delete-movein-marker="${moveInMarker.id}">Delete Marker</button>
     </div>
   `;
