@@ -1074,12 +1074,6 @@ textarea {
   letter-spacing: .02em;
 }
 
-.movein-marker.locked,
-.fallback-movein-marker.locked {
-  filter: grayscale(.28);
-  opacity: .72;
-}
-
 .movein-marker.active,
 .fallback-movein-marker.active {
   box-shadow:
