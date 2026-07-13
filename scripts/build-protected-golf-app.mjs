@@ -22,6 +22,7 @@ const moduleDefinitions = [
   { file: "player-results.js", exports: ["PLAYER_RESULTS", "PLAYER_RESULTS_META"] },
   { file: "contest-history.js", exports: ["CONTEST_HISTORY", "CONTEST_HISTORY_META"] },
   { file: "model-calibration.js", exports: ["MODEL_CALIBRATION"] },
+  { file: "draft-workbook.js", exports: ["parseDraftSheetRows"] },
   {
     file: "draft-engine.js",
     exports: [
