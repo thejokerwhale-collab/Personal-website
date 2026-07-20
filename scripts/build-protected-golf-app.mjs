@@ -21,6 +21,7 @@ const moduleDefinitions = [
   { file: "liv-stats.js", exports: ["DEFAULT_LIV_STATS", "LIV_STATS_META"] },
   { file: "player-results.js", exports: ["PLAYER_RESULTS", "PLAYER_RESULTS_META"] },
   { file: "contest-history.js", exports: ["CONTEST_HISTORY", "CONTEST_HISTORY_META"] },
+  { file: "championship-ledger.js", exports: ["buildChampionshipLedger"] },
   { file: "model-calibration.js", exports: ["MODEL_CALIBRATION"] },
   { file: "draft-workbook.js", exports: ["parseDraftSheetRows"] },
   {
@@ -82,7 +83,7 @@ async function buildApplicationDocument() {
     .replace("</head>", `    <style>\n${sourceCss}\n    </style>\n  </head>`)
     .replace(
       /\s*<script type="module" src="[^"]+"><\/script>\s*/i,
-      `\n    <script>\n${scriptBundle}\n    </script>\n`
+      () => `\n    <script>\n${scriptBundle}\n    </script>\n`
     );
 }
 
