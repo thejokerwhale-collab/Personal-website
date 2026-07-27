@@ -216,6 +216,12 @@ footer {
   color: var(--white);
 }
 
+.button-workbook {
+  border-color: var(--green);
+  background: var(--green);
+  color: var(--white);
+}
+
 .button-quiet {
   border-color: var(--line-strong);
   background: rgba(255, 253, 248, 0.58);
@@ -1581,6 +1587,206 @@ tbody tr:hover td {
   color: var(--muted);
 }
 
+.evidence-section {
+  padding: 80px 0 60px;
+}
+
+.evidence-intro {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 60px;
+  align-items: end;
+  margin-bottom: 38px;
+}
+
+.evidence-intro h2 {
+  max-width: 820px;
+  margin: 18px 0 0;
+  font-size: clamp(3rem, 6vw, 6.4rem);
+  line-height: 0.9;
+  letter-spacing: -0.065em;
+}
+
+.evidence-intro > p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.75;
+}
+
+.workbook-showcase {
+  display: grid;
+  grid-template-columns: minmax(280px, 0.65fr) minmax(0, 1.35fr);
+  overflow: hidden;
+  border: 1px solid var(--ink);
+  border-radius: 24px;
+  background: var(--white);
+  box-shadow: var(--shadow);
+}
+
+.workbook-cover {
+  min-height: 520px;
+  display: flex;
+  flex-direction: column;
+  padding: 34px;
+  background:
+    radial-gradient(circle at 88% 12%, rgba(123, 194, 173, 0.22), transparent 30%),
+    var(--ink);
+  color: var(--white);
+}
+
+.workbook-app {
+  align-self: flex-start;
+  border: 1px solid rgba(255, 255, 255, 0.34);
+  border-radius: 7px;
+  padding: 6px 9px;
+  color: #7bc2ad;
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.1em;
+}
+
+.workbook-cover p {
+  margin: auto 0 12px;
+  color: #7bc2ad;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.workbook-cover h3 {
+  margin: 0;
+  font-size: clamp(2.7rem, 4.6vw, 5.2rem);
+  line-height: 0.88;
+  letter-spacing: -0.06em;
+}
+
+.workbook-cover small {
+  margin-top: 28px;
+  color: rgba(255, 255, 255, 0.62);
+  font-family: var(--mono);
+  font-size: 0.64rem;
+}
+
+.workbook-details {
+  padding: clamp(34px, 5vw, 76px);
+}
+
+.workbook-details > h3 {
+  max-width: 700px;
+  margin: 20px 0 36px;
+  font-size: clamp(2rem, 4vw, 4rem);
+  line-height: 0.98;
+  letter-spacing: -0.05em;
+}
+
+.workbook-details ol {
+  display: grid;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.workbook-details li {
+  display: grid;
+  grid-template-columns: 42px 1fr;
+  gap: 16px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+
+.workbook-details li span {
+  color: var(--green);
+  font-family: var(--mono);
+  font-size: 0.68rem;
+}
+
+.workbook-actions {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-top: 34px;
+}
+
+.workbook-actions span {
+  color: var(--muted);
+  font-family: var(--mono);
+  font-size: 0.62rem;
+}
+
+.source-library {
+  margin-top: 28px;
+  border: 1px solid var(--line-strong);
+  border-radius: 20px;
+  padding: 28px;
+  background: rgba(255, 253, 248, 0.65);
+}
+
+.source-library-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.source-library-heading h3 {
+  margin: 10px 0 0;
+  font-size: 1.55rem;
+}
+
+.source-library-heading > span {
+  color: var(--muted);
+  font-family: var(--mono);
+  font-size: 0.64rem;
+}
+
+.source-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+  margin-top: 24px;
+}
+
+.source-grid a {
+  min-height: 180px;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 18px;
+  background: var(--white);
+  text-decoration: none;
+  transition: border-color 160ms ease, transform 160ms ease;
+}
+
+.source-grid a:hover,
+.source-grid a:focus-visible {
+  border-color: var(--green);
+  transform: translateY(-2px);
+}
+
+.source-grid span {
+  color: var(--green);
+  font-family: var(--mono);
+  font-size: 0.58rem;
+  text-transform: uppercase;
+}
+
+.source-grid strong {
+  margin-top: auto;
+  font-size: 0.85rem;
+}
+
+.source-grid small {
+  margin-top: 8px;
+  color: var(--muted);
+  font-size: 0.64rem;
+  line-height: 1.5;
+}
+
 .method-section {
   padding: 110px 0 60px;
 }
@@ -1863,6 +2069,10 @@ footer p {
     grid-template-columns: repeat(2, 1fr);
   }
 
+  .source-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
   .method-grid article:nth-child(2) {
     border-right: 0;
   }
@@ -1915,9 +2125,22 @@ footer p {
 
   .section-heading,
   .method-heading,
+  .evidence-intro,
   .project-note,
   .policy-note {
     grid-template-columns: 1fr;
+  }
+
+  .workbook-showcase {
+    grid-template-columns: 1fr;
+  }
+
+  .workbook-cover {
+    min-height: 390px;
+  }
+
+  .source-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
 
   .section-heading {
@@ -1975,6 +2198,20 @@ footer p {
   .hero-actions,
   .hero-actions .button {
     width: 100%;
+  }
+
+  .workbook-actions,
+  .source-library-heading {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .workbook-actions {
+    display: flex;
+  }
+
+  .source-grid {
+    grid-template-columns: 1fr;
   }
 
   .brief-body {

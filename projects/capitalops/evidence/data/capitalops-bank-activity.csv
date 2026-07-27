@@ -1,0 +1,7 @@
+type,reference,amount,recorded_date,cleared_date,description
+Bank statement,APR-2026,2196870,2026-04-30,2026-04-30,Operating account ending balance
+Deposit in transit,DIT-0429,9300,2026-04-29,2026-05-01,Customer receipts recorded before bank processing
+Deposit in transit,DIT-0430,6100,2026-04-30,2026-05-01,Late-day lockbox settlement
+Outstanding check,10482,-12650,2026-04-27,,Facilities vendor
+Outstanding check,10491,-8900,2026-04-29,,IT services
+Outstanding check,10496,-6400,2026-04-30,,Property maintenance

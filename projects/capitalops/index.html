@@ -29,7 +29,7 @@
       href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&amp;family=Manrope:wght@400;500;600;700;800&amp;display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles.css?v=2" />
+    <link rel="stylesheet" href="styles.css?v=3" />
   </head>
   <body>
     <header class="site-header">
@@ -44,6 +44,7 @@
       <nav class="header-nav" aria-label="Project navigation">
         <a href="#case">Case</a>
         <a href="#control-room">Control room</a>
+        <a href="#evidence">Evidence</a>
         <a href="#method">Method</a>
         <a class="portfolio-link" href="../../">Portfolio</a>
       </nav>
@@ -62,6 +63,13 @@
 
           <div class="hero-actions">
             <a class="button button-primary" href="#control-room">Open the control room</a>
+            <a
+              class="button button-workbook"
+              href="downloads/CapitalOps_Close_Binder.xlsx"
+              download
+            >
+              Download Excel close binder
+            </a>
             <button class="button button-quiet" id="downloadCaseButton" type="button">
               Download exception log
             </button>
@@ -579,6 +587,88 @@
         </div>
       </section>
 
+      <section class="evidence-section" id="evidence" aria-labelledby="evidence-title">
+        <div class="evidence-intro">
+          <div>
+            <p class="eyebrow">Downloadable work sample</p>
+            <h2 id="evidence-title">Inspect the formulas behind the close.</h2>
+          </div>
+          <p>
+            The interactive case shows how I think. The Excel binder shows how I
+            work: linked reconciliations, supported journal entries, an adjusted
+            trial balance, financial statements, flux analysis, and automated
+            control checks.
+          </p>
+        </div>
+
+        <div class="workbook-showcase">
+          <div class="workbook-cover">
+            <span class="workbook-app">XLSX</span>
+            <p>CapitalOps</p>
+            <h3>Month-End<br />Close Binder</h3>
+            <small>April 2026 · Synthetic portfolio case</small>
+          </div>
+          <div class="workbook-details">
+            <p class="card-kicker">Employer review path</p>
+            <h3>One file. Eleven connected workpapers.</h3>
+            <ol>
+              <li><span>01</span> Start with the close control center.</li>
+              <li><span>02</span> Trace bank and AP differences to evidence.</li>
+              <li><span>03</span> Follow five entries into the adjusted trial balance.</li>
+              <li><span>04</span> Review financial statements and the income bridge.</li>
+              <li><span>05</span> Finish with eight automated PASS checks.</li>
+            </ol>
+            <div class="workbook-actions">
+              <a
+                class="button button-primary"
+                href="downloads/CapitalOps_Close_Binder.xlsx"
+                download
+              >
+                Download the Excel binder
+              </a>
+              <span>No macros · No external links · Formulas visible</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="source-library" aria-label="Synthetic source evidence">
+          <div class="source-library-heading">
+            <div>
+              <p class="card-kicker">Evidence room</p>
+              <h3>Source files used by the binder</h3>
+            </div>
+            <span>All data is fictional and interview-safe</span>
+          </div>
+          <div class="source-grid">
+            <a href="evidence/data/capitalops-raw-gl.csv" download>
+              <span>CSV · 24 accounts</span>
+              <strong>Raw general ledger</strong>
+              <small>Balanced unadjusted trial balance</small>
+            </a>
+            <a href="evidence/data/capitalops-bank-activity.csv" download>
+              <span>CSV · 6 items</span>
+              <strong>Bank activity</strong>
+              <small>Deposits in transit and outstanding checks</small>
+            </a>
+            <a href="evidence/data/capitalops-ap-subledger.csv" download>
+              <span>CSV · 4 records</span>
+              <strong>AP subledger</strong>
+              <small>Duplicate invoice exception support</small>
+            </a>
+            <a href="evidence/data/capitalops-prepaids.csv" download>
+              <span>CSV · 3 schedules</span>
+              <strong>Prepaid roll-forward</strong>
+              <small>Additions, amortization, and ending balances</small>
+            </a>
+            <a href="evidence/data/capitalops-fixed-assets.csv" download>
+              <span>CSV · 4 classes</span>
+              <strong>Fixed-asset support</strong>
+              <small>Addition, disposal, and depreciation bridge</small>
+            </a>
+          </div>
+        </div>
+      </section>
+
       <section class="method-section" id="method" aria-labelledby="method-title">
         <div class="section-heading method-heading">
           <div>
@@ -698,6 +788,6 @@
       </div>
     </dialog>
 
-    <script src="app.js?v=2"></script>
+    <script src="app.js?v=3"></script>
   </body>
 </html>

@@ -1,0 +1,25 @@
+account,account_name,class,workstream,debit,credit
+1000,Operating Cash,Asset,Cash,2184320,0
+1100,Accounts Receivable,Asset,Working capital,1250000,0
+1200,Prepaid Expenses,Asset,Working capital,423350,0
+1300,Supplies Inventory,Asset,Working capital,350000,0
+1500,Land,Asset,Fixed assets,2000000,0
+1510,Buildings,Asset,Fixed assets,10000000,0
+1520,Building Improvements,Asset,Fixed assets,2400000,0
+1530,Equipment,Asset,Fixed assets,1800000,0
+1590,Accumulated Depreciation,Contra asset,Fixed assets,0,6376590
+2000,Accounts Payable,Liability,Working capital,0,1479010
+2100,Accrued Liabilities,Liability,Accruals,0,186400
+2200,Deferred Revenue,Liability,Revenue,0,350000
+2300,Long-term Debt,Liability,Financing,0,7500000
+3000,Contributed Capital,Equity,Equity,0,3000000
+4000,Rental Revenue,Revenue,Revenue,0,4800000
+4100,Service Revenue,Revenue,Revenue,0,420000
+5000,Payroll Expense,Expense,Operating expense,1850000,0
+5100,Utilities Expense,Expense,Operating expense,560000,0
+5200,Repairs & Maintenance,Expense,Operating expense,318400,0
+5300,Depreciation Expense,Expense,Operating expense,284750,0
+5400,Insurance Expense,Expense,Operating expense,210000,0
+5500,Administrative Expense,Expense,Operating expense,270000,0
+5600,Interest Expense,Expense,Other expense,211180,0
+5700,Loss on Asset Disposal,Expense,Other expense,0,0

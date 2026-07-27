@@ -1,0 +1,5 @@
+asset_class,beginning_cost,additions,disposals,ending_cost,raw_accumulated_depreciation,adjustment_to_accumulated_depreciation,adjusted_accumulated_depreciation,net_book_value
+Land,2000000,0,0,2000000,0,0,0,2000000
+Buildings,10000000,0,0,10000000,4200000,21300,4221300,5778700
+Building improvements,2400000,64500,0,2464500,1100000,0,1100000,1364500
+Equipment,1800000,0,-70000,1730000,1076590,-44050,1032540,697460

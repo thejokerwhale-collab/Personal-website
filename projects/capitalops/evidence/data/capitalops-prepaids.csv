@@ -1,0 +1,4 @@
+category,beginning_balance,additions,amortization,ending_balance,support
+Property insurance,265000,48000,-24000,289000,Policy schedule
+Software licenses,89600,0,-8250,81350,License amortization schedule
+Service contracts,58000,0,-5000,53000,Service contract schedule

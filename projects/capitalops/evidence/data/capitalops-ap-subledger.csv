@@ -1,0 +1,5 @@
+vendor,invoice,posting_batch,amount,status,finding
+Northstar Facilities,NF-8842,AP-0426-A,42800,Valid,Original approved invoice
+Northstar Facilities,NF-8842,AP-0426-B,42800,Duplicate,Duplicate upload bypassed batch check
+Crescent Utility Services,CUS-4197,AP-0426-A,86400,Valid,April utility accrual
+Portfolio vendor population,APR-2026,AP-0426-A,1352810,Valid,Remaining vendor subledger
