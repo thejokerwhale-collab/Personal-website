@@ -173,6 +173,73 @@ const assetRecords = [
   ["FA-09610", "Emergency generator", "Linden Hall", "01/10/2024", 184000, 162533, "Active"],
 ];
 
+const closeTasks = [
+  {
+    id: "CL-01",
+    title: "Import and validate trial balance and subledgers",
+    detail: "Confirm period, entity, account mapping, and source completeness.",
+    due: "Day 1",
+    staticComplete: true,
+    requires: [],
+  },
+  {
+    id: "CL-02",
+    title: "Prepare operating cash reconciliation",
+    detail: "Tie adjusted bank balance to the general ledger with reconciling items.",
+    due: "Day 1",
+    staticComplete: true,
+    requires: [],
+  },
+  {
+    id: "CL-03",
+    title: "Reconcile AP subledger to the general ledger",
+    detail: "Clear the duplicate invoice difference and document the correcting entry.",
+    due: "Day 2",
+    staticComplete: false,
+    requires: ["EX-01"],
+  },
+  {
+    id: "CL-04",
+    title: "Review accruals and prepaid expense schedules",
+    detail: "Trace recurring schedules and conclude that no additional April entry is required.",
+    due: "Day 2",
+    staticComplete: true,
+    requires: [],
+  },
+  {
+    id: "CL-05",
+    title: "Complete fixed-asset roll-forward",
+    detail: "Review additions, disposals, depreciation, and useful-life classifications.",
+    due: "Day 3",
+    staticComplete: false,
+    requires: ["EX-02", "EX-03", "EX-04", "EX-05"],
+  },
+  {
+    id: "CL-06",
+    title: "Review capital commitments and approvals",
+    detail: "Resolve the unsupported $1.28 million commitment before release.",
+    due: "Day 3",
+    staticComplete: false,
+    requires: ["EX-06"],
+  },
+  {
+    id: "CL-07",
+    title: "Post approved adjusting entries",
+    detail: "Confirm balanced debits and credits and retain controller approval.",
+    due: "Day 4",
+    staticComplete: false,
+    requires: ["EX-01", "EX-02", "EX-03", "EX-04", "EX-05"],
+  },
+  {
+    id: "CL-08",
+    title: "Prepare flux explanations and close package",
+    detail: "Explain adjusted results and provide the controller memo for review.",
+    due: "Day 4",
+    staticComplete: false,
+    requires: ["EX-01", "EX-02", "EX-03", "EX-04", "EX-05", "EX-06"],
+  },
+];
+
 const state = {
   clearedIds: new Set(),
   selectedId: exceptions[0].id,
@@ -230,6 +297,32 @@ function renderBudgetChart() {
 function filteredExceptions() {
   if (state.filter === "all") return exceptions;
   return exceptions.filter((item) => item.category === state.filter);
+}
+
+function isCloseTaskComplete(task) {
+  return task.staticComplete || task.requires.every((exceptionId) => state.clearedIds.has(exceptionId));
+}
+
+function renderCloseTasks() {
+  const taskList = document.querySelector("#closeTaskList");
+  taskList.innerHTML = closeTasks
+    .map((task) => {
+      const isComplete = isCloseTaskComplete(task);
+      return `
+        <article class="close-task ${isComplete ? "complete" : ""}">
+          <span class="close-task-check" aria-hidden="true">${isComplete ? "✓" : ""}</span>
+          <div class="close-task-copy">
+            <strong>${task.title}</strong>
+            <p>${task.detail}</p>
+          </div>
+          <div class="close-task-meta">
+            <span>${task.id}</span>
+            <strong>${task.due}</strong>
+          </div>
+        </article>
+      `;
+    })
+    .join("");
 }
 
 function renderExceptionList() {
@@ -356,7 +449,8 @@ function updateDashboard() {
 
   const grossCorrections = openAccounting.reduce((sum, item) => sum + item.amount, 0);
   const incomeImpact = openAccounting.reduce((sum, item) => sum + item.incomeImpact, 0);
-  const progress = 50 + Math.round((state.clearedIds.size / exceptions.length) * 50);
+  const completedCloseTasks = closeTasks.filter(isCloseTaskComplete).length;
+  const progress = Math.round((completedCloseTasks / closeTasks.length) * 100);
 
   document.querySelector("#openExceptionMetric").textContent = openItems.length;
   document.querySelector("#tabExceptionCount").textContent = openItems.length;
@@ -376,11 +470,31 @@ function updateDashboard() {
   document.querySelector("#lowRiskCount").textContent = openItems.filter((item) => item.severity === "low").length;
   document.querySelector("#workflowPercent").textContent = `${progress}%`;
   document.querySelector("#workflowProgressBar").style.width = `${progress}%`;
+  document.querySelector("#closeTaskCount").textContent = `${completedCloseTasks} of ${closeTasks.length} ready`;
+  document.querySelector("#closeTaskTabCount").textContent = `${completedCloseTasks}/${closeTasks.length}`;
+
+  const apReconciled = state.clearedIds.has("EX-01");
+  const apReconState = document.querySelector("#apReconState");
+  apReconState.textContent = apReconciled ? "Reconciled" : "Difference open";
+  apReconState.className = `reconciliation-state ${apReconciled ? "ready" : "review"}`;
+
+  const openAssetExceptions = ["EX-02", "EX-03", "EX-04", "EX-05"].filter(
+    (exceptionId) => !state.clearedIds.has(exceptionId),
+  ).length;
+  const faReconState = document.querySelector("#faReconState");
+  faReconState.textContent = openAssetExceptions ? `${openAssetExceptions} item${openAssetExceptions === 1 ? "" : "s"} open` : "Reconciled";
+  faReconState.className = `reconciliation-state ${openAssetExceptions ? "review" : "ready"}`;
+  renderCloseTasks();
 
   const reviewStep = document.querySelector("#workflowReviewStep");
   const postStep = document.querySelector("#workflowPostStep");
-  reviewStep.classList.toggle("complete", openItems.length === 0);
-  postStep.classList.toggle("complete", openItems.length === 0);
+  const memoStep = document.querySelector("#workflowMemoStep");
+  const accountingItemsCleared = ["EX-01", "EX-02", "EX-03", "EX-04", "EX-05"].every(
+    (exceptionId) => state.clearedIds.has(exceptionId),
+  );
+  reviewStep.classList.toggle("complete", accountingItemsCleared);
+  postStep.classList.toggle("complete", accountingItemsCleared);
+  memoStep.classList.toggle("complete", openItems.length === 0);
 
   const closeStatus = document.querySelector(".close-status");
   const closeStatusText = document.querySelector("#closeStatusText");
@@ -479,6 +593,19 @@ document.querySelectorAll(".tab-button").forEach((button) => {
 
 document.querySelectorAll("[data-open-panel]").forEach((button) => {
   button.addEventListener("click", () => openPanel(button.dataset.openPanel));
+});
+
+document.querySelectorAll("[data-open-exception]").forEach((button) => {
+  button.addEventListener("click", () => {
+    state.filter = "all";
+    state.selectedId = button.dataset.openException;
+    document.querySelectorAll(".filter-button").forEach((filterButton) => {
+      filterButton.classList.toggle("active", filterButton.dataset.filter === "all");
+    });
+    renderExceptionList();
+    renderExceptionDetail();
+    openPanel("exceptionsPanel");
+  });
 });
 
 document.querySelectorAll(".filter-button").forEach((button) => {

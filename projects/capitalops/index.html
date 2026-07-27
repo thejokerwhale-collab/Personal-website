@@ -5,13 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="CapitalOps is a fictional facilities-finance case study demonstrating fixed-asset accounting, close controls, capital planning, journal entries, and management reporting."
+      content="CapitalOps is a fictional staff-accounting case demonstrating month-end close, reconciliations, adjusting entries, fixed assets, variance analysis, and management reporting."
     />
     <meta property="og:type" content="website" />
     <meta property="og:title" content="CapitalOps | Facilities Finance &amp; Controls Lab" />
     <meta
       property="og:description"
-      content="Investigate a fictional April close through fixed-asset workpapers, correcting entries, capital controls, and a management-ready memo."
+      content="Complete a fictional April close through account reconciliations, adjusting entries, fixed-asset workpapers, variance analysis, and a management-ready memo."
     />
     <meta property="og:url" content="https://gregorymstiles.com/projects/capitalops/" />
     <meta property="og:image" content="https://gregorymstiles.com/projects/capitalops/og.png" />
@@ -19,7 +19,7 @@
     <meta name="twitter:title" content="CapitalOps | Facilities Finance &amp; Controls Lab" />
     <meta
       name="twitter:description"
-      content="A fictional facilities-finance close and controls case by Greg Stiles."
+      content="A fictional month-end close and staff-accounting case by Greg Stiles."
     />
     <meta name="twitter:image" content="https://gregorymstiles.com/projects/capitalops/og.png" />
     <title>CapitalOps | Facilities Finance &amp; Controls Lab</title>
@@ -29,7 +29,7 @@
       href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&amp;family=Manrope:wght@400;500;600;700;800&amp;display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles.css?v=1" />
+    <link rel="stylesheet" href="styles.css?v=2" />
   </head>
   <body>
     <header class="site-header">
@@ -37,7 +37,7 @@
         <span class="brand-mark">CO</span>
         <span>
           <strong>CapitalOps</strong>
-          <small>Facilities Finance &amp; Controls Lab</small>
+          <small>Month-End Close &amp; Capital Accounting</small>
         </span>
       </a>
 
@@ -52,12 +52,12 @@
     <main>
       <section class="hero" id="case">
         <div class="hero-copy">
-          <p class="eyebrow">Fictional accounting case · April 2026 close</p>
-          <h1>Turn operating records into financial control.</h1>
+          <p class="eyebrow">Staff accounting case · April 2026 close</p>
+          <h1>Turn operating records into a clean month-end close.</h1>
           <p class="hero-intro">
-            A simulated 16-property housing portfolio with planted accounting
-            exceptions, fixed-asset workpapers, capital approvals, adjusting
-            entries, and an executive close memo.
+            Reconcile cash, accounts payable, and fixed assets; investigate
+            exceptions; prepare adjusting entries; explain P&amp;L variances; and
+            deliver a management-ready close package.
           </p>
 
           <div class="hero-actions">
@@ -70,46 +70,46 @@
 
         <aside class="case-brief" aria-label="Case brief">
           <div class="brief-header">
-            <p>Controller brief</p>
+            <p>Staff accountant brief</p>
             <span>CRH-0426</span>
           </div>
           <div class="brief-body">
             <p class="brief-company">Crescent Ridge Housing</p>
-            <h2>Close the books. Protect the capital plan.</h2>
+            <h2>Reconcile. Adjust. Explain.</h2>
             <p>
-              Reconcile the asset subledger, investigate exceptions, prepare
-              correcting entries, and explain the financial impact to management.
+              Complete the recurring close work, clear unsupported differences,
+              and give the controller a concise explanation of the final numbers.
             </p>
           </div>
           <dl class="brief-facts">
             <div>
-              <dt>Properties</dt>
-              <dd>16</dd>
+              <dt>Close tasks</dt>
+              <dd>8</dd>
             </div>
             <div>
-              <dt>Assets tested</dt>
-              <dd>1,284</dd>
+              <dt>Reconciliations</dt>
+              <dd>3</dd>
             </div>
             <div>
-              <dt>Open items</dt>
-              <dd>6</dd>
+              <dt>Proposed entries</dt>
+              <dd>5</dd>
             </div>
           </dl>
         </aside>
       </section>
 
       <section class="case-principles" aria-label="Project principles">
-        <p><span>01</span> Synthetic records only</p>
-        <p><span>02</span> Known-answer testing</p>
-        <p><span>03</span> Evidence before conclusion</p>
-        <p><span>04</span> Management-ready output</p>
+        <p><span>01</span> Cash &amp; AP tie-outs</p>
+        <p><span>02</span> Accrual &amp; prepaid review</p>
+        <p><span>03</span> Fixed-asset accounting</p>
+        <p><span>04</span> Variance explanations</p>
       </section>
 
       <section class="control-room" id="control-room" aria-labelledby="control-title">
         <div class="section-heading">
           <div>
-            <p class="eyebrow">Interactive workpaper</p>
-            <h2 id="control-title">April close control room</h2>
+            <p class="eyebrow">Interactive close binder</p>
+            <h2 id="control-title">April close workspace</h2>
           </div>
           <div class="close-status">
             <span class="status-dot"></span>
@@ -141,7 +141,18 @@
               data-panel="overviewPanel"
               type="button"
             >
-              Executive overview
+              Close overview
+            </button>
+            <button
+              class="tab-button"
+              id="closeTab"
+              role="tab"
+              aria-selected="false"
+              aria-controls="closePanel"
+              data-panel="closePanel"
+              type="button"
+            >
+              Close checklist <span id="closeTaskTabCount">3/8</span>
             </button>
             <button
               class="tab-button"
@@ -152,7 +163,7 @@
               data-panel="exceptionsPanel"
               type="button"
             >
-              Exception workpapers <span id="tabExceptionCount">6</span>
+              Reconciliation exceptions <span id="tabExceptionCount">6</span>
             </button>
             <button
               class="tab-button"
@@ -292,19 +303,182 @@
                       <p class="card-kicker">Close workflow</p>
                       <h3>Review progress</h3>
                     </div>
-                    <span id="workflowPercent">50%</span>
+                    <span id="workflowPercent">38%</span>
                   </div>
                   <div class="progress-track" aria-hidden="true">
-                    <span id="workflowProgressBar" style="width: 50%"></span>
+                    <span id="workflowProgressBar" style="width: 38%"></span>
                   </div>
                   <ol class="workflow-list">
                     <li class="complete"><span>1</span>Import and validate source records</li>
-                    <li class="complete"><span>2</span>Reconcile ledger to asset detail</li>
-                    <li id="workflowReviewStep"><span>3</span>Investigate and clear exceptions</li>
-                    <li id="workflowPostStep"><span>4</span>Post entries and issue management memo</li>
+                    <li id="workflowReviewStep"><span>2</span>Reconcile cash, AP, and fixed assets</li>
+                    <li id="workflowPostStep"><span>3</span>Prepare and post adjusting entries</li>
+                    <li id="workflowMemoStep"><span>4</span>Explain variances and issue close memo</li>
                   </ol>
                 </article>
               </div>
+            </section>
+
+            <section
+              class="dashboard-panel"
+              id="closePanel"
+              role="tabpanel"
+              aria-labelledby="closeTab"
+              hidden
+            >
+              <div class="workpaper-toolbar">
+                <div>
+                  <p class="card-kicker">WP-CL-01</p>
+                  <h3>Month-end close checklist</h3>
+                </div>
+                <div class="close-count-badge" id="closeTaskCount">3 of 8 ready</div>
+              </div>
+
+              <div class="close-workspace-grid">
+                <article class="close-checklist-card">
+                  <div class="close-card-heading">
+                    <div>
+                      <span>Prepared by</span>
+                      <strong>Staff Accountant</strong>
+                    </div>
+                    <div>
+                      <span>Reviewer</span>
+                      <strong>Controller</strong>
+                    </div>
+                    <div>
+                      <span>Due</span>
+                      <strong>Close Day 4</strong>
+                    </div>
+                  </div>
+                  <div class="close-task-list" id="closeTaskList"></div>
+                </article>
+
+                <div class="reconciliation-stack">
+                  <article class="reconciliation-summary">
+                    <div class="reconciliation-title">
+                      <div>
+                        <p class="card-kicker">WP-CASH-01</p>
+                        <h3>Operating cash</h3>
+                      </div>
+                      <span class="reconciliation-state ready">Reconciled</span>
+                    </div>
+                    <dl>
+                      <div><dt>Bank statement</dt><dd>$2,196,870</dd></div>
+                      <div><dt>Deposits in transit</dt><dd>+$15,400</dd></div>
+                      <div><dt>Outstanding checks</dt><dd>−$27,950</dd></div>
+                      <div class="reconciliation-total"><dt>Adjusted bank / GL</dt><dd>$2,184,320</dd></div>
+                    </dl>
+                  </article>
+
+                  <article class="reconciliation-summary">
+                    <div class="reconciliation-title">
+                      <div>
+                        <p class="card-kicker">WP-AP-01</p>
+                        <h3>Accounts payable</h3>
+                      </div>
+                      <span class="reconciliation-state review" id="apReconState">Difference open</span>
+                    </div>
+                    <dl>
+                      <div><dt>AP general ledger</dt><dd>$1,479,010</dd></div>
+                      <div><dt>Vendor subledger</dt><dd>$1,436,210</dd></div>
+                      <div class="reconciliation-total"><dt>Unadjusted difference</dt><dd>$42,800</dd></div>
+                    </dl>
+                    <button class="reconciliation-link" data-open-exception="EX-01" type="button">
+                      Review duplicate invoice &rarr;
+                    </button>
+                  </article>
+
+                  <article class="reconciliation-summary">
+                    <div class="reconciliation-title">
+                      <div>
+                        <p class="card-kicker">WP-FA-01</p>
+                        <h3>Fixed assets</h3>
+                      </div>
+                      <span class="reconciliation-state review" id="faReconState">4 items open</span>
+                    </div>
+                    <dl>
+                      <div><dt>General ledger</dt><dd>$9,823,410</dd></div>
+                      <div><dt>Net proposed adjustments</dt><dd>+$17,250</dd></div>
+                      <div class="reconciliation-total"><dt>Adjusted subledger</dt><dd>$9,840,660</dd></div>
+                    </dl>
+                    <button class="reconciliation-link" data-open-exception="EX-02" type="button">
+                      Review asset exceptions &rarr;
+                    </button>
+                  </article>
+
+                  <article class="reconciliation-summary">
+                    <div class="reconciliation-title">
+                      <div>
+                        <p class="card-kicker">WP-SCH-01</p>
+                        <h3>Accruals &amp; prepaids</h3>
+                      </div>
+                      <span class="reconciliation-state ready">Reviewed</span>
+                    </div>
+                    <dl>
+                      <div><dt>Recurring accruals</dt><dd>$186,400</dd></div>
+                      <div><dt>Prepaid additions</dt><dd>+$48,000</dd></div>
+                      <div><dt>April amortization</dt><dd>−$37,250</dd></div>
+                      <div class="reconciliation-total"><dt>Ending prepaid balance</dt><dd>$423,350</dd></div>
+                    </dl>
+                  </article>
+                </div>
+              </div>
+
+              <article class="flux-card">
+                <div class="flux-heading">
+                  <div>
+                    <p class="card-kicker">WP-PL-01</p>
+                    <h3>Expense flux analysis</h3>
+                  </div>
+                  <div class="flux-impact">
+                    <span>Net pre-tax correction</span>
+                    <strong>+$60,050</strong>
+                  </div>
+                </div>
+                <div class="table-wrap">
+                  <table class="flux-table">
+                    <thead>
+                      <tr>
+                        <th>Account</th>
+                        <th>Unadjusted</th>
+                        <th>Close entries</th>
+                        <th>Adjusted</th>
+                        <th>Budget</th>
+                        <th>Variance</th>
+                        <th>Explanation</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Repairs &amp; maintenance</td>
+                        <td>$318,400</td>
+                        <td class="favorable">−$107,300</td>
+                        <td>$211,100</td>
+                        <td>$240,000</td>
+                        <td class="favorable">$28,900 F</td>
+                        <td>Duplicate invoice removed; qualifying access project capitalized.</td>
+                      </tr>
+                      <tr>
+                        <td>Depreciation</td>
+                        <td>$284,750</td>
+                        <td class="unfavorable">+$28,650</td>
+                        <td>$313,400</td>
+                        <td>$305,000</td>
+                        <td class="unfavorable">$8,400 U</td>
+                        <td>March additions and corrected security-equipment life.</td>
+                      </tr>
+                      <tr>
+                        <td>Loss on disposal</td>
+                        <td>$0</td>
+                        <td class="unfavorable">+$18,600</td>
+                        <td>$18,600</td>
+                        <td>$0</td>
+                        <td class="unfavorable">$18,600 U</td>
+                        <td>Remaining book value of retired laundry equipment.</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </article>
             </section>
 
             <section
@@ -316,8 +490,8 @@
             >
               <div class="workpaper-toolbar">
                 <div>
-                  <p class="card-kicker">WP-FA-04</p>
-                  <h3>Exception investigation</h3>
+                  <p class="card-kicker">WP-REC-04</p>
+                  <h3>Reconciliation exception follow-up</h3>
                 </div>
                 <div class="filter-group" aria-label="Filter exceptions">
                   <button class="filter-button active" data-filter="all" type="button">All</button>
@@ -408,46 +582,46 @@
       <section class="method-section" id="method" aria-labelledby="method-title">
         <div class="section-heading method-heading">
           <div>
-            <p class="eyebrow">How the case was built</p>
-            <h2 id="method-title">Judgment first. Technology second.</h2>
+            <p class="eyebrow">Staff accountant workflow</p>
+            <h2 id="method-title">Reconcile first. Explain the number.</h2>
           </div>
           <p>
-            The project begins with accounting policy, expected answers, and
-            control objectives. The interface makes that work inspectable.
+            The case follows the recurring close cycle from source records to
+            tied-out balances, posted entries, variance explanations, and review.
           </p>
         </div>
 
         <div class="method-grid">
           <article>
             <span>01</span>
-            <h3>Define</h3>
+            <h3>Organize</h3>
             <p>
-              Establish the capitalization policy, approval matrix, useful lives,
-              reconciliation objective, and close assertions.
+              Import the trial balance and subledgers, confirm the reporting
+              period, and sequence eight close responsibilities by due date.
             </p>
           </article>
           <article>
             <span>02</span>
-            <h3>Plant</h3>
+            <h3>Reconcile</h3>
             <p>
-              Insert six known exceptions into synthetic invoices, asset records,
-              disposal evidence, and project approvals.
+              Tie cash to the bank statement, AP to vendor detail, and fixed
+              assets to the roll-forward before accepting the ledger balances.
             </p>
           </article>
           <article>
             <span>03</span>
-            <h3>Investigate</h3>
+            <h3>Adjust</h3>
             <p>
-              Trace every conclusion to evidence, quantify the impact, prepare
-              entries, and recommend a preventive control.
+              Research differences, document support, prepare balanced entries,
+              and route unusual items to the controller for approval.
             </p>
           </article>
           <article>
             <span>04</span>
-            <h3>Communicate</h3>
+            <h3>Explain</h3>
             <p>
-              Translate the workpapers into a concise controller memo focused on
-              the close, capital plan, and management action.
+              Compare adjusted expenses with budget and translate the close into
+              clear explanations for the controller and management.
             </p>
           </article>
         </div>
@@ -474,8 +648,9 @@
         <p>
           Crescent Ridge Housing is fictional. All names, amounts, records, and
           conclusions were created for this portfolio case. The project is
-          designed to demonstrate accounting reasoning, operational controls,
-          data analysis, and management communication.
+          designed to demonstrate month-end close discipline, account
+          reconciliation, journal-entry preparation, accounting judgment,
+          operational awareness, and management communication.
         </p>
       </section>
     </main>
@@ -523,6 +698,6 @@
       </div>
     </dialog>
 
-    <script src="app.js?v=1"></script>
+    <script src="app.js?v=2"></script>
   </body>
 </html>
