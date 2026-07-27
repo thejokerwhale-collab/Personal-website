@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="CapitalOps is a fictional facilities-finance case study demonstrating fixed-asset accounting, close controls, capital planning, journal entries, and management reporting."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="CapitalOps | Facilities Finance &amp; Controls Lab" />
+    <meta
+      property="og:description"
+      content="Investigate a fictional April close through fixed-asset workpapers, correcting entries, capital controls, and a management-ready memo."
+    />
+    <meta property="og:url" content="https://gregorymstiles.com/projects/capitalops/" />
+    <meta property="og:image" content="https://gregorymstiles.com/projects/capitalops/og.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="CapitalOps | Facilities Finance &amp; Controls Lab" />
+    <meta
+      name="twitter:description"
+      content="A fictional facilities-finance close and controls case by Greg Stiles."
+    />
+    <meta name="twitter:image" content="https://gregorymstiles.com/projects/capitalops/og.png" />
+    <title>CapitalOps | Facilities Finance &amp; Controls Lab</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&amp;family=Manrope:wght@400;500;600;700;800&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css?v=1" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="../../" aria-label="Return to Greg Stiles portfolio">
+        <span class="brand-mark">CO</span>
+        <span>
+          <strong>CapitalOps</strong>
+          <small>Facilities Finance &amp; Controls Lab</small>
+        </span>
+      </a>
+
+      <nav class="header-nav" aria-label="Project navigation">
+        <a href="#case">Case</a>
+        <a href="#control-room">Control room</a>
+        <a href="#method">Method</a>
+        <a class="portfolio-link" href="../../">Portfolio</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero" id="case">
+        <div class="hero-copy">
+          <p class="eyebrow">Fictional accounting case · April 2026 close</p>
+          <h1>Turn operating records into financial control.</h1>
+          <p class="hero-intro">
+            A simulated 16-property housing portfolio with planted accounting
+            exceptions, fixed-asset workpapers, capital approvals, adjusting
+            entries, and an executive close memo.
+          </p>
+
+          <div class="hero-actions">
+            <a class="button button-primary" href="#control-room">Open the control room</a>
+            <button class="button button-quiet" id="downloadCaseButton" type="button">
+              Download exception log
+            </button>
+          </div>
+        </div>
+
+        <aside class="case-brief" aria-label="Case brief">
+          <div class="brief-header">
+            <p>Controller brief</p>
+            <span>CRH-0426</span>
+          </div>
+          <div class="brief-body">
+            <p class="brief-company">Crescent Ridge Housing</p>
+            <h2>Close the books. Protect the capital plan.</h2>
+            <p>
+              Reconcile the asset subledger, investigate exceptions, prepare
+              correcting entries, and explain the financial impact to management.
+            </p>
+          </div>
+          <dl class="brief-facts">
+            <div>
+              <dt>Properties</dt>
+              <dd>16</dd>
+            </div>
+            <div>
+              <dt>Assets tested</dt>
+              <dd>1,284</dd>
+            </div>
+            <div>
+              <dt>Open items</dt>
+              <dd>6</dd>
+            </div>
+          </dl>
+        </aside>
+      </section>
+
+      <section class="case-principles" aria-label="Project principles">
+        <p><span>01</span> Synthetic records only</p>
+        <p><span>02</span> Known-answer testing</p>
+        <p><span>03</span> Evidence before conclusion</p>
+        <p><span>04</span> Management-ready output</p>
+      </section>
+
+      <section class="control-room" id="control-room" aria-labelledby="control-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Interactive workpaper</p>
+            <h2 id="control-title">April close control room</h2>
+          </div>
+          <div class="close-status">
+            <span class="status-dot"></span>
+            <span id="closeStatusText">Close review in progress</span>
+          </div>
+        </div>
+
+        <div class="dashboard-shell">
+          <div class="dashboard-topbar">
+            <div class="period-control">
+              <span>Reporting period</span>
+              <strong>April 30, 2026</strong>
+            </div>
+            <div class="topbar-actions">
+              <button class="text-button" id="resetCaseButton" type="button">Reset case</button>
+              <button class="button button-small" id="memoButton" type="button">
+                Open controller memo
+              </button>
+            </div>
+          </div>
+
+          <div class="dashboard-tabs" role="tablist" aria-label="CapitalOps views">
+            <button
+              class="tab-button active"
+              id="overviewTab"
+              role="tab"
+              aria-selected="true"
+              aria-controls="overviewPanel"
+              data-panel="overviewPanel"
+              type="button"
+            >
+              Executive overview
+            </button>
+            <button
+              class="tab-button"
+              id="exceptionsTab"
+              role="tab"
+              aria-selected="false"
+              aria-controls="exceptionsPanel"
+              data-panel="exceptionsPanel"
+              type="button"
+            >
+              Exception workpapers <span id="tabExceptionCount">6</span>
+            </button>
+            <button
+              class="tab-button"
+              id="assetsTab"
+              role="tab"
+              aria-selected="false"
+              aria-controls="assetsPanel"
+              data-panel="assetsPanel"
+              type="button"
+            >
+              Asset register
+            </button>
+            <button
+              class="tab-button"
+              id="entriesTab"
+              role="tab"
+              aria-selected="false"
+              aria-controls="entriesPanel"
+              data-panel="entriesPanel"
+              type="button"
+            >
+              Journal entries
+            </button>
+          </div>
+
+          <div class="dashboard-panels">
+            <section
+              class="dashboard-panel active"
+              id="overviewPanel"
+              role="tabpanel"
+              aria-labelledby="overviewTab"
+            >
+              <div class="metric-grid">
+                <article class="metric-card">
+                  <div class="metric-label">
+                    <span>Asset subledger</span>
+                    <span class="metric-state good">Reconciled</span>
+                  </div>
+                  <strong>$9.84M</strong>
+                  <p>Net book value after proposed adjustments</p>
+                </article>
+                <article class="metric-card">
+                  <div class="metric-label">
+                    <span>Open exceptions</span>
+                    <span class="metric-state warning" id="openMetricState">Review</span>
+                  </div>
+                  <strong id="openExceptionMetric">6</strong>
+                  <p id="openExceptionCaption">5 accounting · 1 control</p>
+                </article>
+                <article class="metric-card">
+                  <div class="metric-label">
+                    <span>Gross corrections</span>
+                    <span class="metric-state neutral">Proposed</span>
+                  </div>
+                  <strong id="grossCorrectionMetric">$154.6K</strong>
+                  <p>Absolute value of adjusting items</p>
+                </article>
+                <article class="metric-card metric-card-dark">
+                  <div class="metric-label">
+                    <span>Pre-tax income impact</span>
+                    <span class="metric-state inverted">If posted</span>
+                  </div>
+                  <strong id="incomeImpactMetric">+$60.1K</strong>
+                  <p>Net improvement to April operating result</p>
+                </article>
+              </div>
+
+              <div class="overview-grid">
+                <article class="dashboard-card capital-card">
+                  <div class="card-heading">
+                    <div>
+                      <p class="card-kicker">Capital plan</p>
+                      <h3>Budget vs. forecast</h3>
+                    </div>
+                    <span>$4.38M active</span>
+                  </div>
+                  <div class="budget-chart" id="budgetChart"></div>
+                  <div class="chart-legend">
+                    <span><i class="legend-budget"></i>Approved budget</span>
+                    <span><i class="legend-forecast"></i>Current forecast</span>
+                  </div>
+                </article>
+
+                <article class="dashboard-card risk-card">
+                  <div class="card-heading">
+                    <div>
+                      <p class="card-kicker">Close risk</p>
+                      <h3>Exception profile</h3>
+                    </div>
+                    <button class="arrow-button" data-open-panel="exceptionsPanel" type="button" aria-label="Open exception workpapers">
+                      &rarr;
+                    </button>
+                  </div>
+                  <div class="risk-ring-wrap">
+                    <div class="risk-ring" id="riskRing" aria-label="6 open exceptions">
+                      <span id="riskRingCount">6</span>
+                    </div>
+                    <div class="risk-breakdown">
+                      <p><span class="severity-dot high"></span><strong id="highRiskCount">3</strong> High priority</p>
+                      <p><span class="severity-dot medium"></span><strong id="mediumRiskCount">2</strong> Medium priority</p>
+                      <p><span class="severity-dot low"></span><strong id="lowRiskCount">1</strong> Control follow-up</p>
+                    </div>
+                  </div>
+                </article>
+
+                <article class="dashboard-card reconciliation-card">
+                  <div class="card-heading">
+                    <div>
+                      <p class="card-kicker">Fixed assets</p>
+                      <h3>Subledger reconciliation</h3>
+                    </div>
+                    <span class="recon-badge">Tie-out prepared</span>
+                  </div>
+                  <div class="recon-rows">
+                    <div>
+                      <span>General ledger balance</span>
+                      <strong>$9,823,410</strong>
+                    </div>
+                    <div>
+                      <span>Net proposed asset adjustments</span>
+                      <strong id="assetAdjustmentValue">+$17,250</strong>
+                    </div>
+                    <div class="recon-total">
+                      <span>Adjusted subledger balance</span>
+                      <strong>$9,840,660</strong>
+                    </div>
+                  </div>
+                  <p class="recon-note">
+                    Prepared from the asset register, disposal log, invoice detail,
+                    and April depreciation workpaper.
+                  </p>
+                </article>
+
+                <article class="dashboard-card workflow-card">
+                  <div class="card-heading">
+                    <div>
+                      <p class="card-kicker">Close workflow</p>
+                      <h3>Review progress</h3>
+                    </div>
+                    <span id="workflowPercent">50%</span>
+                  </div>
+                  <div class="progress-track" aria-hidden="true">
+                    <span id="workflowProgressBar" style="width: 50%"></span>
+                  </div>
+                  <ol class="workflow-list">
+                    <li class="complete"><span>1</span>Import and validate source records</li>
+                    <li class="complete"><span>2</span>Reconcile ledger to asset detail</li>
+                    <li id="workflowReviewStep"><span>3</span>Investigate and clear exceptions</li>
+                    <li id="workflowPostStep"><span>4</span>Post entries and issue management memo</li>
+                  </ol>
+                </article>
+              </div>
+            </section>
+
+            <section
+              class="dashboard-panel"
+              id="exceptionsPanel"
+              role="tabpanel"
+              aria-labelledby="exceptionsTab"
+              hidden
+            >
+              <div class="workpaper-toolbar">
+                <div>
+                  <p class="card-kicker">WP-FA-04</p>
+                  <h3>Exception investigation</h3>
+                </div>
+                <div class="filter-group" aria-label="Filter exceptions">
+                  <button class="filter-button active" data-filter="all" type="button">All</button>
+                  <button class="filter-button" data-filter="accounting" type="button">Accounting</button>
+                  <button class="filter-button" data-filter="control" type="button">Control</button>
+                </div>
+              </div>
+
+              <div class="workpaper-layout">
+                <div class="exception-list" id="exceptionList" aria-label="Exception list"></div>
+                <article class="exception-detail" id="exceptionDetail" aria-live="polite"></article>
+              </div>
+            </section>
+
+            <section
+              class="dashboard-panel"
+              id="assetsPanel"
+              role="tabpanel"
+              aria-labelledby="assetsTab"
+              hidden
+            >
+              <div class="workpaper-toolbar">
+                <div>
+                  <p class="card-kicker">WP-FA-01</p>
+                  <h3>Fixed-asset register</h3>
+                </div>
+                <label class="search-control">
+                  <span class="sr-only">Search asset register</span>
+                  <input id="assetSearch" type="search" placeholder="Search assets or properties" />
+                </label>
+              </div>
+
+              <div class="table-wrap">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Asset ID</th>
+                      <th>Description</th>
+                      <th>Property</th>
+                      <th>Placed in service</th>
+                      <th>Cost</th>
+                      <th>Net book value</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody id="assetTableBody"></tbody>
+                </table>
+              </div>
+              <p class="table-note">
+                Representative records are shown. The simulated source population
+                contains 1,284 assets across 16 properties.
+              </p>
+            </section>
+
+            <section
+              class="dashboard-panel"
+              id="entriesPanel"
+              role="tabpanel"
+              aria-labelledby="entriesTab"
+              hidden
+            >
+              <div class="workpaper-toolbar">
+                <div>
+                  <p class="card-kicker">WP-JE-04</p>
+                  <h3>Proposed adjusting entries</h3>
+                </div>
+                <button class="button button-small button-dark" id="downloadEntriesButton" type="button">
+                  Export entries
+                </button>
+              </div>
+              <div class="entry-summary">
+                <p>
+                  Five entries correct the accounting exceptions. The sixth item
+                  is a capital-approval control issue and does not require an April
+                  journal entry.
+                </p>
+                <div>
+                  <span>Net pre-tax income effect</span>
+                  <strong>+$60,050</strong>
+                </div>
+              </div>
+              <div class="journal-list" id="journalList"></div>
+            </section>
+          </div>
+        </div>
+      </section>
+
+      <section class="method-section" id="method" aria-labelledby="method-title">
+        <div class="section-heading method-heading">
+          <div>
+            <p class="eyebrow">How the case was built</p>
+            <h2 id="method-title">Judgment first. Technology second.</h2>
+          </div>
+          <p>
+            The project begins with accounting policy, expected answers, and
+            control objectives. The interface makes that work inspectable.
+          </p>
+        </div>
+
+        <div class="method-grid">
+          <article>
+            <span>01</span>
+            <h3>Define</h3>
+            <p>
+              Establish the capitalization policy, approval matrix, useful lives,
+              reconciliation objective, and close assertions.
+            </p>
+          </article>
+          <article>
+            <span>02</span>
+            <h3>Plant</h3>
+            <p>
+              Insert six known exceptions into synthetic invoices, asset records,
+              disposal evidence, and project approvals.
+            </p>
+          </article>
+          <article>
+            <span>03</span>
+            <h3>Investigate</h3>
+            <p>
+              Trace every conclusion to evidence, quantify the impact, prepare
+              entries, and recommend a preventive control.
+            </p>
+          </article>
+          <article>
+            <span>04</span>
+            <h3>Communicate</h3>
+            <p>
+              Translate the workpapers into a concise controller memo focused on
+              the close, capital plan, and management action.
+            </p>
+          </article>
+        </div>
+
+        <div class="policy-note">
+          <div>
+            <p class="eyebrow">Case policy</p>
+            <h3>What governs the accounting</h3>
+          </div>
+          <ul>
+            <li>Capitalize property improvements of $5,000 or more that extend useful life or increase service capacity.</li>
+            <li>Remove disposed assets from the subledger when control transfers and recognize any remaining net book value.</li>
+            <li>Record depreciation monthly beginning when an asset is placed in service.</li>
+            <li>Require finance and executive approval for capital commitments above $1 million.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="project-note">
+        <div>
+          <p class="eyebrow">Portfolio disclosure</p>
+          <h2>A realistic simulation—not employer or client data.</h2>
+        </div>
+        <p>
+          Crescent Ridge Housing is fictional. All names, amounts, records, and
+          conclusions were created for this portfolio case. The project is
+          designed to demonstrate accounting reasoning, operational controls,
+          data analysis, and management communication.
+        </p>
+      </section>
+    </main>
+
+    <footer>
+      <p>CapitalOps · A Greg Stiles portfolio project</p>
+      <a href="../../">Back to all projects</a>
+    </footer>
+
+    <dialog class="memo-dialog" id="memoDialog" aria-labelledby="memoTitle">
+      <div class="memo-header">
+        <div>
+          <p>Controller memorandum</p>
+          <h2 id="memoTitle">April 2026 close review</h2>
+        </div>
+        <button class="dialog-close" id="closeMemoButton" type="button" aria-label="Close memo">&times;</button>
+      </div>
+      <div class="memo-meta">
+        <p><span>To</span> Chief Financial Officer</p>
+        <p><span>From</span> Controller</p>
+        <p><span>Subject</span> Fixed assets, capital controls, and close adjustments</p>
+      </div>
+      <div class="memo-body">
+        <h3>Executive conclusion</h3>
+        <p id="memoConclusion"></p>
+        <h3>Accounting impact</h3>
+        <p>
+          The five proposed entries have a gross correction value of $154,550
+          and increase April pre-tax income by $60,050. Adjusted fixed-asset net
+          book value is $9,840,660.
+        </p>
+        <h3>Control recommendation</h3>
+        <p>
+          Add automated duplicate-invoice testing, require disposal confirmation
+          before period close, route all qualifying invoices through a
+          capitalization review, and block commitments above $1 million until
+          finance and executive approvals are attached.
+        </p>
+        <h3>Next action</h3>
+        <p id="memoNextAction"></p>
+      </div>
+      <div class="memo-signoff">
+        <span>Prepared</span>
+        <strong>Greg Stiles · Portfolio case</strong>
+      </div>
+    </dialog>
+
+    <script src="app.js?v=1"></script>
+  </body>
+</html>
