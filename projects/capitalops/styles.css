@@ -1613,6 +1613,90 @@ tbody tr:hover td {
   line-height: 1.75;
 }
 
+.practice-path {
+  display: grid;
+  grid-template-columns: 1.18fr 0.91fr 0.91fr;
+  gap: 12px;
+  margin-bottom: 28px;
+}
+
+.practice-step {
+  min-height: 420px;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--line-strong);
+  border-radius: 20px;
+  padding: clamp(24px, 3vw, 36px);
+  background: rgba(255, 253, 248, 0.72);
+}
+
+.practice-step-featured {
+  border-color: var(--green);
+  background:
+    radial-gradient(circle at 92% 7%, rgba(123, 194, 173, 0.16), transparent 35%),
+    var(--white);
+  box-shadow: 0 20px 60px rgba(18, 32, 29, 0.08);
+}
+
+.practice-step-number {
+  align-self: flex-start;
+  min-width: 42px;
+  border-bottom: 2px solid var(--green);
+  padding-bottom: 8px;
+  color: var(--green);
+  font-family: var(--mono);
+  font-size: 0.68rem;
+}
+
+.practice-step .card-kicker {
+  margin-top: 34px;
+}
+
+.practice-step h3 {
+  max-width: 430px;
+  margin: 14px 0 0;
+  font-size: clamp(1.7rem, 3vw, 3rem);
+  line-height: 0.98;
+  letter-spacing: -0.045em;
+}
+
+.practice-step > p:not(.card-kicker) {
+  margin: 20px 0 0;
+  color: var(--muted);
+  font-size: 0.78rem;
+  line-height: 1.7;
+}
+
+.practice-step ul {
+  display: grid;
+  gap: 10px;
+  margin: auto 0 0;
+  padding: 22px 0 0;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 0.72rem;
+  list-style: none;
+}
+
+.practice-step li::before {
+  margin-right: 10px;
+  color: var(--green);
+  content: "✓";
+}
+
+.practice-step .button {
+  align-self: flex-start;
+  margin-top: auto;
+}
+
+.practice-step small {
+  margin-top: 14px;
+  color: var(--muted);
+  font-family: var(--mono);
+  font-size: 0.58rem;
+  line-height: 1.5;
+}
+
 .workbook-showcase {
   display: grid;
   grid-template-columns: minmax(280px, 0.65fr) minmax(0, 1.35fr);
@@ -2073,6 +2157,14 @@ footer p {
     grid-template-columns: repeat(3, 1fr);
   }
 
+  .practice-path {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .practice-step-featured {
+    grid-column: 1 / -1;
+  }
+
   .method-grid article:nth-child(2) {
     border-right: 0;
   }
@@ -2133,6 +2225,18 @@ footer p {
 
   .workbook-showcase {
     grid-template-columns: 1fr;
+  }
+
+  .practice-path {
+    grid-template-columns: 1fr;
+  }
+
+  .practice-step-featured {
+    grid-column: auto;
+  }
+
+  .practice-step {
+    min-height: 360px;
   }
 
   .workbook-cover {

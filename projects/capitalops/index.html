@@ -5,13 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="CapitalOps is a fictional staff-accounting case demonstrating month-end close, reconciliations, adjusting entries, fixed assets, variance analysis, and management reporting."
+      content="CapitalOps is a fictional staff-accounting case with raw source evidence, an investigation workbook, reconciliations, adjusting entries, fixed assets, variance analysis, and management reporting."
     />
     <meta property="og:type" content="website" />
     <meta property="og:title" content="CapitalOps | Facilities Finance &amp; Controls Lab" />
     <meta
       property="og:description"
-      content="Complete a fictional April close through account reconciliations, adjusting entries, fixed-asset workpapers, variance analysis, and a management-ready memo."
+      content="Work from raw source evidence to a completed fictional April close, including reconciliations, adjusting entries, fixed-asset workpapers, variance analysis, and a management-ready memo."
     />
     <meta property="og:url" content="https://gregorymstiles.com/projects/capitalops/" />
     <meta property="og:image" content="https://gregorymstiles.com/projects/capitalops/og.png" />
@@ -29,7 +29,7 @@
       href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&amp;family=Manrope:wght@400;500;600;700;800&amp;display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles.css?v=3" />
+    <link rel="stylesheet" href="styles.css?v=4" />
   </head>
   <body>
     <header class="site-header">
@@ -65,10 +65,10 @@
             <a class="button button-primary" href="#control-room">Open the control room</a>
             <a
               class="button button-workbook"
-              href="downloads/CapitalOps_Close_Binder.xlsx"
+              href="downloads/CapitalOps_Source_Evidence_Pack.xlsx"
               download
             >
-              Download Excel close binder
+              Download raw evidence pack
             </a>
             <button class="button button-quiet" id="downloadCaseButton" type="button">
               Download exception log
@@ -590,15 +590,71 @@
       <section class="evidence-section" id="evidence" aria-labelledby="evidence-title">
         <div class="evidence-intro">
           <div>
-            <p class="eyebrow">Downloadable work sample</p>
-            <h2 id="evidence-title">Inspect the formulas behind the close.</h2>
+            <p class="eyebrow">Practice-first work sample</p>
+            <h2 id="evidence-title">Start with evidence. Then prove the close.</h2>
           </div>
           <p>
-            The interactive case shows how I think. The Excel binder shows how I
-            work: linked reconciliations, supported journal entries, an adjusted
-            trial balance, financial statements, flux analysis, and automated
-            control checks.
+            Employers can review the same path I used: raw bank, ledger, vendor,
+            invoice, asset, and policy records first; a blank investigation log
+            second; and the completed close binder only after the accounting
+            judgment is documented.
           </p>
+        </div>
+
+        <div class="practice-path" aria-label="CapitalOps practice workflow">
+          <article class="practice-step practice-step-featured">
+            <span class="practice-step-number">01</span>
+            <p class="card-kicker">Start here</p>
+            <h3>Review the raw source evidence.</h3>
+            <p>
+              Work through 14 Excel sheets covering the trial balance, bank and
+              cash activity, AP records, invoice detail, fixed assets,
+              depreciation, prepaids, accruals, and accounting policy.
+            </p>
+            <a
+              class="button button-primary"
+              href="downloads/CapitalOps_Source_Evidence_Pack.xlsx"
+              download
+            >
+              Download the source evidence pack
+            </a>
+            <small>Neutral review flags · Blank investigation log · No completed entries</small>
+          </article>
+
+          <article class="practice-step">
+            <span class="practice-step-number">02</span>
+            <p class="card-kicker">Do the work</p>
+            <h3>Write your own conclusion.</h3>
+            <p>
+              For each problem area, identify the records compared, calculate
+              the difference, request any missing support, classify the cause,
+              and decide whether a journal entry is required.
+            </p>
+            <ul>
+              <li>Evidence compared</li>
+              <li>Amount and possible cause</li>
+              <li>Entry decision and proposed accounts</li>
+            </ul>
+          </article>
+
+          <article class="practice-step">
+            <span class="practice-step-number">03</span>
+            <p class="card-kicker">Then compare</p>
+            <h3>Open the completed reviewer file.</h3>
+            <p>
+              Trace the researched exceptions through reconciliations,
+              adjusting entries, the adjusted trial balance, financial
+              statements, variance analysis, and final control checks.
+            </p>
+            <a
+              class="button button-quiet"
+              href="downloads/CapitalOps_Close_Binder.xlsx"
+              download
+            >
+              Download the completed binder
+            </a>
+            <small>Use this as the answer key after completing your investigation log</small>
+          </article>
         </div>
 
         <div class="workbook-showcase">
@@ -609,11 +665,11 @@
             <small>April 2026 · Synthetic portfolio case</small>
           </div>
           <div class="workbook-details">
-            <p class="card-kicker">Employer review path</p>
+            <p class="card-kicker">Completed reviewer file</p>
             <h3>One file. Eleven connected workpapers.</h3>
             <ol>
-              <li><span>01</span> Start with the close control center.</li>
-              <li><span>02</span> Trace bank and AP differences to evidence.</li>
+              <li><span>01</span> Compare the completed conclusions with your investigation log.</li>
+              <li><span>02</span> Trace bank and AP differences back to the source evidence.</li>
               <li><span>03</span> Follow five entries into the adjusted trial balance.</li>
               <li><span>04</span> Review financial statements and the income bridge.</li>
               <li><span>05</span> Finish with eight automated PASS checks.</li>
@@ -635,7 +691,7 @@
           <div class="source-library-heading">
             <div>
               <p class="card-kicker">Evidence room</p>
-              <h3>Source files used by the binder</h3>
+              <h3>Individual source extracts</h3>
             </div>
             <span>All data is fictional and interview-safe</span>
           </div>
@@ -648,12 +704,12 @@
             <a href="evidence/data/capitalops-bank-activity.csv" download>
               <span>CSV · 6 items</span>
               <strong>Bank activity</strong>
-              <small>Deposits in transit and outstanding checks</small>
+              <small>Statement and clearing activity for cash review</small>
             </a>
             <a href="evidence/data/capitalops-ap-subledger.csv" download>
               <span>CSV · 4 records</span>
               <strong>AP subledger</strong>
-              <small>Duplicate invoice exception support</small>
+              <small>Vendor-level balances and invoice references</small>
             </a>
             <a href="evidence/data/capitalops-prepaids.csv" download>
               <span>CSV · 3 schedules</span>
@@ -663,7 +719,7 @@
             <a href="evidence/data/capitalops-fixed-assets.csv" download>
               <span>CSV · 4 classes</span>
               <strong>Fixed-asset support</strong>
-              <small>Addition, disposal, and depreciation bridge</small>
+              <small>Register activity and depreciation support</small>
             </a>
           </div>
         </div>
