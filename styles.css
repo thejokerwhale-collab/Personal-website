@@ -63,11 +63,9 @@ main {
 }
 
 .masthead {
-  min-height: 100vh;
   display: grid;
-  grid-template-rows: auto 1fr;
-  gap: 48px;
-  padding: 24px 0 40px;
+  gap: 28px;
+  padding: 24px 0 20px;
 }
 
 .nav {
@@ -126,7 +124,6 @@ main {
 
 .hero {
   display: grid;
-  align-content: end;
   gap: 28px;
 }
 
@@ -147,13 +144,9 @@ main {
 
 .hero-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(280px, 360px);
-  gap: 18px;
-  align-items: end;
 }
 
 .hero-copy,
-.hero-card,
 .project-card {
   border: 1px solid var(--line-strong);
   border-radius: 32px;
@@ -161,7 +154,7 @@ main {
 }
 
 .hero-copy {
-  min-height: 530px;
+  min-height: clamp(390px, 58vh, 560px);
   display: grid;
   align-content: space-between;
   padding: clamp(28px, 5vw, 58px);
@@ -183,13 +176,6 @@ main {
     linear-gradient(rgba(255, 255, 255, 0.12) 1px, transparent 1px);
   background-size: 22px 22px;
   content: "";
-}
-
-.hero-card {
-  display: grid;
-  gap: 26px;
-  padding: 26px;
-  background: var(--white);
 }
 
 h1,
@@ -230,7 +216,6 @@ p {
   line-height: 1.65;
 }
 
-.hero-card p,
 .projects-heading p,
 .project-card p {
   color: var(--muted);
@@ -246,9 +231,11 @@ p {
   font-weight: 700;
 }
 
-.button-dark {
-  background: var(--black);
-  color: var(--white);
+.button-light {
+  width: fit-content;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  background: var(--white);
+  color: var(--black);
 }
 
 .projects-section {
@@ -283,10 +270,7 @@ p {
 }
 
 .projects-heading {
-  display: grid;
-  grid-template-columns: minmax(0, 0.95fr) minmax(260px, 0.55fr);
-  gap: 22px;
-  align-items: end;
+  max-width: 760px;
 }
 
 .project-list {
@@ -375,13 +359,8 @@ p {
 
 @media (prefers-reduced-motion: no-preference) {
   .hero-copy,
-  .hero-card,
   .project-card {
     animation: rise-in 680ms ease both;
-  }
-
-  .hero-card {
-    animation-delay: 90ms;
   }
 
   .project-card:nth-child(2) {
@@ -408,7 +387,6 @@ p {
   }
 
   .masthead {
-    min-height: auto;
     padding-top: 14px;
   }
 
@@ -438,7 +416,7 @@ p {
   }
 
   .hero-copy {
-    min-height: 460px;
+    min-height: 420px;
   }
 
   h1 {
@@ -458,7 +436,6 @@ p {
   }
 
   .hero-copy,
-  .hero-card,
   .project-card {
     border-radius: 24px;
     padding: 22px;
