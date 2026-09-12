@@ -1565,7 +1565,6 @@
     const fantasyByName = new Map();
     let fantasyPlayerOptions = [];
     const fantasyRecordsByPosition = new Map();
-    const topNamesByPosition = new Map();
     const topRankKeysByPosition = new Map();
     const seasonTeamsCache = new Map();
     const seasonDivisionsCache = new Map();
@@ -1619,7 +1618,6 @@
       fantasyLookup.clear();
       fantasyByName.clear();
       fantasyRecordsByPosition.clear();
-      topNamesByPosition.clear();
       topRankKeysByPosition.clear();
       seasonTeamsCache.clear();
       seasonDivisionsCache.clear();
@@ -1648,7 +1646,6 @@
 
       fantasyRecordsByPosition.forEach((records, position) => {
         records.sort((a, b) => b.points - a.points);
-        topNamesByPosition.set(position, records.slice(0, 3).map((player) => player.name));
         topRankKeysByPosition.set(position, new Map([
           [5, new Set(records.slice(0, 5).map((player) => player.key))],
           [10, new Set(records.slice(0, 10).map((player) => player.key))],
@@ -2116,11 +2113,6 @@
       if (prompt.type === "careerTeamPair") {
         return `Played for ${teamPairText(prompt.teams)} ${positionLabel}`;
       }
-      if (prompt.type === "excludeNames") {
-        return prompt.limit
-          ? `${positionLabel} outside top ${prompt.limit} names`
-          : `${positionLabel} not named ${prompt.names.join(", or ")}`;
-      }
       if (prompt.type === "excludeAward") {
         return `${positionLabel} not named ${fantasyAwardLabel(prompt.award)} winner`;
       }
@@ -2178,9 +2170,6 @@
       if (prompt.type === "careerTeamPair") {
         return prompt.teams.every((team) => careerTeams(player).includes(team));
       }
-      if (prompt.type === "excludeNames") {
-        return !prompt.names.map(normalizeName).includes(normalizeName(player.name));
-      }
       if (prompt.type === "excludeAward") {
         return !prompt.names.map(normalizeName).includes(normalizeName(player.name));
       }
@@ -2233,20 +2222,6 @@
       });
     }
 
-    function topNamesForPosition(position, limit = 3) {
-      const names = [];
-      const seen = new Set();
-      (fantasyRecordsByPosition.get(position) || []).some((player) => {
-        const nameKey = normalizeName(player.name);
-        if (!seen.has(nameKey)) {
-          seen.add(nameKey);
-          names.push(player.name);
-        }
-        return names.length >= limit;
-      });
-      return names;
-    }
-
     function buildPromptCandidates(sample, slot) {
       const positionPrompts = [...new Set(
         [sample.position, ...slot.eligible]
@@ -2292,14 +2267,6 @@
             });
           }
         }
-        [3, 5].forEach((limit) => {
-          candidates.push({
-            type: "excludeNames",
-            names: topNamesForPosition(position, limit),
-            position,
-            limit
-          });
-        });
         fantasyAwardTypesForPosition(position).forEach((award) => {
           candidates.push({
             type: "excludeAward",
@@ -2352,7 +2319,6 @@
         year: 0.8,
         nonQbMinPoints: 0.8,
         excludeAward: 0.72,
-        excludeNames: 0.7,
         decade: 0.18,
         preYear: 0.08,
         postYear: 0.08,
