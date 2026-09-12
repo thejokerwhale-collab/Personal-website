@@ -1965,10 +1965,21 @@
       return fantasyTeams.find((team) => team.key === teamKey)?.label || "Team 1";
     }
 
-    function nextTeamKey(teamKey) {
+    function draftOrderForSlot(slot = selectedSlot()) {
       const keys = activeTeamKeys();
-      const currentIndex = Math.max(keys.indexOf(teamKey), 0);
-      return keys[(currentIndex + 1) % keys.length];
+      const slotIndex = Math.max(fantasySlots.findIndex((item) => item.key === slot.key), 0);
+      return slotIndex % 2 === 0 ? keys : [...keys].reverse();
+    }
+
+    function currentDraftTeamKey(slot = selectedSlot()) {
+      const order = draftOrderForSlot(slot);
+      return order[Math.min(fantasyState.promptPicks, order.length - 1)] || order[0] || "team1";
+    }
+
+    function syncFantasyTurn(slot = selectedSlot()) {
+      const teamKey = currentDraftTeamKey(slot);
+      fantasyTeamEl.value = teamKey;
+      return teamKey;
     }
 
     function seasonTeams(player) {
@@ -2423,6 +2434,7 @@
           position: sample.position
         };
       fantasyState.promptPicks = 0;
+      syncFantasyTurn(slot);
       fantasyPromptEl.textContent = fantasyPromptText();
       startFantasyTimer();
     }
@@ -2541,19 +2553,20 @@
 
     function completeFantasyTurn(player, teamKey, slot, pickLabel) {
       stopFantasyTimer();
+      teamKey = currentDraftTeamKey(slot);
       fantasyState[teamKey][slot.key] = player;
       renderFantasyRoster();
       fantasyPlayerInput.value = "";
       fantasyPlayersList.innerHTML = "";
 
+      const order = draftOrderForSlot(slot);
       fantasyState.promptPicks += 1;
-      if (fantasyState.promptPicks < activeTeamKeys().length) {
-        const nextTeam = nextTeamKey(teamKey);
+      if (fantasyState.promptPicks < order.length) {
+        const nextTeam = order[fantasyState.promptPicks];
         fantasyTeamEl.value = nextTeam;
         setFantasyStatus(`<strong>${pickLabel}</strong> locked in for ${teamLabel(teamKey)}. ${teamLabel(nextTeam)} gets the same prompt: <strong>${fantasyPromptText()}</strong>.`, player?.isMiss ? "bad" : "good");
       } else {
         fantasyState.promptHistory.push(completedPromptRecord());
-        fantasyTeamEl.value = "team1";
         if (isFantasyRosterFull()) {
           finishFantasyBattle();
         } else {
@@ -2568,8 +2581,8 @@
     }
 
     function addFantasyPick(player) {
-      const teamKey = fantasyTeamEl.value;
       const slot = selectedSlot();
+      const teamKey = syncFantasyTurn(slot);
       const prompt = fantasyState.prompt;
 
       if (fantasyState.gameEnded) {
@@ -2602,8 +2615,8 @@
     }
 
     function addWrongFantasyPick(pickLabel = "Wrong Answer") {
-      const teamKey = fantasyTeamEl.value;
       const slot = selectedSlot();
+      const teamKey = syncFantasyTurn(slot);
       hideFantasyYearModal();
 
       if (fantasyState.gameEnded) {
@@ -2637,7 +2650,6 @@
       }
 
       hideFantasyYearModal();
-      fantasyTeamEl.value = "team1";
       nextFantasyPrompt();
       setFantasyStatus(`New target: <strong>${fantasyPromptText()}</strong>.`);
       fantasyPlayerInput.focus();
@@ -2651,7 +2663,6 @@
       fantasyState.promptPicks = 0;
       fantasyState.promptHistory = [];
       fantasyState.gameEnded = false;
-      fantasyTeamEl.value = "team1";
       updateFantasyTeamOptions();
       setFantasyControlsLocked(false);
       renderFantasyRecap();
@@ -3217,7 +3228,6 @@
     wrongFantasyBtn.addEventListener("click", addWrongFantasyPick);
     fantasySlotEl.addEventListener("change", () => {
       hideFantasyYearModal();
-      fantasyTeamEl.value = "team1";
       nextFantasyPrompt();
       setFantasyStatus(`New target: <strong>${fantasyPromptText()}</strong>.`);
     });
