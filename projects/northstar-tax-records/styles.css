@@ -142,6 +142,100 @@ a {
   box-shadow: 0 0 0 4px rgba(74, 154, 105, 0.12);
 }
 
+.video-showcase {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  margin-top: clamp(36px, 6vw, 66px);
+  overflow: hidden;
+  border: 1px solid rgba(20, 63, 50, 0.2);
+  border-radius: 28px;
+  background: var(--forest);
+  box-shadow: 0 24px 55px rgba(20, 48, 39, 0.18);
+  isolation: isolate;
+}
+
+.video-showcase video,
+.video-shade {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.video-showcase video {
+  object-fit: cover;
+}
+
+.video-shade {
+  z-index: 1;
+  background:
+    linear-gradient(90deg, rgba(8, 36, 28, 0.86) 0%, rgba(8, 36, 28, 0.5) 46%, rgba(8, 36, 28, 0.08) 76%),
+    linear-gradient(0deg, rgba(8, 36, 28, 0.68) 0%, transparent 55%);
+  pointer-events: none;
+}
+
+.video-copy {
+  position: absolute;
+  z-index: 2;
+  left: clamp(24px, 5vw, 54px);
+  bottom: clamp(28px, 6vw, 60px);
+  display: grid;
+  justify-items: start;
+  max-width: 540px;
+  color: white;
+  pointer-events: none;
+}
+
+.video-copy > p {
+  margin-bottom: 12px;
+  color: #bad4c8;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.video-copy > strong {
+  max-width: 10ch;
+  font-family: var(--serif);
+  font-size: clamp(2.8rem, 6vw, 5.4rem);
+  font-weight: 600;
+  letter-spacing: -0.05em;
+  line-height: 0.88;
+}
+
+.video-copy > span {
+  max-width: 430px;
+  margin-top: 16px;
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 0.84rem;
+  line-height: 1.5;
+}
+
+.video-copy > a {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 42px;
+  margin-top: 20px;
+  padding: 0 15px;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.12);
+  color: white;
+  font-size: 0.67rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  text-transform: uppercase;
+  backdrop-filter: blur(10px);
+  pointer-events: auto;
+}
+
+.video-copy > a:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
 .hero {
   align-items: end;
   padding: clamp(68px, 9vw, 96px) 0 42px;
@@ -529,6 +623,27 @@ h1 {
     align-self: flex-start;
   }
 
+  .video-showcase {
+    aspect-ratio: 4 / 3;
+    margin-top: 34px;
+    border-radius: 20px;
+  }
+
+  .video-shade {
+    background:
+      linear-gradient(0deg, rgba(8, 36, 28, 0.9) 0%, rgba(8, 36, 28, 0.28) 74%, rgba(8, 36, 28, 0.06) 100%);
+  }
+
+  .video-copy {
+    right: 22px;
+    bottom: 24px;
+    left: 22px;
+  }
+
+  .video-copy > strong {
+    font-size: clamp(2.7rem, 11vw, 4.2rem);
+  }
+
   .hero {
     padding: 58px 0 30px;
   }
@@ -575,6 +690,14 @@ h1 {
 
   h1 {
     font-size: clamp(3.2rem, 15vw, 4.8rem);
+  }
+
+  .video-showcase {
+    aspect-ratio: 9 / 12;
+  }
+
+  .video-copy > span {
+    font-size: 0.75rem;
   }
 
   .receipt-header,
