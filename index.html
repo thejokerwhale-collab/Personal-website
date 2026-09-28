@@ -3,68 +3,91 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Greg Stiles | Project Portfolio</title>
+    <title>Greg Stiles | Accounting, Audit &amp; Analytics</title>
     <meta
       name="description"
       content="Greg Stiles' portfolio of accounting, audit, financial analysis, and data projects built around practical business problems."
     />
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles.css?v=2" />
+    <link rel="stylesheet" href="styles.css?v=3" />
   </head>
   <body>
-    <div class="site-frame" aria-hidden="true"></div>
+    <a class="skip-link" href="#projects">Skip to projects</a>
 
-    <header class="masthead">
+    <header class="site-header">
       <nav class="nav" aria-label="Main navigation">
-        <a class="wordmark" href="/">Greg Stiles</a>
+        <a class="wordmark" href="/" aria-label="Greg Stiles home">
+          <span class="wordmark-mark" aria-hidden="true">GS</span>
+          <span>Greg Stiles</span>
+        </a>
+
+        <p class="nav-context">Accounting / Audit / Analytics</p>
+
         <div class="nav-links">
-          <a href="#projects">Projects</a>
-          <a href="#fun">Fun</a>
+          <a href="#projects">Work</a>
+          <a href="#fun">Play</a>
           <a href="mailto:gregorymstiles@gmail.com">Contact</a>
         </div>
       </nav>
-
-      <section class="hero" aria-labelledby="hero-title">
-        <div class="hero-kicker">
-          <span>Personal site</span>
-          <span>Project archive</span>
-          <span>Live builds</span>
-        </div>
-
-        <div class="hero-grid">
-          <div class="hero-copy">
-            <div>
-              <p class="eyebrow">Accounting · Audit · Analytics</p>
-              <h1 id="hero-title">Practical work. Clear thinking.</h1>
-            </div>
-            <a class="button button-light" href="#projects">View selected projects</a>
-          </div>
-        </div>
-      </section>
     </header>
 
     <main>
-      <section class="projects-section" id="projects" aria-labelledby="projects-title">
-        <div class="section-label">
-          <span>01</span>
-          <p>Selected projects</p>
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <p class="overline">Portfolio / 2026</p>
+          <h1 id="hero-title">Work that <em>holds up.</em></h1>
+          <p class="hero-summary">
+            I&rsquo;m an accounting and analytics professional who likes turning
+            complicated work into systems people can actually use.
+          </p>
+          <div class="hero-actions">
+            <a class="button" href="#projects">Explore the work <span aria-hidden="true">&darr;</span></a>
+            <a class="text-link" href="mailto:gregorymstiles@gmail.com">Start a conversation <span aria-hidden="true">&nearr;</span></a>
+          </div>
         </div>
 
-        <div class="projects-heading">
-          <h2 id="projects-title">Work built for the real world.</h2>
+        <aside class="hero-ledger" aria-label="Selected capabilities">
+          <div class="ledger-header">
+            <span>Selected capabilities</span>
+            <span>GS / 01</span>
+          </div>
+          <ol class="ledger-list">
+            <li><span>01</span><strong>Close &amp; controls</strong></li>
+            <li><span>02</span><strong>Audit strategy</strong></li>
+            <li><span>03</span><strong>Valuation &amp; analysis</strong></li>
+            <li><span>04</span><strong>Useful data products</strong></li>
+          </ol>
+          <div class="ledger-footer">
+            <span>Built around practical business judgment</span>
+            <span class="status-dot" aria-hidden="true"></span>
+          </div>
+        </aside>
+      </section>
+
+      <section class="projects-section" id="projects" aria-labelledby="projects-title">
+        <div class="section-heading">
+          <p class="section-number">01 / Selected work</p>
+          <h2 id="projects-title">Projects built for <em>real use.</em></h2>
+          <p class="section-intro">
+            Case studies and working tools focused on the part that matters:
+            making sound decisions from imperfect information.
+          </p>
         </div>
 
         <div class="project-list">
-          <article class="project-card featured">
+          <article class="project-row featured">
             <div class="project-index">01</div>
-            <div class="project-body">
+            <div class="project-title">
               <p class="tag">CapitalOps case study</p>
               <h3>Month-End Close &amp; Accounting Controls</h3>
+            </div>
+            <div class="project-detail">
               <p>
                 Inspired by my experience supporting operations across 25
                 residence halls, CapitalOps is a fictional month-end close case
@@ -81,15 +104,17 @@
               </div>
             </div>
             <a class="project-link" href="./projects/capitalops/" aria-label="Open Month-End Close and Accounting Controls case study">
-              Open case
+              View <span aria-hidden="true">&nearr;</span>
             </a>
           </article>
 
-          <article class="project-card">
+          <article class="project-row">
             <div class="project-index">02</div>
-            <div class="project-body">
+            <div class="project-title">
               <p class="tag">Audit strategy</p>
               <h3>Indiana University Internal Audit</h3>
+            </div>
+            <div class="project-detail">
               <p>
                 A 32-slide audit strategy showing how I translate a complex
                 organization into a weighted risk assessment, prioritized annual
@@ -103,15 +128,17 @@
               </div>
             </div>
             <a class="project-link" href="./projects/iu-internal-audit/" aria-label="Open Indiana University Internal Audit project">
-              Open project
+              View <span aria-hidden="true">&nearr;</span>
             </a>
           </article>
 
-          <article class="project-card">
+          <article class="project-row">
             <div class="project-index">03</div>
-            <div class="project-body">
+            <div class="project-title">
               <p class="tag">Public tax-record review</p>
               <h3>Northstar Tax Records</h3>
+            </div>
+            <div class="project-detail">
               <p>
                 A privacy-conscious document review experience for 2026 U.S.
                 federal and Illinois tax recordkeeping. Northstar organizes tax
@@ -125,20 +152,18 @@
                 <span>Business write-offs</span>
               </div>
             </div>
-            <a
-              class="project-link"
-              href="./projects/northstar-tax-records/"
-              aria-label="Open Northstar Tax Records project"
-            >
-              Open project
+            <a class="project-link" href="./projects/northstar-tax-records/" aria-label="Open Northstar Tax Records project">
+              View <span aria-hidden="true">&nearr;</span>
             </a>
           </article>
 
-          <article class="project-card">
+          <article class="project-row">
             <div class="project-index">04</div>
-            <div class="project-body">
+            <div class="project-title">
               <p class="tag">Valuation capstone</p>
               <h3>Polaris Stock Valuation</h3>
+            </div>
+            <div class="project-detail">
               <p>
                 A graduate capstone demonstrating investment judgment through
                 strategy and accounting-policy review, ratio and risk analysis,
@@ -153,15 +178,17 @@
               </div>
             </div>
             <a class="project-link" href="./projects/polaris-valuation/" aria-label="Open Polaris Stock Valuation project">
-              Open project
+              View <span aria-hidden="true">&nearr;</span>
             </a>
           </article>
 
-          <article class="project-card">
+          <article class="project-row">
             <div class="project-index">05</div>
-            <div class="project-body">
+            <div class="project-title">
               <p class="tag">Live dashboard</p>
               <h3>Mizzou Campus Inventory</h3>
+            </div>
+            <div class="project-detail">
               <p>
                 An operational dashboard designed to make campus assets easier to
                 find, maintain, and hand off. It combines searchable inventory,
@@ -175,15 +202,17 @@
               </div>
             </div>
             <a class="project-link" href="./projects/inventory/" aria-label="Open Mizzou Campus Inventory project">
-              Open project
+              View <span aria-hidden="true">&nearr;</span>
             </a>
           </article>
 
-          <article class="project-card">
+          <article class="project-row">
             <div class="project-index">06</div>
-            <div class="project-body">
+            <div class="project-title">
               <p class="tag">Tableau map</p>
               <h3>Tableau Location Dashboard</h3>
+            </div>
+            <div class="project-detail">
               <p>
                 A privacy-conscious reconstruction of a Tableau workforce
                 analysis that turns joined employee, rating, manager, and ZIP
@@ -197,32 +226,30 @@
               </div>
             </div>
             <a class="project-link" href="./projects/tableau-workbooks/" aria-label="Open Tableau Location Dashboard project">
-              Open project
+              View <span aria-hidden="true">&nearr;</span>
             </a>
           </article>
         </div>
       </section>
 
       <section class="projects-section fun-section" id="fun" aria-labelledby="fun-title">
-        <div class="section-label">
-          <span>02</span>
-          <p>Fun projects</p>
-        </div>
-
-        <div class="projects-heading">
-          <h2 id="fun-title">The playground.</h2>
-          <p>
-            Experiments, game concepts, and lighter builds that still deserve a
-            clear home on the site.
+        <div class="section-heading">
+          <p class="section-number">02 / After hours</p>
+          <h2 id="fun-title">The <em>playground.</em></h2>
+          <p class="section-intro">
+            Experiments, game concepts, and lighter builds that give me room to
+            try something new.
           </p>
         </div>
 
         <div class="project-list">
-          <article class="project-card featured">
+          <article class="project-row featured">
             <div class="project-index">01</div>
-            <div class="project-body">
+            <div class="project-title">
               <p class="tag">Accounting game</p>
               <h3>Close Sheet</h3>
+            </div>
+            <div class="project-detail">
               <p>
                 An Excel-style accounting training game that shows how I turn
                 technical close work into repeatable learning systems. Twelve
@@ -236,15 +263,17 @@
               </div>
             </div>
             <a class="project-link" href="./projects/excel-accounting-game/" aria-label="Open Close Sheet Excel accounting game">
-              Open game
+              Play <span aria-hidden="true">&nearr;</span>
             </a>
           </article>
 
-          <article class="project-card">
+          <article class="project-row">
             <div class="project-index">02</div>
-            <div class="project-body">
+            <div class="project-title">
               <p class="tag">Protected stats tool</p>
               <h3>Golf Majors Draft Room</h3>
+            </div>
+            <div class="project-detail">
               <p>
                 A private research workspace for comparing player form, major
                 history, course fit, and performance trends. Access is limited;
@@ -257,15 +286,17 @@
               </div>
             </div>
             <a class="project-link" href="./projects/golf-draft-app/" aria-label="Open protected Golf Majors Draft Room tool">
-              Open protected tool
+              View <span aria-hidden="true">&nearr;</span>
             </a>
           </article>
 
-          <article class="project-card">
+          <article class="project-row">
             <div class="project-index">03</div>
-            <div class="project-body">
+            <div class="project-title">
               <p class="tag">Game concept</p>
               <h3>Fantasy Football Game</h3>
+            </div>
+            <div class="project-detail">
               <p>
                 A project space for building out a fantasy football experience,
                 from concept notes to interface experiments and future gameplay.
@@ -277,12 +308,23 @@
               </div>
             </div>
             <a class="project-link" href="./projects/fantasy-football/" aria-label="Open Fantasy Football Game project">
-              Open project
+              View <span aria-hidden="true">&nearr;</span>
             </a>
           </article>
         </div>
       </section>
-
     </main>
+
+    <footer class="footer">
+      <div>
+        <p class="overline">Have a project in mind?</p>
+        <a class="footer-cta" href="mailto:gregorymstiles@gmail.com">Let&rsquo;s talk.</a>
+      </div>
+      <div class="footer-meta">
+        <span>Greg Stiles</span>
+        <span>Accounting / Audit / Analytics</span>
+        <span>&copy; 2026</span>
+      </div>
+    </footer>
   </body>
 </html>

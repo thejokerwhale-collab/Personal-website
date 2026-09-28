@@ -832,6 +832,7 @@ textarea {
 
 .campus-map {
   flex: 1;
+  width: calc(100% - 36px);
   min-width: 0;
   min-height: 620px;
   margin: 0 18px 18px;
@@ -941,6 +942,10 @@ textarea {
     linear-gradient(rgba(255, 255, 255, .2) 1px, transparent 1px),
     linear-gradient(135deg, #cbd9c4, #e6dfcf 52%, #c8d5bf);
   background-size: 72px 72px, 72px 72px, cover;
+}
+
+.campus-map.leaflet-container {
+  width: calc(100% - 36px);
 }
 
 .leaflet-control-layers,
